@@ -8,19 +8,37 @@ function injectChrome() {
   const headerEl = document.getElementById('site-header');
   if (headerEl) {
     headerEl.innerHTML = `
-      <div class="bg-bb-blue-100">
-        <div class="container mx-auto px-4 py-2">
-          <p class="text-white text-[0.875rem]">An official website of the Government of Barbados</p>
+      <!-- Top bar -->
+      <div class="bg-bb-blue-100 text-bb-white-00">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center justify-between py-xs">
+            <span class="flex items-center gap-xs">
+              <img alt="flag" loading="lazy" width="17" height="16" src="https://alpha.gov.bb/images/coat-of-arms.png" class="block">
+              <span class="font-normal text-[1rem] leading-[1.5] text-bb-white-00">Official government website</span>
+            </span>
+          </div>
         </div>
       </div>
+      <!-- Yellow header -->
       <header class="bg-bb-yellow-100">
-        <div class="container mx-auto px-4 py-s">
-          <div class="text-bb-black-00" style="width:276px;height:27px;">${GOB_SVG}</div>
+        <div class="container mx-auto px-4">
+          <div class="flex items-center gap-3 py-s">
+            <a href="index.html" style="display:inline-block;width:276px;height:27px;" class="text-bb-black-00">
+              ${GOB_SVG}
+            </a>
+          </div>
         </div>
       </header>
+      <!-- Alpha banner -->
       <div class="bg-bb-blue-10">
-        <div class="container mx-auto px-4 py-xs">
-          <p class="text-[1rem]">This page is in <a href="#" class="underline text-bb-teal-00 hover:no-underline hover:text-bb-black-00">Alpha</a>. Help us improve it by giving your <a href="#" class="underline text-bb-teal-00 hover:no-underline hover:text-bb-black-00">feedback</a>.</p>
+        <div class="container mx-auto px-4">
+          <div class="flex items-center p-s w-full rounded-sm bg-bb-blue-10 border-bb-blue-100" role="status" aria-label="alpha status banner" aria-live="polite">
+            <div class="flex flex-col items-start justify-center flex-1">
+              <div class="text-[1.25rem] leading-normal text-bb-black-00 w-full">
+                <p class="font-normal text-[1.25rem] leading-[1.5]">This page is in <a class="inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 active:no-underline focus-visible:bg-bb-yellow-100 focus-visible:no-underline active:text-bb-black-00 focus-visible:text-bb-black-00 text-bb-black-00 hover:bg-bb-white-00 hover:text-[#083A3D] capitalize" href="#">alpha</a>.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>`;
   }
@@ -30,8 +48,21 @@ function injectChrome() {
   if (footerEl) {
     footerEl.innerHTML = `
       <div class="container mx-auto px-4">
-        <p class="text-[1rem] mb-xs">Licensing Authority, Pine, St. Michael, Barbados</p>
-        <p class="text-[0.875rem] text-white/70">© 2026 Government of Barbados. All rights reserved.</p>
+        <div class="grid lg:grid-cols-2 lg:gap-8">
+          <!-- Nav links -->
+          <div class="flex flex-col items-start gap-2 py-8 lg:pb-0">
+            <a class="inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 active:no-underline focus-visible:bg-bb-yellow-100 focus-visible:no-underline active:text-bb-black-00 focus-visible:text-bb-black-00 text-bb-white-00 hover:bg-bb-teal-10 hover:text-[#083A3D]" href="index.html">Home</a>
+            <a class="inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 active:no-underline focus-visible:bg-bb-yellow-100 focus-visible:no-underline active:text-bb-black-00 focus-visible:text-bb-black-00 text-bb-white-00 hover:bg-bb-teal-10 hover:text-[#083A3D]" href="#">Terms &amp; Conditions</a>
+            <a target="_blank" rel="noopener noreferrer" class="inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 active:no-underline focus-visible:bg-bb-yellow-100 focus-visible:no-underline active:text-bb-black-00 focus-visible:text-bb-black-00 text-bb-white-00 hover:bg-bb-teal-10 hover:text-[#083A3D]" href="https://job-boards.greenhouse.io/govtechbarbados">Careers</a>
+          </div>
+          <!-- Mobile divider -->
+          <div class="-mx-4 border-black/25 border-t-4 lg:hidden"></div>
+          <!-- Coat of arms + copyright -->
+          <div class="flex flex-col items-start py-4 lg:items-end lg:py-8">
+            <img alt="Barbados Coat of Arms" draggable="false" loading="lazy" width="112" height="104" src="https://alpha.gov.bb/images/coat-of-arms.png" class="block select-none mb-2">
+            <p class="font-normal text-[1.25rem] leading-[1.5] text-white">© 2026 Government of Barbados</p>
+          </div>
+        </div>
       </div>`;
   }
 }
