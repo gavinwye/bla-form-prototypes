@@ -85,11 +85,11 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.manufacturerName) document.getElementById('manufacturerName').value = d.manufacturerName;
     if (d.manufacturerCountry) document.getElementById('manufacturerCountry').value = d.manufacturerCountry;
 
@@ -112,7 +112,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ manufacturerName: name, manufacturerCountry: country });
+      saveData({ manufacturerName: name, manufacturerCountry: country }, 'motor-vehicle-inspection');
       window.location.href = 'vehicle-description.html';
     });
   </script>

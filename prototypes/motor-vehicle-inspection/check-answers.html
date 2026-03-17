@@ -86,11 +86,11 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
 
     function row(label, value, changePage) {
       const val = value || '<span style="color:#595959;">Not provided</span>';

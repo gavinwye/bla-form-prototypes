@@ -91,12 +91,12 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
     setupRadioGroup('handDrive');
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.numberOfAxles) document.getElementById('numberOfAxles').value = d.numberOfAxles;
     if (d.handDrive) setRadioValue('handDrive', d.handDrive);
 
@@ -125,7 +125,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ numberOfAxles: axles, handDrive: drive });
+      saveData({ numberOfAxles: axles, handDrive: drive }, 'motor-vehicle-inspection');
       window.location.href = 'weight-passengers.html';
     });
   </script>

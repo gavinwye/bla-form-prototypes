@@ -85,12 +85,12 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
     // Pre-fill
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.ownerFullName) document.getElementById('ownerFullName').value = d.ownerFullName;
     if (d.ownerTel) document.getElementById('ownerTel').value = d.ownerTel;
 
@@ -117,7 +117,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ ownerFullName: name, ownerTel: tel });
+      saveData({ ownerFullName: name, ownerTel: tel }, 'motor-vehicle-inspection');
       window.location.href = 'address.html';
     });
   </script>

@@ -80,7 +80,7 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
@@ -95,10 +95,10 @@
       return ref;
     }
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     // Reuse saved ref or generate a new one
     const ref = d.confirmationRef || generateRef();
-    if (!d.confirmationRef) saveData({ confirmationRef: ref });
+    if (!d.confirmationRef) saveData({ confirmationRef: ref }, 'motor-vehicle-inspection');
 
     document.getElementById('ref-number').textContent = ref;
 

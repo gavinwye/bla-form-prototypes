@@ -73,11 +73,11 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.chassisNumber) document.getElementById('chassisNumber').value = d.chassisNumber;
 
     document.getElementById('continue-btn').addEventListener('click', () => {
@@ -89,7 +89,7 @@
         setFieldError('chassisNumber', 'Enter the manufacturer\'s chassis number');
         return;
       }
-      saveData({ chassisNumber: val });
+      saveData({ chassisNumber: val }, 'motor-vehicle-inspection');
       window.location.href = 'vehicle-specs.html';
     });
   </script>

@@ -95,11 +95,11 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.yearManufactured) document.getElementById('yearManufactured').value = d.yearManufactured;
     if (d.numberOfCylinders) document.getElementById('numberOfCylinders').value = d.numberOfCylinders;
     if (d.engineCapacity) document.getElementById('engineCapacity').value = d.engineCapacity;
@@ -140,7 +140,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ yearManufactured: year, numberOfCylinders: cyl, engineCapacity: cap });
+      saveData({ yearManufactured: year, numberOfCylinders: cyl, engineCapacity: cap }, 'motor-vehicle-inspection');
       window.location.href = 'vehicle-config.html';
     });
   </script>

@@ -121,14 +121,14 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
     setupRadioGroup('vehicleCategory');
     setupRadioGroup('inspectionPurpose');
 
     // Pre-fill from localStorage
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.vehicleCategory) setRadioValue('vehicleCategory', d.vehicleCategory);
     if (d.inspectionPurpose) setRadioValue('inspectionPurpose', d.inspectionPurpose);
 
@@ -157,7 +157,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ vehicleCategory: cat, inspectionPurpose: purpose });
+      saveData({ vehicleCategory: cat, inspectionPurpose: purpose }, 'motor-vehicle-inspection');
       window.location.href = 'owner-details.html';
     });
   </script>

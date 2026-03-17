@@ -109,11 +109,11 @@
 
   <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
 
-  <script src="chrome.js"></script>
+  <script src="../shared/chrome.js"></script>
   <script>
     injectChrome();
 
-    const d = getData();
+    const d = getData('motor-vehicle-inspection');
     if (d.ownerStreet) document.getElementById('ownerStreet').value = d.ownerStreet;
     if (d.ownerParish) document.getElementById('ownerParish').value = d.ownerParish;
     if (d.ownerPostalCode) document.getElementById('ownerPostalCode').value = d.ownerPostalCode;
@@ -145,7 +145,7 @@
 
       if (errors.length > 0) { showErrorSummary(errors); return; }
 
-      saveData({ ownerStreet: street, ownerParish: parish, ownerPostalCode: postal.toUpperCase() });
+      saveData({ ownerStreet: street, ownerParish: parish, ownerPostalCode: postal.toUpperCase() }, 'motor-vehicle-inspection');
       window.location.href = 'vehicle-registration.html';
     });
   </script>
