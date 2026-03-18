@@ -270,11 +270,7 @@
     .thumb-img {
       display: block;
       width: 100%;
-      /* Height = width × (844/390) = width × 2.164 */
-      height: calc(var(--thumb-w) * 2.164);
-      object-fit: cover;
-      object-position: top;
-      transition: height 0.15s ease;
+      height: auto;
     }
 
     .thumb-frame::after {
@@ -302,15 +298,11 @@
     /* Arrow between thumbnails */
     .thumb-arrow {
       display: flex;
-      align-items: center;
-      align-self: stretch;
-      padding: 0 3px;
-      /* Vertically centres on the thumbnail, offset by label space */
-      padding-bottom: calc(var(--thumb-w) * 0.17);
+      align-items: flex-start;
+      padding: calc(var(--thumb-w) * 0.4) 3px 0;
       color: var(--teal-00);
       flex-shrink: 0;
       opacity: 0.6;
-      transition: padding-bottom 0.15s ease;
     }
 
     .thumb-arrow svg {

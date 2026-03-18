@@ -32,13 +32,13 @@
     .screen-frame { position: relative; width: 200px; border-radius: 16px; border: 2px solid #ccc; overflow: hidden; background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow 0.15s ease, transform 0.15s ease; cursor: pointer; text-decoration: none; display: block; }
     .screen-frame:hover { box-shadow: 0 8px 28px rgba(14,95,100,0.22), 0 2px 8px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--teal-100); }
     .screen-frame::before { content: ''; display: block; background: #111; height: 6px; width: 100%; }
-    .screen-img { display: block; width: 100%; height: 380px; object-fit: cover; object-position: top; }
+    .screen-img { display: block; width: 100%; height: auto; }
     .screen-frame::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 48px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.85)); pointer-events: none; }
     .screen-info { margin-top: 1rem; text-align: center; width: 200px; }
     .screen-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--teal-00); color: var(--white); font-size: 0.7rem; font-weight: 700; margin-bottom: 0.4rem; }
     .screen-name { font-size: 0.8rem; font-weight: 600; line-height: 1.3; }
     .screen-type { font-size: 0.7rem; color: var(--mid-grey); margin-top: 0.2rem; }
-    .arrow-connector { display: flex; align-items: center; align-self: stretch; padding: 0 0.5rem; padding-bottom: 80px; color: var(--teal-00); }
+    .arrow-connector { display: flex; align-items: center; align-self: stretch; padding: 5rem 0.5rem 0; color: var(--teal-00); }
     .legend { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--grey); display: flex; gap: 2rem; flex-wrap: wrap; }
     .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--mid-grey); }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
