@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All User Journeys – BLA Form Prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-00: #0e5f64;
+      --teal-10: #eaf9f9;
+      --teal-100: #30c0c8;
+      --blue-100: #00267f;
+      --yellow-100: #ffc726;
+      --black: #000;
+      --grey: #e0e4e9;
+      --mid-grey: #595959;
+      --white: #fff;
+      --bg: #f5f6f8;
+      /* Zoom — controlled by JS */
+      --thumb-w: 140px;
+    }
+
+    body {
+      font-family: 'Figtree', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue-100);
+      color: var(--white);
+      font-size: 0.8rem;
+      padding: 0.4rem 1.5rem;
+    }
+
+    /* ── Sticky toolbar ── */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--black);
+      margin-right: auto;
+    }
+
+    .toolbar-label {
+      font-size: 0.8rem;
+      color: var(--mid-grey);
+      white-space: nowrap;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .zoom-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey);
+      background: var(--white);
+      color: var(--black);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.1s, border-color 0.1s;
+      line-height: 1;
+    }
+    .zoom-btn:hover { background: var(--teal-10); border-color: var(--teal-100); }
+    .zoom-btn:active { background: var(--teal-00); color: var(--white); }
+
+    .zoom-value {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--mid-grey);
+      min-width: 3.5rem;
+      text-align: center;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 140px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--grey);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--teal-00);
+      cursor: pointer;
+    }
+
+    .toolbar-hint {
+      font-size: 0.75rem;
+      color: var(--mid-grey);
+      font-style: italic;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--grey);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--mid-grey);
+      margin-bottom: 0.5rem;
+    }
+    .breadcrumb a { color: var(--teal-00); text-decoration: underline; text-underline-offset: 2px; }
+    .breadcrumb a:hover { text-decoration: none; }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.875rem;
+      color: var(--mid-grey);
+    }
+
+    /* ── Canvas ── */
+    .canvas {
+      flex: 1;
+      padding: 1.5rem;
+      overflow: auto;
+    }
+
+    /* ── Section grouping ── */
+    .section-group {
+      margin-bottom: 2rem;
+    }
+
+    .section-heading {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 0.75rem;
+      padding-left: calc(var(--label-w) + 1rem);
+    }
+
+    /* ── Journey row ── */
+    .journey-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      gap: 0;
+    }
+
+    /* Label column — fixed width, doesn't scale with zoom */
+    .journey-label-col {
+      --label-w: 200px;
+      width: var(--label-w);
+      flex-shrink: 0;
+      padding-right: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .journey-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .journey-meta {
+      font-size: 0.7rem;
+      color: var(--mid-grey);
+    }
+
+    .journey-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.7rem;
+      color: var(--teal-00);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      margin-top: 0.3rem;
+    }
+    .journey-link:hover { text-decoration: none; }
+
+    /* Thumbnail strip */
+    .journey-strip {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Remove scrollbar styling — let it be native */
+    .journey-strip::-webkit-scrollbar { height: 4px; }
+    .journey-strip::-webkit-scrollbar-thumb { background: var(--grey); border-radius: 2px; }
+
+    /* Screen thumbnail */
+    .thumb-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: calc(var(--thumb-w) + 20px);
+      transition: width 0.15s ease;
+    }
+
+    .thumb-frame {
+      display: block;
+      position: relative;
+      width: var(--thumb-w);
+      border-radius: 10px;
+      border: 1.5px solid #ccc;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: box-shadow 0.12s, transform 0.12s, border-color 0.12s, width 0.15s ease;
+    }
+
+    .thumb-frame:hover {
+      box-shadow: 0 5px 18px rgba(14,95,100,0.2);
+      transform: translateY(-2px);
+      border-color: var(--teal-100);
+    }
+
+    .thumb-frame::before {
+      content: '';
+      display: block;
+      background: #111;
+      height: 4px;
+    }
+
+    .thumb-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .thumb-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30px;
+      background: linear-gradient(transparent, rgba(255,255,255,0.8));
+      pointer-events: none;
+    }
+
+    .thumb-label {
+      margin-top: 0.35rem;
+      font-size: max(0.6rem, calc(var(--thumb-w) * 0.065));
+      color: var(--mid-grey);
+      text-align: center;
+      line-height: 1.2;
+      width: var(--thumb-w);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: font-size 0.15s ease;
+    }
+
+    /* Arrow between thumbnails */
+    .thumb-arrow {
+      display: flex;
+      align-items: flex-start;
+      padding: calc(var(--thumb-w) * 0.4) 3px 0;
+      color: var(--teal-00);
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .thumb-arrow svg {
+      width: 20px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      border-top: 1px solid var(--grey);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--mid-grey);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">BLA Form Prototypes – GovTech Barbados</div>
+
+  <!-- Sticky zoom toolbar -->
+  <div class="toolbar" role="toolbar" aria-label="Zoom controls">
+    <span class="toolbar-title">User Journey Overview</span>
+
+    <span class="toolbar-label">Zoom</span>
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoomOut" aria-label="Zoom out" title="Zoom out (−)">−</button>
+      <span class="zoom-value" id="zoomValue" aria-live="polite">100%</span>
+      <button class="zoom-btn" id="zoomIn" aria-label="Zoom in" title="Zoom in (+)">+</button>
+    </div>
+    <input type="range" id="zoomSlider" min="50" max="220" value="100" step="10" aria-label="Zoom level">
+
+    <span class="toolbar-hint">Click any screen to open prototype ↗ &nbsp;·&nbsp; Scroll rows horizontally to see all steps</span>
+  </div>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <nav class="breadcrumb"><a href="../index.html">← Prototype listing</a></nav>
+    <h1 class="page-title">All User Journeys</h1>
+    <p class="page-subtitle">23 forms · Mobile (390 × 844) · Happy path · Barbados Licensing Authority</p>
+  </div>
+
+  <!-- Canvas -->
+  <main class="canvas" id="canvas">
+
+    <!-- Motor Vehicle Inspection -->
+    <div class="section-group">
+      <div class="section-heading">Motor Vehicle Inspection</div>
+      <div class="journey-row" data-slug="motor-vehicle-inspection">
+        <div class="journey-label-col">
+          <div class="journey-name">Motor Vehicle Inspection</div>
+          <div class="journey-meta">17 screens</div>
+          <a class="journey-link" href="motor-vehicle-inspection.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip">
+          <!-- screens injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications and Requests -->
+    <div class="section-group">
+      <div class="section-heading">Notifications and Requests</div>
+
+      <div class="journey-row" data-slug="change-of-vehicle-colour">
+        <div class="journey-label-col">
+          <div class="journey-name">Change of Vehicle Colour</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="change-of-vehicle-colour.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="change-of-use">
+        <div class="journey-label-col">
+          <div class="journey-name">Change of Use</div>
+          <div class="journey-meta">5 screens</div>
+          <a class="journey-link" href="change-of-use.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="change-of-engine">
+        <div class="journey-label-col">
+          <div class="journey-name">Change of Engine</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="change-of-engine.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="scrapping-of-vehicle">
+        <div class="journey-label-col">
+          <div class="journey-name">Scrap or Sell Vehicle in Parts</div>
+          <div class="journey-meta">5 screens</div>
+          <a class="journey-link" href="scrapping-of-vehicle.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="retention-of-registration-number">
+        <div class="journey-label-col">
+          <div class="journey-name">Retention of Registration Number</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="retention-of-registration-number.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="request-for-graphics">
+        <div class="journey-label-col">
+          <div class="journey-name">Request for Graphics</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="request-for-graphics.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="duty-free-concession-business">
+        <div class="journey-label-col">
+          <div class="journey-name">Duty-Free Concession (Business)</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="duty-free-concession-business.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="duty-free-concession-individual">
+        <div class="journey-label-col">
+          <div class="journey-name">Duty-Free Concession (Individual)</div>
+          <div class="journey-meta">5 screens</div>
+          <a class="journey-link" href="duty-free-concession-individual.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="odometer-reading-validation">
+        <div class="journey-label-col">
+          <div class="journey-name">Odometer Reading Validation</div>
+          <div class="journey-meta">6 screens</div>
+          <a class="journey-link" href="odometer-reading-validation.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+    </div>
+
+    <!-- Registrations and Transfers -->
+    <div class="section-group">
+      <div class="section-heading">Registrations and Transfers</div>
+
+      <div class="journey-row" data-slug="vanity-plate-application">
+        <div class="journey-label-col">
+          <div class="journey-name">Vanity Plate Application</div>
+          <div class="journey-meta">7 screens</div>
+          <a class="journey-link" href="vanity-plate-application.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="sale-of-vehicle-individual">
+        <div class="journey-label-col">
+          <div class="journey-name">Sale of Vehicle (Individual)</div>
+          <div class="journey-meta">7 screens</div>
+          <a class="journey-link" href="sale-of-vehicle-individual.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="sale-of-vehicle-joint">
+        <div class="journey-label-col">
+          <div class="journey-name">Sale of Vehicle (Joint Owners)</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="sale-of-vehicle-joint.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="transfer-of-vehicle-individual">
+        <div class="journey-label-col">
+          <div class="journey-name">Transfer of Vehicle (Individual)</div>
+          <div class="journey-meta">7 screens</div>
+          <a class="journey-link" href="transfer-of-vehicle-individual.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="transfer-of-vehicle-joint">
+        <div class="journey-label-col">
+          <div class="journey-name">Transfer of Vehicle (Joint Owners)</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="transfer-of-vehicle-joint.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="importation-of-vehicles">
+        <div class="journey-label-col">
+          <div class="journey-name">Importation of Vehicles</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="importation-of-vehicles.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="vehicle-investigation">
+        <div class="journey-label-col">
+          <div class="journey-name">Vehicle Investigation</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="vehicle-investigation.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="vehicle-registration-renewal">
+        <div class="journey-label-col">
+          <div class="journey-name">Vehicle Registration Renewal (LA 33)</div>
+          <div class="journey-meta">14 screens</div>
+          <a class="journey-link" href="vehicle-registration-renewal.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="registration-temporary-stay">
+        <div class="journey-label-col">
+          <div class="journey-name">Registration for Temporary Stay (LA 64)</div>
+          <div class="journey-meta">10 screens</div>
+          <a class="journey-link" href="registration-temporary-stay.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+    </div>
+
+    <!-- Declarations -->
+    <div class="section-group">
+      <div class="section-heading">Declarations</div>
+
+      <div class="journey-row" data-slug="declaration-company-vehicle">
+        <div class="journey-label-col">
+          <div class="journey-name">Declaration – Company Vehicle</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="declaration-company-vehicle.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="declaration-partnership-vehicle">
+        <div class="journey-label-col">
+          <div class="journey-name">Declaration – Partnership Vehicle</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="declaration-partnership-vehicle.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+
+      <div class="journey-row" data-slug="declaration-sole-trader-vehicle">
+        <div class="journey-label-col">
+          <div class="journey-name">Declaration – Sole Trader Vehicle</div>
+          <div class="journey-meta">8 screens</div>
+          <a class="journey-link" href="declaration-sole-trader-vehicle.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+    </div>
+
+    <!-- Internal -->
+    <div class="section-group">
+      <div class="section-heading">Internal / Administrative</div>
+
+      <div class="journey-row" data-slug="vehicle-registration-summary">
+        <div class="journey-label-col">
+          <div class="journey-name">Vehicle Registration Summary Sheet</div>
+          <div class="journey-meta">10 screens</div>
+          <a class="journey-link" href="vehicle-registration-summary.html">Full journey ↗</a>
+        </div>
+        <div class="journey-strip"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    <span>GovTech Barbados · Barbados Licensing Authority · Prototype research only</span>
+    <span>23 forms · 175 screens total</span>
+  </footer>
+
+  <script>
+    // ── Prototype config ──────────────────────────────────────────────
+    const PROTOTYPES = {
+      'motor-vehicle-inspection': ['index.html','owner-details.html','purpose.html','vehicle-registration.html','vehicle-category.html','vehicle-description.html','vehicle-specs.html','manufacturer.html','vehicle-config.html','weight-passengers.html','chassis-number.html','engine-number.html','address.html','exam-datetime.html','declaration.html','check-answers.html','confirmation.html'],
+      'change-of-vehicle-colour': ['index.html','owner-details.html','vehicle-details.html','colour-change.html','check-answers.html','confirmation.html'],
+      'change-of-use': ['index.html','vehicle-details.html','use-change.html','check-answers.html','confirmation.html'],
+      'change-of-engine': ['index.html','vehicle-details.html','engine-details.html','old-engine-disposal.html','check-answers.html','confirmation.html'],
+      'scrapping-of-vehicle': ['index.html','vehicle-details.html','disposition.html','check-answers.html','confirmation.html'],
+      'retention-of-registration-number': ['index.html','applicant-details.html','registration-number.html','reason.html','check-answers.html','confirmation.html'],
+      'request-for-graphics': ['index.html','applicant-details.html','registration-number.html','graphics-details.html','check-answers.html','confirmation.html'],
+      'duty-free-concession-business': ['index.html','vehicle-details.html','business-details.html','authorised-person.html','check-answers.html','confirmation.html'],
+      'duty-free-concession-individual': ['index.html','applicant-details.html','vehicle-details.html','check-answers.html','confirmation.html'],
+      'odometer-reading-validation': ['index.html','owner-details.html','vehicle-details.html','odometer.html','check-answers.html','confirmation.html'],
+      'vanity-plate-application': ['index.html','new-or-renewal.html','existing-registration.html','vanity-plate.html','applicant-details.html','check-answers.html','confirmation.html'],
+      'sale-of-vehicle-individual': ['index.html','seller-details.html','vehicle-details.html','buyer-details.html','registration-retention.html','check-answers.html','confirmation.html'],
+      'sale-of-vehicle-joint': ['index.html','seller-1-details.html','seller-2-details.html','vehicle-details.html','buyer-details.html','registration-retention.html','check-answers.html','confirmation.html'],
+      'transfer-of-vehicle-individual': ['index.html','transferor-details.html','vehicle-details.html','transferee-details.html','registration-retention.html','check-answers.html','confirmation.html'],
+      'transfer-of-vehicle-joint': ['index.html','transferor-1-details.html','transferor-2-details.html','vehicle-details.html','transferee-details.html','registration-retention.html','check-answers.html','confirmation.html'],
+      'importation-of-vehicles': ['index.html','applicant-details.html','vehicle-details.html','intended-use.html','fuel-type.html','drive-type.html','check-answers.html','confirmation.html'],
+      'vehicle-investigation': ['index.html','owner-details.html','vehicle-details.html','vehicle-location.html','reason.html','contact-person.html','check-answers.html','confirmation.html'],
+      'vehicle-registration-renewal': ['index.html','owner-details.html','registration-type.html','vehicle-registration.html','vehicle-description.html','id-numbers.html','vehicle-capacity.html','fuel-type.html','insurance.html','first-registration-extras.html','examiner-certificate.html','declaration.html','check-answers.html','confirmation.html'],
+      'registration-temporary-stay': ['index.html','applicant-details.html','vehicle-details.html','id-numbers.html','fuel-type.html','drive-type.html','insurance.html','undertaking.html','check-answers.html','confirmation.html'],
+      'declaration-company-vehicle': ['index.html','vehicle-details.html','registration-number.html','business-details.html','authorised-person.html','declaration.html','check-answers.html','confirmation.html'],
+      'declaration-partnership-vehicle': ['index.html','vehicle-details.html','registration-number.html','business-details.html','authorised-person.html','declaration.html','check-answers.html','confirmation.html'],
+      'declaration-sole-trader-vehicle': ['index.html','vehicle-details.html','registration-number.html','business-details.html','authorised-person.html','declaration.html','check-answers.html','confirmation.html'],
+      'vehicle-registration-summary': ['index.html','registration-type.html','ownership-type.html','owner-1-details.html','owner-2-details.html','vehicle-usage.html','government-codes.html','financier.html','check-answers.html','confirmation.html'],
+    };
+
+    // ── Friendly labels ───────────────────────────────────────────────
+    const LABELS = {
+      'index.html': 'Start',
+      'check-answers.html': 'Check answers',
+      'confirmation.html': 'Done',
+      'declaration.html': 'Declaration',
+      'vehicle-details.html': 'Vehicle',
+      'owner-details.html': 'Owner',
+      'applicant-details.html': 'Your details',
+      'business-details.html': 'Business',
+      'authorised-person.html': 'Auth. person',
+      'seller-details.html': "Seller",
+      'seller-1-details.html': "Seller 1",
+      'seller-2-details.html': "Seller 2",
+      'buyer-details.html': "Buyer",
+      'transferor-details.html': 'Transferor',
+      'transferor-1-details.html': 'Transferor 1',
+      'transferor-2-details.html': 'Transferor 2',
+      'transferee-details.html': 'Transferee',
+      'registration-number.html': 'Reg. number',
+      'registration-retention.html': 'Reg. retention',
+      'registration-type.html': 'Reg. type',
+      'ownership-type.html': 'Ownership',
+      'owner-1-details.html': 'Owner 1',
+      'owner-2-details.html': 'Owner 2',
+      'vehicle-registration.html': 'Reg. number',
+      'vehicle-category.html': 'Vehicle type',
+      'vehicle-description.html': 'Description',
+      'vehicle-specs.html': 'Specs',
+      'vehicle-config.html': 'Config',
+      'vehicle-capacity.html': 'Capacity',
+      'vehicle-usage.html': 'Usage',
+      'vehicle-location.html': 'Location',
+      'manufacturer.html': 'Manufacturer',
+      'weight-passengers.html': 'Weight',
+      'chassis-number.html': 'Chassis',
+      'engine-number.html': 'Engine no.',
+      'engine-details.html': 'Engine',
+      'old-engine-disposal.html': 'Old engine',
+      'address.html': 'Address',
+      'exam-datetime.html': 'Exam date',
+      'purpose.html': 'Purpose',
+      'use-change.html': 'Use change',
+      'colour-change.html': 'Colour',
+      'id-numbers.html': 'ID numbers',
+      'fuel-type.html': 'Fuel type',
+      'drive-type.html': 'Steering',
+      'insurance.html': 'Insurance',
+      'undertaking.html': 'Undertaking',
+      'intended-use.html': 'Intended use',
+      'reason.html': 'Reason',
+      'contact-person.html': 'Contact',
+      'new-or-renewal.html': 'New/renewal',
+      'existing-registration.html': 'Existing reg.',
+      'vanity-plate.html': 'Vanity plate',
+      'graphics-details.html': 'Graphics',
+      'odometer.html': 'Odometer',
+      'government-codes.html': 'Gov. codes',
+      'financier.html': 'Financier',
+      'first-registration-extras.html': 'First reg.',
+      'examiner-certificate.html': 'Certificate',
+    };
+
+    // ── Build thumbnail strips ────────────────────────────────────────
+    const ARROW_SVG = `<svg viewBox="0 0 20 12" fill="none"><path d="M0 6h16M11 2l6 4-6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+    document.querySelectorAll('.journey-row').forEach(row => {
+      const slug = row.dataset.slug;
+      const pages = PROTOTYPES[slug];
+      if (!pages) return;
+
+      const strip = row.querySelector('.journey-strip');
+      const frag = document.createDocumentFragment();
+
+      pages.forEach((file, i) => {
+        const seq = i + 1;
+        const imgSlug = file.replace('.html', '');
+        const label = LABELS[file] || imgSlug.replace(/-/g, ' ');
+        const imgSrc = `../prototypes/${slug}/screenshots/${seq}-${imgSlug}.png`;
+        const href = `../prototypes/${slug}/${file}`;
+
+        // Card
+        const card = document.createElement('div');
+        card.className = 'thumb-card';
+
+        const link = document.createElement('a');
+        link.className = 'thumb-frame';
+        link.href = href;
+        link.target = '_blank';
+        link.title = `${seq}. ${label}`;
+
+        const img = document.createElement('img');
+        img.className = 'thumb-img';
+        img.src = imgSrc;
+        img.alt = label;
+        img.loading = 'lazy';
+        // Graceful fallback if screenshot missing
+        img.onerror = function() {
+          this.style.background = '#f0f0f0';
+          this.style.minHeight = '60px';
+          this.removeAttribute('src');
+        };
+
+        link.appendChild(img);
+        card.appendChild(link);
+
+        const lbl = document.createElement('div');
+        lbl.className = 'thumb-label';
+        lbl.textContent = label;
+        card.appendChild(lbl);
+
+        frag.appendChild(card);
+
+        // Arrow (not after last)
+        if (i < pages.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.className = 'thumb-arrow';
+          arrow.setAttribute('aria-hidden', 'true');
+          arrow.innerHTML = ARROW_SVG;
+          frag.appendChild(arrow);
+        }
+      });
+
+      strip.appendChild(frag);
+    });
+
+    // ── Zoom control ─────────────────────────────────────────────────
+    const root = document.documentElement;
+    const slider = document.getElementById('zoomSlider');
+    const zoomValueEl = document.getElementById('zoomValue');
+    const BASE_THUMB = 140; // px at 100%
+
+    function applyZoom(percent) {
+      const px = Math.round(BASE_THUMB * percent / 100);
+      root.style.setProperty('--thumb-w', px + 'px');
+      zoomValueEl.textContent = percent + '%';
+      slider.value = percent;
+    }
+
+    // Slider input
+    slider.addEventListener('input', () => applyZoom(parseInt(slider.value)));
+
+    // +/- buttons (step 20%)
+    document.getElementById('zoomIn').addEventListener('click', () => {
+      applyZoom(Math.min(220, parseInt(slider.value) + 20));
+    });
+    document.getElementById('zoomOut').addEventListener('click', () => {
+      applyZoom(Math.max(50, parseInt(slider.value) - 20));
+    });
+
+    // Keyboard shortcuts: Ctrl/Cmd + plus/minus
+    document.addEventListener('keydown', e => {
+      if (e.metaKey || e.ctrlKey) {
+        if (e.key === '=' || e.key === '+') { e.preventDefault(); applyZoom(Math.min(220, parseInt(slider.value) + 20)); }
+        if (e.key === '-') { e.preventDefault(); applyZoom(Math.max(50, parseInt(slider.value) - 20)); }
+        if (e.key === '0') { e.preventDefault(); applyZoom(100); }
+      }
+    });
+  </script>
+
+</body>
+</html>
