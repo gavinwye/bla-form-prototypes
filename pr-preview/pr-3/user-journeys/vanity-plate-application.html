@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Journey – Vanity Plate Application</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal-00: #0e5f64; --teal-10: #eaf9f9; --teal-100: #30c0c8;
+      --blue-100: #00267f; --yellow-100: #ffc726;
+      --black: #000; --grey: #e0e4e9; --mid-grey: #595959; --white: #fff;
+    }
+    body { font-family: 'Figtree', -apple-system, system-ui, sans-serif; background: #f5f6f8; color: var(--black); min-height: 100vh; display: flex; flex-direction: column; }
+    .topbar { background: var(--blue-100); color: var(--white); font-size: 0.875rem; padding: 0.5rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .page-header { background: var(--white); border-bottom: 1px solid var(--grey); padding: 1.5rem 2rem; }
+    .page-header-inner { max-width: 1400px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.8rem; color: var(--mid-grey); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .breadcrumb a { color: var(--teal-00); text-decoration: underline; text-underline-offset: 2px; }
+    .breadcrumb a:hover { text-decoration: none; }
+    .page-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .page-meta { font-size: 0.9rem; color: var(--mid-grey); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .badge { background: var(--teal-10); color: var(--teal-00); border: 1px solid var(--teal-100); border-radius: 100px; padding: 0.2rem 0.75rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.03em; }
+    .journey-wrapper { flex: 1; padding: 2.5rem 2rem 3rem; overflow-x: auto; }
+    .journey-inner { max-width: 1400px; margin: 0 auto; }
+    .journey-label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 1.5rem; }
+    .flow { display: flex; align-items: flex-start; gap: 0; min-width: max-content; padding-bottom: 1rem; }
+    .screen-card { display: flex; flex-direction: column; align-items: center; width: 220px; flex-shrink: 0; }
+    .screen-frame { position: relative; width: 200px; border-radius: 16px; border: 2px solid #ccc; overflow: hidden; background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow 0.15s ease, transform 0.15s ease; cursor: pointer; text-decoration: none; display: block; }
+    .screen-frame:hover { box-shadow: 0 8px 28px rgba(14,95,100,0.22), 0 2px 8px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--teal-100); }
+    .screen-frame::before { content: ''; display: block; background: #111; height: 6px; width: 100%; }
+    .screen-img { display: block; width: 100%; height: auto; }
+    .screen-frame::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 48px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.85)); pointer-events: none; }
+    .screen-info { margin-top: 1rem; text-align: center; width: 200px; }
+    .screen-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--teal-00); color: var(--white); font-size: 0.7rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .screen-name { font-size: 0.8rem; font-weight: 600; line-height: 1.3; }
+    .screen-type { font-size: 0.7rem; color: var(--mid-grey); margin-top: 0.2rem; }
+    .arrow-connector { display: flex; align-items: center; align-self: stretch; padding: 5rem 0.5rem 0; color: var(--teal-00); }
+    .legend { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--grey); display: flex; gap: 2rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--mid-grey); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    User Journey Map
+  </div>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <nav class="breadcrumb">
+        <a href="index.html">All journeys</a>
+        <span aria-hidden="true">›</span>
+        <a href="../prototypes/vanity-plate-application/index.html">View prototype</a>
+        <span aria-hidden="true">›</span>
+        <span>User Journey</span>
+      </nav>
+      <h1 class="page-title">Vanity Plate Application</h1>
+      <div class="page-meta">
+        <span>Barbados Licensing Authority</span>
+        <span class="badge">7 screens</span>
+        <span class="badge" style="background:#e9f9f3;color:#00654a;border-color:#1fbf84;">Linear flow</span>
+      </div>
+    </div>
+  </header>
+  <main class="journey-wrapper">
+    <div class="journey-inner">
+      <p class="journey-label">Happy path · Mobile (390 × 844)</p>
+      <div class="flow" role="list">
+
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/index.html" target="_blank" title="Open screen 1: Start page">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/1-index.png" alt="Start page" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">1</div>
+            <div class="screen-name">Start page</div>
+            <div class="screen-type">Service start</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/new-or-renewal.html" target="_blank" title="Open screen 2: New or renewal">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/2-new-or-renewal.png" alt="New or renewal" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">2</div>
+            <div class="screen-name">New or renewal</div>
+            <div class="screen-type">Question page</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/existing-registration.html" target="_blank" title="Open screen 3: Existing reg.">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/3-existing-registration.png" alt="Existing reg." loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">3</div>
+            <div class="screen-name">Existing reg.</div>
+            <div class="screen-type">Question page</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/vanity-plate.html" target="_blank" title="Open screen 4: Vanity plate">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/4-vanity-plate.png" alt="Vanity plate" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">4</div>
+            <div class="screen-name">Vanity plate</div>
+            <div class="screen-type">Question page</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/applicant-details.html" target="_blank" title="Open screen 5: Your details">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/5-applicant-details.png" alt="Your details" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">5</div>
+            <div class="screen-name">Your details</div>
+            <div class="screen-type">Question page</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/check-answers.html" target="_blank" title="Open screen 6: Check your answers">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/6-check-answers.png" alt="Check your answers" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">6</div>
+            <div class="screen-name">Check your answers</div>
+            <div class="screen-type">Review</div>
+          </div>
+        </div>
+        <div class="arrow-connector" aria-hidden="true">
+          <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
+            <path d="M0 10h28M22 4l8 6-8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="screen-card" role="listitem">
+          <a class="screen-frame" href="../prototypes/vanity-plate-application/confirmation.html" target="_blank" title="Open screen 7: Confirmation">
+            <img class="screen-img" src="../prototypes/vanity-plate-application/screenshots/7-confirmation.png" alt="Confirmation" loading="lazy">
+          </a>
+          <div class="screen-info">
+            <div class="screen-number" aria-hidden="true">7</div>
+            <div class="screen-name">Confirmation</div>
+            <div class="screen-type">End page</div>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e9f9f3;border:1.5px solid #1fbf84;"></div>Service start</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--teal-10);border:1.5px solid var(--teal-100);"></div>Question page</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fff9e9;border:1.5px solid #ffc726;"></div>Declaration</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e5e9f2;border:1.5px solid #99a8cc;"></div>Review / End</div>
+        <div class="legend-item" style="margin-left:auto;font-style:italic;">Click any screen to open the live prototype ↗</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
