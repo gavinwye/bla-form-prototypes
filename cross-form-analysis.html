@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Form Analysis – BLA Prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwindcss.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00': '#e8a833','bb-yellow-100': '#ffc726','bb-yellow-40': '#ffe9a8','bb-yellow-10': '#fff9e9',
+            'bb-blue-00': '#00164a','bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959','bb-grey-00': '#e0e4e9','bb-white-00': '#ffffff',
+            'bb-green-00': '#00654a','bb-green-100': '#1fbf84','bb-green-40': '#a5e5ce','bb-green-10': '#e9f9f3',
+            'bb-red-00': '#a42c2c','bb-red-100': '#ff6b6b','bb-red-40': '#ffc4c4','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-40': '#ace6e9','bb-teal-10': '#eaf9f9',
+            'bb-purple-00': '#4a235a','bb-purple-100': '#a962c7','bb-pink-00': '#ad1157','bb-pink-100': '#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', '"Segoe UI"', 'Roboto', 'sans-serif'] },
+          spacing: { 'xs': '0.5rem','s': '1rem','xm': '1.5rem','m': '2rem','l': '4rem','xl': '8rem' },
+          borderRadius: { 'sm': '0.25rem','md': '0.375rem','lg': '0.5rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, system-ui, sans-serif; font-size: 1.125rem; line-height: 1.6; display: grid; min-height: 100vh; grid-template-rows: auto auto auto 1fr auto; background: #fff; color: #000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .tag { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 0.25rem; }
+    .tag-all { background: #0e5f64; color: #fff; }
+    .tag-most { background: #30c0c8; color: #fff; }
+    .tag-some { background: #e5e9f2; color: #00267f; }
+    .tag-few { background: #e0e4e9; color: #595959; }
+    table { border-collapse: collapse; width: 100%; font-size: 1rem; }
+    th { background: #00267f; color: #fff; text-align: left; padding: 0.6rem 0.75rem; font-weight: 700; font-size: 0.9rem; }
+    td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e0e4e9; vertical-align: top; }
+    tr:hover td { background: #eaf9f9; }
+    .dot { display: inline-block; width: 1rem; height: 1rem; border-radius: 50%; }
+    .dot-yes { background: #0e5f64; }
+    .dot-no { background: #e0e4e9; }
+    .pattern-card { border: 2px solid #e0e4e9; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .pattern-card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .pill { font-size: 0.8rem; background: #e5e9f2; color: #00267f; border-radius: 2rem; padding: 0.2rem 0.6rem; }
+    .section-heading { border-left: 4px solid #99a8cc; padding-left: 1rem; color: #595959; font-size: 1rem; margin-bottom: 0.5rem; }
+    .toc a { color: #0e5f64; text-decoration: underline; }
+    .toc a:hover { color: #000; background: #eaf9f9; }
+    .summary-stat { text-align: center; padding: 1.5rem; background: #e5e9f2; border-radius: 0.5rem; }
+    .summary-stat .num { font-size: 2.5rem; font-weight: 900; color: #00267f; line-height: 1; }
+    .summary-stat .label { font-size: 0.9rem; color: #595959; margin-top: 0.25rem; }
+    thead th:first-child { min-width: 220px; }
+    .abbr-col { width: 36px; text-align: center; padding: 0.5rem 0.25rem; font-size: 0.75rem; }
+    .col-header { writing-mode: vertical-lr; transform: rotate(180deg); white-space: nowrap; font-size: 0.72rem; font-weight: 600; padding: 0.5rem 0.2rem; max-height: 120px; }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="bg-bb-blue-100 text-bb-white-00 text-sm py-2">
+  <div class="container flex items-center gap-2">
+    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Official Government of Barbados website
+  </div>
+</div>
+
+<!-- Header -->
+<header class="bg-bb-yellow-100">
+  <div class="container py-s">
+    <div class="text-bb-black-00" style="width:276px;height:27px;">
+      <svg width="100%" viewBox="0 0 276 27" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img"><g><path d="M39.079 21.527C37.5026 21.527 36.103 21.1903 34.8802 20.5168C33.6721 19.8286 32.7219 18.8916 32.0294 17.7057C31.337 16.5051 30.9908 15.1288 30.9908 13.5769C30.9908 12.0249 31.337 10.6559 32.0294 9.47001C32.7219 8.26943 33.6721 7.3324 34.8802 6.65891C36.103 5.97077 37.5026 5.6267 39.079 5.6267C40.0219 5.6267 40.8911 5.7658 41.6867 6.04398C42.4823 6.32216 43.1821 6.71015 43.7861 7.20795C44.4049 7.69111 44.9205 8.24747 45.3331 8.87704L42.858 10.4144C42.6075 10.0191 42.276 9.66767 41.8635 9.3602C41.4657 9.05274 41.0237 8.81116 40.5376 8.63547C40.0514 8.45977 39.5652 8.37192 39.079 8.37192C38.1067 8.37192 37.2448 8.59886 36.4934 9.05274C35.7421 9.49197 35.1527 10.0996 34.7255 10.8756C34.2982 11.6515 34.0846 12.552 34.0846 13.5769C34.0846 14.5871 34.2909 15.4875 34.7034 16.2782C35.1307 17.0688 35.7273 17.691 36.4934 18.1449C37.2595 18.5841 38.1435 18.8038 39.1453 18.8038C39.8967 18.8038 40.567 18.6647 41.1563 18.3865C41.7456 18.0937 42.2171 17.691 42.5707 17.1786C42.9243 16.6661 43.1231 16.0659 43.1673 15.3777H39.5873V13.0278H46.0844V14.8946C46.055 16.3001 45.7382 17.5007 45.1342 18.4963C44.5301 19.4773 43.7051 20.2313 42.6591 20.7584C41.613 21.2708 40.4197 21.527 39.079 21.527Z"/><path d="M52.8353 21.527C51.7156 21.527 50.7138 21.2854 49.8298 20.8023C48.9606 20.3045 48.2755 19.6237 47.7746 18.7598C47.2884 17.896 47.0453 16.9004 47.0453 15.773C47.0453 14.6457 47.2884 13.6501 47.7746 12.7862C48.2608 11.9224 48.9385 11.2489 49.8077 10.7658C50.677 10.268 51.6714 10.0191 52.7911 10.0191C53.9255 10.0191 54.9273 10.268 55.7966 10.7658C56.6658 11.2489 57.3435 11.9224 57.8297 12.7862C58.3159 13.6501 58.559 14.6457 58.559 15.773C58.559 16.9004 58.3159 17.896 57.8297 18.7598C57.3435 19.6237 56.6658 20.3045 55.7966 20.8023C54.9421 21.2854 53.955 21.527 52.8353 21.527ZM52.8353 18.8477C53.3804 18.8477 53.8592 18.7159 54.2717 18.4524C54.6843 18.1888 55.001 17.8301 55.222 17.3763C55.4577 16.9077 55.5756 16.3733 55.5756 15.773C55.5756 15.1728 55.4577 14.6457 55.222 14.1918C54.9863 13.7233 54.6548 13.3572 54.2275 13.0937C53.815 12.8302 53.3362 12.6984 52.7911 12.6984C52.2607 12.6984 51.7819 12.8302 51.3547 13.0937C50.9421 13.3572 50.618 13.7233 50.3823 14.1918C50.1466 14.6457 50.0287 15.1728 50.0287 15.773C50.0287 16.3733 50.1466 16.9077 50.3823 17.3763C50.618 17.8301 50.9495 18.1888 51.3768 18.4524C51.804 18.7159 52.2902 18.8477 52.8353 18.8477Z"/><path d="M165.302 21.527C164.182 21.527 163.18 21.2855 162.296 20.8023C161.427 20.3045 160.742 19.6237 160.241 18.7598C159.755 17.896 159.512 16.9004 159.512 15.773C159.512 14.6457 159.755 13.6501 160.241 12.7862C160.727 11.9224 161.405 11.2489 162.274 10.7658C163.144 10.268 164.138 10.0191 165.258 10.0191C166.392 10.0191 167.394 10.268 168.263 10.7658C169.132 11.2489 169.81 11.9224 170.296 12.7862C170.782 13.6501 171.026 14.6457 171.026 15.773C171.026 16.9004 170.782 17.896 170.296 18.7598C169.81 19.6237 169.132 20.3045 168.263 20.8023C167.409 21.2855 166.422 21.527 165.302 21.527ZM165.302 18.8477C165.847 18.8477 166.326 18.7159 166.738 18.4524C167.151 18.1888 167.468 17.8301 167.689 17.3763C167.924 16.9077 168.042 16.3733 168.042 15.773C168.042 15.1728 167.924 14.6457 167.689 14.1918C167.453 13.7233 167.121 13.3572 166.694 13.0937C166.282 12.8302 165.803 12.6984 165.258 12.6984C164.727 12.6984 164.249 12.8302 163.821 13.0937C163.409 13.3572 163.085 13.7233 162.849 14.1918C162.613 14.6457 162.495 15.1728 162.495 15.773C162.495 16.3733 162.613 16.9077 162.849 17.3763C163.085 17.8301 163.416 18.1888 163.843 18.4524C164.271 18.7159 164.757 18.8477 165.302 18.8477Z"/><path d="M12.5786 0C11.6253 2.46943 10.6536 5.03986 8.57466 7.00774C9.21998 6.80573 10.3493 6.62461 11.0753 6.64203V17.0283L7.988 17.4636C7.878 17.4532 7.84133 17.2895 7.84133 17.0666C7.54434 13.8413 6.74135 11.1316 5.81736 8.32779C5.75136 7.94466 4.58171 6.48181 5.4837 6.73955C5.5937 6.75348 6.80002 7.2202 6.60935 6.99729C4.96671 5.38119 2.56508 4.21788 0.233112 3.87306C0.0277812 3.8243 -0.0932171 3.92183 0.0901136 4.14822C3.18474 8.6726 5.77336 14.012 5.75136 20.3475C6.95401 20.3475 9.86897 19.6718 11.0753 19.6718V27H12.5969L12.9453 6.53406L12.5786 0Z"/><path d="M12.5786 0C13.5319 2.46943 14.5036 5.03986 16.5825 7.00774C15.9372 6.80573 14.8079 6.62461 14.0819 6.64203V17.0283L17.1692 17.4636C17.2792 17.4532 17.3159 17.2895 17.3159 17.0666C17.6129 13.8413 18.4158 11.1316 19.3398 8.32779C19.4058 7.94466 20.5755 6.48181 19.6735 6.73955C19.5635 6.75348 18.3572 7.2202 18.5478 6.99729C20.1905 5.38119 22.5921 4.21788 24.9241 3.87306C25.1294 3.8243 25.2504 3.92183 25.0671 4.14822C21.9725 8.6726 19.3838 14.012 19.4058 20.3475C18.2032 20.3475 15.2882 19.6718 14.0819 19.6718V27H12.5603L12.2119 6.53406L12.5786 0Z"/></g></svg>
+    </div>
+  </div>
+</header>
+
+<!-- Alpha banner -->
+<div class="bg-bb-blue-10 py-2 text-sm">
+  <div class="container">
+    <strong>Research document</strong> – Cross-form analysis of the 23 BLA prototype forms.
+  </div>
+</div>
+
+<!-- Main -->
+<main class="py-l">
+  <div class="container">
+
+    <!-- Page heading -->
+    <p class="section-heading">Barbados Licensing Authority – Prototype Analysis</p>
+    <h1 class="font-bold text-[2.5rem] leading-tight mb-m">Cross-form data and design pattern analysis</h1>
+
+    <!-- TOC -->
+    <nav class="toc bg-bb-blue-10 rounded-lg p-6 mb-l" aria-label="Contents">
+      <p class="font-bold mb-3">Contents</p>
+      <ol class="list-decimal list-inside space-y-1">
+        <li><a href="#summary">Executive summary</a></li>
+        <li><a href="#clusters">Common data clusters</a></li>
+        <li><a href="#matrix">Field-by-form matrix</a></li>
+        <li><a href="#components">Component types used</a></li>
+        <li><a href="#patterns">Design pattern inventory</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. Executive Summary -->
+    <section id="summary" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">1. Executive summary</h2>
+      <p class="mb-m text-bb-mid-grey-00">Analysis of all 23 BLA prototype forms to identify shared data fields, repeated UI components, and opportunities for reuse or pre-fill.</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-m">
+        <div class="summary-stat"><div class="num">23</div><div class="label">forms analysed</div></div>
+        <div class="summary-stat"><div class="num">6</div><div class="label">data clusters identified</div></div>
+        <div class="summary-stat"><div class="num">5</div><div class="label">fields in every form</div></div>
+        <div class="summary-stat"><div class="num">10</div><div class="label">reusable design patterns</div></div>
+      </div>
+
+      <div class="bg-bb-green-10 border-l-4 border-bb-green-00 p-4 rounded-r-lg mb-4">
+        <p class="font-bold text-bb-green-00 mb-1">Key finding: applicant identity is asked 23 times</p>
+        <p class="text-sm">Full name, address, telephone, and email appear in every single form. A citizen account or session-level pre-fill could eliminate this repetition entirely.</p>
+      </div>
+      <div class="bg-bb-yellow-10 border-l-4 border-bb-yellow-00 p-4 rounded-r-lg mb-4">
+        <p class="font-bold mb-1">Key finding: vehicle identity block appears in 20/23 forms</p>
+        <p class="text-sm">Registration number, chassis number, and engine number form a consistent trio. A vehicle lookup by registration number could pre-fill all three.</p>
+      </div>
+      <div class="bg-bb-blue-10 border-l-4 border-bb-blue-40 p-4 rounded-r-lg">
+        <p class="font-bold mb-1">Key finding: 10 distinct design patterns, all consistently applied</p>
+        <p class="text-sm">One-thing-per-page, Check Your Answers, Confirmation panel, joint-ownership fork, and others are used uniformly. The design system is coherent and ready for component extraction.</p>
+      </div>
+    </section>
+
+    <!-- 2. Data Clusters -->
+    <section id="clusters" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">2. Common data clusters</h2>
+      <p class="mb-m text-bb-mid-grey-00">Fields group naturally into six clusters. Each cluster could become a reusable form module.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="pattern-card border-bb-teal-00">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-teal-00 text-white text-xs font-bold px-2 py-1 rounded">Cluster A</span>
+            <h3 class="font-bold text-lg">Applicant identity</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Personal details of the person submitting the form.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Full name</td><td><span class="tag tag-all">All 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Address</td><td><span class="tag tag-all">All 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Telephone</td><td><span class="tag tag-all">All 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Email address</td><td><span class="tag tag-most">20 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">National Registration No.</td><td><span class="tag tag-most">16 / 23 forms</span></td></tr>
+          </table>
+        </div>
+
+        <div class="pattern-card border-bb-blue-100">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-blue-100 text-white text-xs font-bold px-2 py-1 rounded">Cluster B</span>
+            <h3 class="font-bold text-lg">Vehicle identity</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Core identifiers used to uniquely identify a vehicle.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Registration number</td><td><span class="tag tag-most">20 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Chassis number</td><td><span class="tag tag-most">20 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Engine / motor number</td><td><span class="tag tag-most">20 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Make</td><td><span class="tag tag-most">15 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Model</td><td><span class="tag tag-some">12 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Year of manufacture</td><td><span class="tag tag-some">12 / 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Colour</td><td><span class="tag tag-some">10 / 23 forms</span></td></tr>
+          </table>
+        </div>
+
+        <div class="pattern-card border-bb-purple-00">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-purple-00 text-white text-xs font-bold px-2 py-1 rounded">Cluster C</span>
+            <h3 class="font-bold text-lg">Business / entity details</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Used when the registered owner is a legal entity rather than an individual.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Business / co. reg. number</td><td><span class="tag tag-few">3 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Partnership reg. number</td><td><span class="tag tag-few">1 form</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Business name</td><td><span class="tag tag-few">2 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Authorised person name</td><td><span class="tag tag-few">3 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Authorised person role / title</td><td><span class="tag tag-few">2 forms</span></td></tr>
+          </table>
+        </div>
+
+        <div class="pattern-card border-bb-pink-00">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-pink-00 text-white text-xs font-bold px-2 py-1 rounded">Cluster D</span>
+            <h3 class="font-bold text-lg">Second party (buyer / transferee)</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Details of the receiving party in ownership change transactions.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Second party full name</td><td><span class="tag tag-some">6 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Second party address</td><td><span class="tag tag-some">6 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Second party NRN</td><td><span class="tag tag-few">4 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Second party telephone</td><td><span class="tag tag-few">4 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Second party email</td><td><span class="tag tag-few">4 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Transaction date</td><td><span class="tag tag-few">4 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Sale price</td><td><span class="tag tag-few">2 forms</span></td></tr>
+          </table>
+        </div>
+
+        <div class="pattern-card border-bb-yellow-00">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-yellow-00 text-white text-xs font-bold px-2 py-1 rounded">Cluster E</span>
+            <h3 class="font-bold text-lg">Supporting documents</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Uploaded certificates and documents required as evidence.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Insurance certificate</td><td><span class="tag tag-few">3 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Examiner's certificate</td><td><span class="tag tag-few">2 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Vehicle photographs</td><td><span class="tag tag-few">2 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Manufacturer specs</td><td><span class="tag tag-few">2 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Graphics design file</td><td><span class="tag tag-few">1 form</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Green Card (intl. insurance)</td><td><span class="tag tag-few">1 form</span></td></tr>
+          </table>
+        </div>
+
+        <div class="pattern-card border-bb-green-00">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="bg-bb-green-00 text-white text-xs font-bold px-2 py-1 rounded">Cluster F</span>
+            <h3 class="font-bold text-lg">Declaration &amp; consent</h3>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00 mb-3">Legal declarations and consent mechanisms.</p>
+          <table class="text-sm">
+            <tr><td class="py-1 pr-4 font-semibold">Declaration checkbox</td><td><span class="tag tag-all">All 23 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Signature capture</td><td><span class="tag tag-few">3 forms</span></td></tr>
+            <tr><td class="py-1 pr-4 font-semibold">Auto-dated date field</td><td><span class="tag tag-few">3 forms</span></td></tr>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Field Matrix -->
+    <section id="matrix" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">3. Field-by-form matrix</h2>
+      <p class="mb-4 text-bb-mid-grey-00">Each row is a field. Each column is a form. A filled circle means the form collects that field.</p>
+
+      <div class="mb-3 flex flex-wrap gap-4 text-sm">
+        <span><span class="dot dot-yes inline-block mr-1"></span> Field collected</span>
+        <span><span class="dot dot-no inline-block mr-1"></span> Not collected</span>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table style="min-width:900px;">
+          <thead>
+            <tr>
+              <th style="min-width:200px;">Field</th>
+              <th class="abbr-col"><div class="col-header">Change of Engine</div></th>
+              <th class="abbr-col"><div class="col-header">Change of Use</div></th>
+              <th class="abbr-col"><div class="col-header">Change of Colour</div></th>
+              <th class="abbr-col"><div class="col-header">Decl. Company</div></th>
+              <th class="abbr-col"><div class="col-header">Decl. Partnership</div></th>
+              <th class="abbr-col"><div class="col-header">Decl. Sole Trader</div></th>
+              <th class="abbr-col"><div class="col-header">Duty Free Business</div></th>
+              <th class="abbr-col"><div class="col-header">Duty Free Individual</div></th>
+              <th class="abbr-col"><div class="col-header">Importation</div></th>
+              <th class="abbr-col"><div class="col-header">Motor Inspection</div></th>
+              <th class="abbr-col"><div class="col-header">Odometer Valid.</div></th>
+              <th class="abbr-col"><div class="col-header">Temp. Stay Reg.</div></th>
+              <th class="abbr-col"><div class="col-header">Request Graphics</div></th>
+              <th class="abbr-col"><div class="col-header">Retain Reg. No.</div></th>
+              <th class="abbr-col"><div class="col-header">Sale Individual</div></th>
+              <th class="abbr-col"><div class="col-header">Sale Joint</div></th>
+              <th class="abbr-col"><div class="col-header">Scrapping</div></th>
+              <th class="abbr-col"><div class="col-header">Transfer Individual</div></th>
+              <th class="abbr-col"><div class="col-header">Transfer Joint</div></th>
+              <th class="abbr-col"><div class="col-header">Vanity Plate</div></th>
+              <th class="abbr-col"><div class="col-header">Investigation</div></th>
+              <th class="abbr-col"><div class="col-header">Reg. Renewal</div></th>
+              <th class="abbr-col"><div class="col-header">Reg. Summary</div></th>
+              <th style="min-width:60px;text-align:center;">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- CLUSTER A: Applicant Identity -->
+            <tr><td colspan="25" class="bg-bb-teal-10 font-bold text-bb-teal-00 text-sm py-2 px-3">Cluster A – Applicant identity</td></tr>
+            <tr>
+              <td class="font-semibold">Full name</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-teal-00">23</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Address</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-teal-00">23</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Telephone</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-teal-00">23</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Email address</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-blue-100">20</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">National Reg. No. (NRN)</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">9</td>
+            </tr>
+
+            <!-- CLUSTER B: Vehicle Identity -->
+            <tr><td colspan="25" class="bg-bb-blue-10 font-bold text-bb-blue-100 text-sm py-2 px-3">Cluster B – Vehicle identity</td></tr>
+            <tr>
+              <td class="font-semibold">Registration number</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-blue-100">21</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Chassis number</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-blue-100">20</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Engine / motor number</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-blue-100">20</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Make / manufacturer</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">13</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Model</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">10</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Year of manufacture</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">12</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Colour</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">6</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Fuel type</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Drive type (L/R hand)</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Vehicle category</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">4</td>
+            </tr>
+
+            <!-- CLUSTER C: Business -->
+            <tr><td colspan="25" class="font-bold text-sm py-2 px-3" style="background:#f3e8ff;color:#4a235a;">Cluster C – Business / entity details</td></tr>
+            <tr>
+              <td class="font-semibold">Business reg. number</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Authorised person name</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+
+            <!-- CLUSTER D: Second Party -->
+            <tr><td colspan="25" class="font-bold text-sm py-2 px-3" style="background:#fff0f0;color:#a42c2c;">Cluster D – Second party (buyer / transferee / joint owner)</td></tr>
+            <tr>
+              <td class="font-semibold">Second party full name</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">6</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Second party address</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">6</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Transaction date</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">4</td>
+            </tr>
+
+            <!-- CLUSTER E: Documents -->
+            <tr><td colspan="25" class="font-bold text-sm py-2 px-3" style="background:#fff9e9;color:#e8a833;">Cluster E – Supporting documents (file uploads)</td></tr>
+            <tr>
+              <td class="font-semibold">Insurance certificate</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Vehicle photographs</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">2</td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Signature capture</td>
+              <td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td><td class="abbr-col text-bb-grey-00">○</td>
+              <td class="abbr-col font-bold text-bb-mid-grey-00">3</td>
+            </tr>
+
+            <!-- CLUSTER F: Declaration -->
+            <tr><td colspan="25" class="bg-bb-green-10 font-bold text-bb-green-00 text-sm py-2 px-3">Cluster F – Declaration &amp; consent</td></tr>
+            <tr>
+              <td class="font-semibold">Declaration checkbox</td>
+              <td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td><td class="abbr-col">●</td>
+              <td class="abbr-col font-bold text-bb-green-00">23</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Component types -->
+    <section id="components" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">4. Component types used</h2>
+      <p class="mb-m text-bb-mid-grey-00">Eleven distinct input component types are used across the 23 forms, all drawn from the alpha.gov.bb design system.</p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Text input</span>
+            <span class="tag tag-all">All 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Single-line text. Used for names, IDs, registration numbers, make, model. Bordered wrapper with teal focus ring.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Textarea</span>
+            <span class="tag tag-all">All 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Multi-line text. Used for addresses, descriptions, reasons. Same border/focus pattern as text input but taller.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Checkbox</span>
+            <span class="tag tag-all">All 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Used for declaration consent on every form. Also used for registration retention option in sale/transfer forms.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Radio buttons</span>
+            <span class="tag tag-most">18 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Custom circular buttons (not native). Used for vehicle category, fuel type, drive type, ownership type, purpose, usage classification. Large tap target (size-12).</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Date input (DD / MM / YYYY)</span>
+            <span class="tag tag-some">8 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Three separate narrow text inputs. Day (5rem wide), Month (5rem), Year (7rem). Hint text "For example, 27 03 2007". Used for transaction dates, inspection dates, insurance dates.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Select / dropdown</span>
+            <span class="tag tag-some">6 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Used for parish (11 values), country of manufacture, use classification. Same border styling as text input.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Number input</span>
+            <span class="tag tag-some">6 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Used for engine capacity (cc), number of cylinders, axles, passengers, weight (kg), odometer reading (km), sale price (BDS$).</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">File upload</span>
+            <span class="tag tag-few">5 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Used for insurance certificate, examiner certificate, vehicle photos, manufacturer specs, graphics design files, and signature capture. Styled as a bordered upload zone.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Email input</span>
+            <span class="tag tag-most">20 / 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Styled identically to text input but with type="email". Used for applicant and second-party email addresses.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Tel input</span>
+            <span class="tag tag-all">All 23 forms</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">type="tel" with format hint XXX-XXXX. Used for all telephone fields. Styled identically to text input.</p>
+        </div>
+        <div class="border border-bb-grey-00 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold">Datetime picker</span>
+            <span class="tag tag-few">1 form</span>
+          </div>
+          <p class="text-sm text-bb-mid-grey-00">Appears only in motor vehicle inspection to select preferred examination date and time slot. Native date + time inputs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Design Patterns -->
+    <section id="patterns" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">5. Design pattern inventory</h2>
+      <p class="mb-m text-bb-mid-grey-00">Ten recurring patterns appear across the 23 forms. Each is consistently implemented.</p>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-blue-100 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P1</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">One thing per page</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">Every question page asks a single question or presents a single related group of fields. Each page has its own H1 (the question), a form section caption, a Back link, and a Continue button.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">GOV.UK Service Manual pattern</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-blue-100 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P2</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Check Your Answers summary list</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">All 23 forms include a penultimate page presenting all entered answers in a key–value table. Answers are grouped by section under H2 subheadings. Each row has a "Change" link navigating back to that question. The submit button appears at the bottom.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">3-column layout: label | value | Change link</span>
+              <span class="pill">Visually hidden text for accessibility</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-teal-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P3</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Confirmation panel</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">After submission, all forms show a teal-background panel (bg-bb-teal-00, white text) containing a reference number placeholder and confirmation heading. Followed by "what happens next" guidance and a link back to the BLA or start page.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">Reference number format: HDJ2123F</span>
+              <span class="pill">bg-bb-teal-00 panel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-blue-100 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P4</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Start page with eligibility + what you'll need</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">Every form begins with an introduction page listing who can apply, an estimated completion time, a "What you will need to share" checklist, and a teal "Complete the online form" start button styled as an anchor tag with button classes.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">Start button = teal &lt;a&gt; with button classes</span>
+              <span class="pill">Last updated date shown</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-pink-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P5</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Joint ownership fork</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">Four forms (Sale Joint, Transfer Joint, Registration Renewal, Registration Summary) have a dedicated page for a second owner. The joint variant asks the same identity fields (name, address, NRN, phone, email) for a second person. The individual variant skips this section entirely.</p>
+            <div class="pill-list">
+              <span class="pill">sale-of-vehicle-joint</span>
+              <span class="pill">transfer-of-vehicle-joint</span>
+              <span class="pill">vehicle-registration-renewal</span>
+              <span class="pill">vehicle-registration-summary</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-purple-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P6</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Business vs individual variant pair</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">Three pairs of forms cover the same transaction but with different applicant types. The business variant adds a registration number, business name, and authorised person section. The individual variant replaces those with the personal NRN and full name.</p>
+            <div class="pill-list">
+              <span class="pill">duty-free-concession-business / individual</span>
+              <span class="pill">declaration-company / sole-trader</span>
+              <span class="pill">sale-joint / individual</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-green-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P7</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Declaration page with optional signature</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">All forms include a declaration at or near the end. Three forms (company, partnership, sole trader declarations) additionally include a signature capture component (file upload or canvas). The declaration statement is static text followed by a required checkbox before the user can proceed.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms (checkbox)</span>
+              <span class="pill">Signature: declaration-company, declaration-partnership, declaration-sole-trader</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-yellow-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P8</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Conditional reveal (inline show/hide)</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">A radio or checkbox selection reveals or hides additional fields on the same page without a page navigation. Implemented via data- attributes and JavaScript. Example: selecting "Yes" to disability reveals a description textarea; unchecking "same as present address" reveals mailing address fields; "Joint ownership" reveals second owner section.</p>
+            <div class="pill-list">
+              <span class="pill">motor-vehicle-inspection</span>
+              <span class="pill">vehicle-registration-renewal</span>
+              <span class="pill">registration-temporary-stay</span>
+              <span class="pill">request-for-graphics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-teal-00 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P9</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Client-side validation with error summary</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">On Continue, all required fields are validated. Any errors appear in a red error summary box at the top of the page (listing all errors as links) and inline above each affected field. The input border changes to border-bb-red-00 and aria-invalid="true" is set. The page title is prefixed "Error:".</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">Error summary at page top</span>
+              <span class="pill">Inline red error text per field</span>
+              <span class="pill">border-bb-red-00 on invalid input</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="flex items-start gap-4">
+          <span class="bg-bb-blue-100 text-white text-sm font-bold px-2 py-1 rounded shrink-0 mt-1">P10</span>
+          <div>
+            <h3 class="font-bold text-lg mb-1">Persistent chrome: top bar, header, alpha banner, footer</h3>
+            <p class="text-sm text-bb-mid-grey-00 mb-2">All 23 forms share identical page chrome injected by /prototypes/shared/chrome.js. Top bar (bb-blue-100, "Official government website"), yellow header with GOB trident SVG, blue-10 alpha banner ("This page is in Alpha"), and blue-100 footer. The main content area is constrained to max-width 1200px.</p>
+            <div class="pill-list">
+              <span class="pill">All 23 forms</span>
+              <span class="pill">Injected via chrome.js</span>
+              <span class="pill">Alpha banner on every page</span>
+              <span class="pill">max-w-1200px container</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Recommendations -->
+    <section id="recommendations" class="mb-l">
+      <h2 class="font-bold text-[1.75rem] mb-s border-b-2 border-bb-grey-00 pb-s">6. Recommendations</h2>
+
+      <div class="space-y-6">
+        <div class="bg-bb-green-10 border border-bb-green-40 rounded-lg p-6">
+          <h3 class="font-bold text-lg text-bb-green-00 mb-2">R1 – Citizen account pre-fill</h3>
+          <p class="text-sm mb-3">Full name, address, telephone, and email appear in all 23 forms. NRN appears in 9. A citizen account or session store would let authenticated users skip the applicant identity pages entirely – reducing completion time and error rates across every service.</p>
+          <p class="text-sm font-semibold">Fields to pre-fill: Full name · Address · Telephone · Email · NRN</p>
+        </div>
+
+        <div class="bg-bb-blue-10 border border-bb-blue-40 rounded-lg p-6">
+          <h3 class="font-bold text-lg text-bb-blue-100 mb-2">R2 – Vehicle lookup by registration number</h3>
+          <p class="text-sm mb-3">Registration number, chassis number, and engine/motor number appear together in 20 forms. Make, model, year, and colour appear in 10–13 forms. A single vehicle lookup API call (triggered when registration number is entered) could pre-fill the entire vehicle identity block.</p>
+          <p class="text-sm font-semibold">Fields to pre-fill: Chassis no. · Engine no. · Make · Model · Year · Colour</p>
+        </div>
+
+        <div class="bg-bb-yellow-10 border border-bb-yellow-40 rounded-lg p-6">
+          <h3 class="font-bold text-lg mb-2">R3 – Shared form module library</h3>
+          <p class="text-sm mb-3">The six data clusters map directly to reusable form modules: ApplicantIdentityBlock, VehicleIdentityBlock, BusinessDetailsBlock, SecondPartyBlock, DocumentUploadBlock, DeclarationBlock. Building these as shared HTML partials or web components would ensure consistency and reduce maintenance burden as forms evolve.</p>
+          <div class="pill-list mt-2">
+            <span class="pill">ApplicantIdentityBlock</span>
+            <span class="pill">VehicleIdentityBlock</span>
+            <span class="pill">BusinessDetailsBlock</span>
+            <span class="pill">SecondPartyBlock</span>
+            <span class="pill">DocumentUploadBlock</span>
+            <span class="pill">DeclarationBlock</span>
+          </div>
+        </div>
+
+        <div class="bg-bb-red-10 border border-bb-red-40 rounded-lg p-6">
+          <h3 class="font-bold text-lg text-bb-red-00 mb-2">R4 – Standardise NRN collection</h3>
+          <p class="text-sm mb-3">NRN is collected in 9 forms but labelled inconsistently: "ID number / National Registration Number", "National Registration Number", "ID number". A single canonical label and validation pattern (YYMMDD-XXXX) should be defined and used uniformly.</p>
+          <p class="text-sm font-semibold">Canonical label: "National Registration Number" · Format: YYMMDD-XXXX</p>
+        </div>
+
+        <div class="bg-bb-teal-10 border border-bb-teal-40 rounded-lg p-6">
+          <h3 class="font-bold text-lg text-bb-teal-00 mb-2">R5 – Reduce duplicate individual/joint/business variants</h3>
+          <p class="text-sm mb-3">Sale and Transfer forms exist in two variants (individual/joint) with near-identical page sequences. These could be merged into a single form with an early "ownership type" question (single / joint) that conditionally adds the second owner section – halving the form count from 23 to around 17.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="border-bb-grey-00 mb-m">
+    <p class="text-sm text-bb-mid-grey-00">Generated from analysis of 23 BLA prototype forms. Last reviewed: March 2026.</p>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-bb-blue-100 text-bb-white-00 py-l mt-auto">
+  <div class="container">
+    <p class="font-bold mb-2">Government of Barbados</p>
+    <p class="text-sm opacity-75">Barbados Licensing Authority · Ministry of Transport and Works</p>
+  </div>
+</footer>
+
+</body>
+</html>
