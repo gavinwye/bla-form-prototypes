@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="schedule-declaration.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-8 block">← Back</a>
+
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-8">Check your answers before submitting your application</h1>
+
+        <!-- Section 1: About this inspection -->
+        <h2 class="font-bold text-[1.5rem] mb-4">About this inspection</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-8">
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Vehicle category</dt>
+            <dd id="ans-category" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="inspection-setup.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> vehicle category</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Inspection purpose</dt>
+            <dd id="ans-purpose" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="inspection-setup.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> inspection purpose</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Previously registered</dt>
+            <dd id="ans-prev-reg" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="inspection-setup.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> previously registered</span></a></dd>
+          </div>
+          <div id="row-reg-number" class="hidden flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Registration number</dt>
+            <dd id="ans-reg-number" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="inspection-setup.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> registration number</span></a></dd>
+          </div>
+        </dl>
+
+        <!-- Section 2: Your details -->
+        <h2 class="font-bold text-[1.5rem] mb-4">Your details</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-8">
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Full name</dt>
+            <dd id="ans-full-name" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> full name</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Telephone</dt>
+            <dd id="ans-telephone" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> telephone</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Address</dt>
+            <dd id="ans-address" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> address</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Parish</dt>
+            <dd id="ans-parish" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> parish</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Postal code</dt>
+            <dd id="ans-postal-code" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> postal code</span></a></dd>
+          </div>
+        </dl>
+
+        <!-- Section 3: Vehicle -->
+        <h2 class="font-bold text-[1.5rem] mb-4">Vehicle</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-8">
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Manufacturer</dt>
+            <dd id="ans-manufacturer" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> manufacturer</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Country of manufacture</dt>
+            <dd id="ans-country" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> country of manufacture</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Description</dt>
+            <dd id="ans-description" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> description</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Primary colour</dt>
+            <dd id="ans-primary-colour" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> primary colour</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Secondary colour</dt>
+            <dd id="ans-secondary-colour" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> secondary colour</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Engine number</dt>
+            <dd id="ans-engine-number" class="font-bold flex-1" style="font-family:monospace">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> engine number</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Chassis / VIN number</dt>
+            <dd id="ans-chassis-number" class="font-bold flex-1" style="font-family:monospace">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> chassis number</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Year manufactured</dt>
+            <dd id="ans-year" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> year manufactured</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Cylinders</dt>
+            <dd id="ans-cylinders" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> cylinders</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Engine capacity</dt>
+            <dd id="ans-engine-capacity" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> engine capacity</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Axles</dt>
+            <dd id="ans-axles" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> axles</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Hand drive</dt>
+            <dd id="ans-hand-drive" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> hand drive</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Weight certificate</dt>
+            <dd id="ans-weight-cert" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> weight certificate</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Gross weight</dt>
+            <dd id="ans-gross-weight" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> gross weight</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Passengers</dt>
+            <dd id="ans-passengers" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="about-you-vehicle.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> passengers</span></a></dd>
+          </div>
+        </dl>
+
+        <!-- Section 4: Schedule -->
+        <h2 class="font-bold text-[1.5rem] mb-4">Schedule</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-8">
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Purpose of use</dt>
+            <dd id="ans-purpose-of-use" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="schedule-declaration.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> purpose of use</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Preferred date</dt>
+            <dd id="ans-exam-date" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="schedule-declaration.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> preferred date</span></a></dd>
+          </div>
+          <div class="flex items-start justify-between py-s gap-4">
+            <dt class="text-bb-mid-grey-00 w-2/5 shrink-0">Preferred time</dt>
+            <dd id="ans-exam-time" class="font-bold flex-1">–</dd>
+            <dd class="shrink-0"><a href="schedule-declaration.html" class="text-bb-teal-00 underline hover:no-underline text-[1rem]">Change<span class="sr-only"> preferred time</span></a></dd>
+          </div>
+        </dl>
+
+        <div class="mt-8 flex gap-4">
+          <button type="button" onclick="window.location.href='confirmation.html'"
+            class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100 outline-none">
+            Submit application
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const d = JSON.parse(localStorage.getItem('mvi-v4') || '{}');
+
+    const categoryLabels = {
+      'private-motor-car': 'Private motor car',
+      'motor-cycle': 'Motor cycle',
+      'motor-lorry': 'Motor lorry / goods vehicle',
+      'public-service': 'Public service vehicle',
+      'agricultural': 'Agricultural vehicle',
+      'special-purpose': 'Special purpose vehicle'
+    };
+    const purposeLabels = {
+      'initial-registration': 'Initial registration (new vehicle)',
+      'transfer-of-ownership': 'Transfer of ownership',
+      'repairs-modifications': 'Following repairs or modifications',
+      'other': 'Other'
+    };
+
+    function set(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val || '–';
+    }
+
+    set('ans-category', categoryLabels[d.category] || d.category);
+    set('ans-purpose', purposeLabels[d.purpose] || d.purpose);
+    set('ans-prev-reg', d.previouslyRegistered === 'yes' ? 'Yes' : d.previouslyRegistered === 'no' ? 'No' : '–');
+
+    if (d.previouslyRegistered === 'yes' && d.regNumber) {
+      document.getElementById('row-reg-number').classList.remove('hidden');
+      set('ans-reg-number', d.regNumber);
+    }
+
+    set('ans-full-name', d.fullName);
+    set('ans-telephone', d.telephone);
+    set('ans-address', d.streetAddress);
+    set('ans-parish', d.parish);
+    set('ans-postal-code', d.postalCode);
+    set('ans-manufacturer', d.manufacturer);
+    set('ans-country', d.countryManufacture);
+    set('ans-description', d.description);
+    set('ans-primary-colour', d.primaryColour);
+    set('ans-secondary-colour', d.secondaryColour || 'None');
+    set('ans-engine-number', d.engineNumber);
+    set('ans-chassis-number', d.chassisNumber);
+    set('ans-year', d.yearManufactured);
+    set('ans-cylinders', d.cylinders);
+    set('ans-engine-capacity', d.engineCapacity ? d.engineCapacity + ' cc' : '–');
+    set('ans-axles', d.axles);
+    set('ans-hand-drive', d.handDrive === 'right' ? 'Right-hand drive' : d.handDrive === 'left' ? 'Left-hand drive' : '–');
+    set('ans-weight-cert', d.weightCert ? d.weightCert + ' kg' : '–');
+    set('ans-gross-weight', d.grossWeight ? d.grossWeight + ' kg' : '–');
+    set('ans-passengers', d.passengers);
+    set('ans-purpose-of-use', d.purposeOfUse);
+
+    if (d.examDay && d.examMonth && d.examYear) {
+      set('ans-exam-date', `${d.examDay.padStart(2,'0')} / ${d.examMonth.padStart(2,'0')} / ${d.examYear}`);
+    }
+    set('ans-exam-time', d.examTime);
+  </script>
+</body>
+</html>

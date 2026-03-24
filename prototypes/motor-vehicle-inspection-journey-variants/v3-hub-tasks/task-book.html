@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book your inspection – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="hub.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-6">← Back</a>
+
+        <p class="text-[0.875rem] text-bb-mid-grey-00 mb-4">Task 3 of 3 – Book your inspection</p>
+
+        <p class="border-l-4 border-bb-blue-40 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-8">Book your inspection</h1>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 p-s mb-6 rounded-sm">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-s text-bb-red-00 space-y-1"></ul>
+        </div>
+
+        <form novalidate class="space-y-8">
+
+          <!-- Purpose of use -->
+          <div class="flex flex-col gap-xs">
+            <label for="purpose-use" class="block text-[1.25rem] font-bold text-bb-black-00">Purpose of use</label>
+            <p class="text-bb-mid-grey-00">For example, Private transport, Commercial delivery</p>
+            <div id="purpose-use-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="purpose-use-wrap">
+              <input type="text" id="purpose-use" name="purpose-use" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Preferred examination date -->
+          <div class="flex flex-col gap-xs">
+            <p class="text-[1.25rem] font-bold text-bb-black-00">Preferred examination date</p>
+            <p class="text-bb-mid-grey-00">For example, 27 03 2007. Must be a future date.</p>
+            <div id="exam-date-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="flex gap-s items-end flex-wrap">
+              <div class="flex flex-col gap-xs">
+                <label for="exam-day" class="text-[1.25rem] font-bold text-bb-black-00">Day</label>
+                <div class="relative inline-flex rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;" id="exam-day-wrap">
+                  <input type="text" id="exam-day" name="exam-day" inputmode="numeric" maxlength="2" class="w-full p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label for="exam-month" class="text-[1.25rem] font-bold text-bb-black-00">Month</label>
+                <div class="relative inline-flex rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;" id="exam-month-wrap">
+                  <input type="text" id="exam-month" name="exam-month" inputmode="numeric" maxlength="2" class="w-full p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label for="exam-year" class="text-[1.25rem] font-bold text-bb-black-00">Year</label>
+                <div class="relative inline-flex rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:7rem;" id="exam-year-wrap">
+                  <input type="text" id="exam-year" name="exam-year" inputmode="numeric" maxlength="4" class="w-full p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preferred examination time -->
+          <div class="flex flex-col gap-xs">
+            <label for="exam-time" class="block text-[1.25rem] font-bold text-bb-black-00">Preferred examination time</label>
+            <p class="text-bb-mid-grey-00">For example, 09:00 AM</p>
+            <div id="exam-time-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="exam-time-wrap">
+              <input type="text" id="exam-time" name="exam-time" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <button type="button" onclick="handleSave()" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Save and continue</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const saved = JSON.parse(localStorage.getItem('mvi-v3') || '{}');
+    if (saved.purposeUse) document.getElementById('purpose-use').value = saved.purposeUse;
+    if (saved.examDay) document.getElementById('exam-day').value = saved.examDay;
+    if (saved.examMonth) document.getElementById('exam-month').value = saved.examMonth;
+    if (saved.examYear) document.getElementById('exam-year').value = saved.examYear;
+    if (saved.examTime) document.getElementById('exam-time').value = saved.examTime;
+
+    function setError(fieldId, msg) {
+      const errEl = document.getElementById(fieldId + '-error');
+      const wrapEl = document.getElementById(fieldId + '-wrap');
+      if (errEl) { errEl.textContent = msg; errEl.classList.remove('hidden'); }
+      if (wrapEl) { wrapEl.classList.remove('border-bb-black-00'); wrapEl.classList.add('border-bb-red-00'); }
+      const input = document.getElementById(fieldId);
+      if (input) input.setAttribute('aria-invalid','true');
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('[id$="-wrap"]').forEach(el => { el.classList.remove('border-bb-red-00'); el.classList.add('border-bb-black-00'); });
+      document.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+    }
+
+    function handleSave() {
+      clearErrors();
+      const errors = [];
+
+      const purposeUse = document.getElementById('purpose-use').value.trim();
+      if (!purposeUse) { setError('purpose-use','Enter the purpose of use'); errors.push('Enter the purpose of use'); }
+
+      const day = document.getElementById('exam-day').value.trim();
+      const month = document.getElementById('exam-month').value.trim();
+      const year = document.getElementById('exam-year').value.trim();
+      const time = document.getElementById('exam-time').value.trim();
+
+      if (!day || !month || !year) {
+        const dateErrEl = document.getElementById('exam-date-error');
+        const msg = 'Enter the preferred examination date';
+        dateErrEl.textContent = msg; dateErrEl.classList.remove('hidden');
+        ['exam-day','exam-month','exam-year'].forEach(id => {
+          const w = document.getElementById(id + '-wrap');
+          if (w) { w.classList.remove('border-bb-black-00'); w.classList.add('border-bb-red-00'); }
+        });
+        errors.push(msg);
+      } else {
+        const d = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        const today = new Date(); today.setHours(0,0,0,0);
+        if (d <= today) {
+          const dateErrEl = document.getElementById('exam-date-error');
+          const msg = 'Preferred examination date must be in the future';
+          dateErrEl.textContent = msg; dateErrEl.classList.remove('hidden');
+          errors.push(msg);
+        }
+      }
+
+      if (!time) { setError('exam-time','Enter the preferred examination time'); errors.push('Enter the preferred examination time'); }
+
+      if (errors.length > 0) {
+        const summary = document.getElementById('error-summary');
+        summary.classList.remove('hidden');
+        document.getElementById('error-list').innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+        summary.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v3') || '{}');
+      data.purposeUse = purposeUse;
+      data.examDay = day;
+      data.examMonth = month;
+      data.examYear = year;
+      data.examDate = `${day.padStart(2,'0')} ${month.padStart(2,'0')} ${year}`;
+      data.examTime = time;
+      data.task3Done = true;
+      localStorage.setItem('mvi-v3', JSON.stringify(data));
+      window.location.href = 'hub.html';
+    }
+  </script>
+</body>
+</html>

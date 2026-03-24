@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle identity – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="owner.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-6">← Back</a>
+
+        <p class="text-[0.875rem] text-bb-mid-grey-00 mb-4">Step 3 of 8</p>
+
+        <p class="border-l-4 border-bb-blue-40 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-6">Vehicle identity</h1>
+
+        <div style="background:#fff9e9; border-left:4px solid #e8a833; padding:1rem; margin-bottom:1.5rem; border-radius:0.25rem;">
+          <p class="font-bold mb-1">Have your vehicle logbook ready for this section.</p>
+          <p class="text-bb-mid-grey-00">All the information below can be found in your vehicle logbook.</p>
+        </div>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 p-s mb-6 rounded-sm">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-s text-bb-red-00 space-y-1"></ul>
+        </div>
+
+        <form novalidate class="space-y-8">
+
+          <!-- Previously registered -->
+          <fieldset>
+            <legend class="font-bold text-[1.25rem] text-bb-black-00 mb-4">Has this vehicle been previously registered in Barbados?</legend>
+            <div id="prev-reg-error" class="hidden text-bb-red-00 font-bold mb-2"></div>
+            <div class="space-y-3">
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="prev-reg" data-value="yes"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100">
+                </button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Yes</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="prev-reg" data-value="no"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100">
+                </button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">No</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Registration number (conditional) -->
+          <div id="reg-number-section" class="hidden flex flex-col gap-xs">
+            <label for="reg-number" class="block text-[1.25rem] font-bold text-bb-black-00">Registration number</label>
+            <p class="text-bb-mid-grey-00">For example, B123</p>
+            <div id="reg-number-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="reg-number-wrap">
+              <input type="text" id="reg-number" name="reg-number" class="w-full p-s outline-none rounded-[inherit] uppercase" />
+            </div>
+          </div>
+
+          <!-- Manufacturer -->
+          <div class="flex flex-col gap-xs">
+            <label for="manufacturer" class="block text-[1.25rem] font-bold text-bb-black-00">Manufacturer</label>
+            <p class="text-bb-mid-grey-00">For example, Toyota, Ford, Honda</p>
+            <div id="manufacturer-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="manufacturer-wrap">
+              <input type="text" id="manufacturer" name="manufacturer" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Country of manufacture -->
+          <div class="flex flex-col gap-xs">
+            <label for="country-manufacture" class="block text-[1.25rem] font-bold text-bb-black-00">Country of manufacture</label>
+            <p class="text-bb-mid-grey-00">For example, Japan</p>
+            <div id="country-manufacture-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="country-manufacture-wrap">
+              <input type="text" id="country-manufacture" name="country-manufacture" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="flex flex-col gap-xs">
+            <label for="description" class="block text-[1.25rem] font-bold text-bb-black-00">Description</label>
+            <p class="text-bb-mid-grey-00">For example, Sedan, SUV, Saloon</p>
+            <div id="description-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="description-wrap">
+              <input type="text" id="description" name="description" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Primary colour -->
+          <div class="flex flex-col gap-xs">
+            <label for="colour-primary" class="block text-[1.25rem] font-bold text-bb-black-00">Primary colour</label>
+            <div id="colour-primary-error" class="hidden text-bb-red-00 font-bold"></div>
+            <div class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" id="colour-primary-wrap">
+              <input type="text" id="colour-primary" name="colour-primary" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Secondary colour (optional) -->
+          <div class="flex flex-col gap-xs">
+            <label for="colour-secondary" class="block text-[1.25rem] font-bold text-bb-black-00">Secondary colour <span class="font-normal text-bb-mid-grey-00">(optional)</span></label>
+            <div class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="colour-secondary" name="colour-secondary" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <button type="button" onclick="handleContinue()" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Continue</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const saved = JSON.parse(localStorage.getItem('mvi-v2') || '{}');
+
+    // Restore radio
+    if (saved.prevReg) {
+      const btn = document.querySelector(`.radio-btn[data-group="prev-reg"][data-value="${saved.prevReg}"]`);
+      if (btn) { btn.setAttribute('aria-checked','true'); btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>'; }
+      if (saved.prevReg === 'yes') document.getElementById('reg-number-section').classList.remove('hidden');
+    }
+    if (saved.regNumber) document.getElementById('reg-number').value = saved.regNumber;
+    if (saved.manufacturer) document.getElementById('manufacturer').value = saved.manufacturer;
+    if (saved.countryManufacture) document.getElementById('country-manufacture').value = saved.countryManufacture;
+    if (saved.description) document.getElementById('description').value = saved.description;
+    if (saved.colourPrimary) document.getElementById('colour-primary').value = saved.colourPrimary;
+    if (saved.colourSecondary) document.getElementById('colour-secondary').value = saved.colourSecondary;
+
+    document.querySelectorAll('.radio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group;
+        document.querySelectorAll(`.radio-btn[data-group="${group}"]`).forEach(b => {
+          b.setAttribute('aria-checked','false'); b.innerHTML='';
+        });
+        btn.setAttribute('aria-checked','true');
+        btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>';
+        if (group === 'prev-reg') {
+          const regSection = document.getElementById('reg-number-section');
+          if (btn.dataset.value === 'yes') regSection.classList.remove('hidden');
+          else regSection.classList.add('hidden');
+        }
+      });
+    });
+
+    function setError(fieldId, msg) {
+      const errEl = document.getElementById(fieldId + '-error');
+      const wrapEl = document.getElementById(fieldId + '-wrap');
+      if (errEl) { errEl.textContent = msg; errEl.classList.remove('hidden'); }
+      if (wrapEl) { wrapEl.classList.remove('border-bb-black-00'); wrapEl.classList.add('border-bb-red-00'); }
+      const input = document.getElementById(fieldId);
+      if (input) input.setAttribute('aria-invalid','true');
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('[id$="-wrap"]').forEach(el => {
+        el.classList.remove('border-bb-red-00'); el.classList.add('border-bb-black-00');
+      });
+      document.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+    }
+
+    function handleContinue() {
+      clearErrors();
+      const errors = [];
+
+      const prevRegBtn = document.querySelector('.radio-btn[data-group="prev-reg"][aria-checked="true"]');
+      if (!prevRegBtn) { errors.push('Select whether the vehicle has been previously registered'); document.getElementById('prev-reg-error').textContent = 'Select whether the vehicle has been previously registered'; document.getElementById('prev-reg-error').classList.remove('hidden'); }
+
+      const prevReg = prevRegBtn ? prevRegBtn.dataset.value : null;
+      const regNumber = document.getElementById('reg-number').value.trim();
+      if (prevReg === 'yes' && !regNumber) { setError('reg-number','Enter the registration number'); errors.push('Enter the registration number'); }
+
+      const manufacturer = document.getElementById('manufacturer').value.trim();
+      if (!manufacturer) { setError('manufacturer','Enter the manufacturer'); errors.push('Enter the manufacturer'); }
+
+      const countryManufacture = document.getElementById('country-manufacture').value.trim();
+      if (!countryManufacture) { setError('country-manufacture','Enter the country of manufacture'); errors.push('Enter the country of manufacture'); }
+
+      const description = document.getElementById('description').value.trim();
+      if (!description) { setError('description','Enter a description'); errors.push('Enter a description'); }
+
+      const colourPrimary = document.getElementById('colour-primary').value.trim();
+      if (!colourPrimary) { setError('colour-primary','Enter the primary colour'); errors.push('Enter the primary colour'); }
+
+      if (errors.length > 0) {
+        const summary = document.getElementById('error-summary');
+        const list = document.getElementById('error-list');
+        summary.classList.remove('hidden');
+        list.innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+        summary.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v2') || '{}');
+      data.prevReg = prevReg;
+      data.regNumber = prevReg === 'yes' ? regNumber : '';
+      data.manufacturer = manufacturer;
+      data.countryManufacture = countryManufacture;
+      data.description = description;
+      data.colourPrimary = colourPrimary;
+      data.colourSecondary = document.getElementById('colour-secondary').value.trim();
+      localStorage.setItem('mvi-v2', JSON.stringify(data));
+
+      const cat = data.category || '';
+      let nextPage = 'technical-car.html';
+      if (cat === 'motorcycle') nextPage = 'technical-motorcycle.html';
+      else if (cat === 'lorry') nextPage = 'technical-goods.html';
+      else if (cat === 'agricultural') nextPage = 'technical-agricultural.html';
+      window.location.href = nextPage;
+    }
+  </script>
+</body>
+</html>

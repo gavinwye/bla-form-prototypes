@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey Variants – Motor Vehicle Inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+
+      <!-- Header section -->
+      <div class="max-w-4xl mx-auto mb-12">
+        <p class="border-l-4 border-[#99a8cc] py-2 pl-4 text-[#595959] mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-4">Journey variant comparison</h1>
+        <p class="text-[1.25rem] mb-6">Five redesigned journeys for the motor vehicle inspection form. The current production journey has 17 steps and 28 fields. Each variant addresses specific completion-rate problems identified in the audit.</p>
+
+        <!-- Current journey audit box -->
+        <div class="bg-[#fff0f0] border-2 border-[#a42c2c] p-4 rounded mb-8">
+          <h2 class="font-bold text-[1.25rem] text-[#a42c2c] mb-2">Current journey — issues identified</h2>
+          <ul class="list-disc pl-6 space-y-1 text-[1.25rem]">
+            <li>17 steps, no progress indicator — users don't know how far they are</li>
+            <li>6 consecutive single-field pages (engine number through to vehicle purpose) causes fatigue</li>
+            <li>No eligibility gate — users can complete 80% before discovering they may not qualify</li>
+            <li>Logbook required for 10 pages but no advance warning given</li>
+            <li>Inspection purpose asked first, but never used to branch or reduce fields</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5 variant cards -->
+      <div class="max-w-4xl mx-auto space-y-8">
+
+        <!-- V1 Card -->
+        <div class="border-2 border-[#e0e4e9] rounded overflow-hidden">
+          <div class="bg-[#e5e9f2] px-4 py-2 flex items-center justify-between">
+            <h2 class="font-bold text-[1.25rem]">V1 — Chunked Sections with Progress Bar</h2>
+            <span class="text-[1rem] text-[#595959]">10 pages · ~12 min</span>
+          </div>
+          <div class="p-4">
+            <p class="text-[#595959] mb-4"><strong>Key innovation:</strong> Fields grouped into 5 named sections with a visual progress bar on every question page.</p>
+            <div class="mb-4">
+              <p class="font-bold mb-2">Journey map:</p>
+              <div class="flex flex-wrap gap-2 text-[0.875rem]">
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Start</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">About inspection</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Your details</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Vehicle identity</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">ID numbers</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Numeric specs</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Schedule + declare</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Check answers</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Confirmation</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="font-bold mb-1">Completion rate assessment:</p>
+              <p class="text-[#595959]">Moderate improvement. Progress visibility reduces anxiety but the same fields are still present. Low risk for stakeholders — closest to current journey.</p>
+            </div>
+            <a href="v1-chunked-progress/index.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-4 py-2 rounded text-[1rem] hover:bg-[#1a777d]">View V1 prototype →</a>
+          </div>
+        </div>
+
+        <!-- V2 Card -->
+        <div class="border-2 border-[#e0e4e9] rounded overflow-hidden">
+          <div class="bg-[#e5e9f2] px-4 py-2 flex items-center justify-between">
+            <h2 class="font-bold text-[1.25rem]">V2 — Triage-First Branching</h2>
+            <span class="text-[1rem] text-[#595959]">8–12 pages · ~8–10 min</span>
+          </div>
+          <div class="p-4">
+            <p class="text-[#595959] mb-4"><strong>Key innovation:</strong> Vehicle category chosen at step 1 determines which technical questions are shown. Agricultural vehicles skip 5+ irrelevant fields.</p>
+            <div class="mb-4">
+              <p class="font-bold mb-2">Journey map:</p>
+              <div class="flex flex-wrap gap-2 text-[0.875rem]">
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Start</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Triage</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Owner</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Vehicle identity</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e5e9f2] border border-[#00267f] px-2 py-1 rounded">Tech (car/goods/agricultural)</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Schedule</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Declaration</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Check answers</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Confirmation</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="font-bold mb-1">Completion rate assessment:</p>
+              <p class="text-[#595959]">Good improvement for agricultural and motorcycle users (~30% of applicants). Moderate improvement for private car users. Runner-up recommendation.</p>
+            </div>
+            <a href="v2-triage-branching/index.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-4 py-2 rounded text-[1rem] hover:bg-[#1a777d]">View V2 prototype →</a>
+          </div>
+        </div>
+
+        <!-- V3 Card -->
+        <div class="border-2 border-[#e0e4e9] rounded overflow-hidden">
+          <div class="bg-[#e5e9f2] px-4 py-2 flex items-center justify-between">
+            <h2 class="font-bold text-[1.25rem]">V3 — Task-Based Hub</h2>
+            <span class="text-[1rem] text-[#595959]">6 pages · ~12 min (non-linear)</span>
+          </div>
+          <div class="p-4">
+            <p class="text-[#595959] mb-4"><strong>Key innovation:</strong> Three distinct tasks (About you / About your vehicle / Book inspection) that can be completed in any order. "Review and submit" unlocks only when all 3 are done.</p>
+            <div class="mb-4">
+              <p class="font-bold mb-2">Journey map:</p>
+              <div class="flex flex-wrap gap-2 text-[0.875rem]">
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Start</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e5e9f2] border border-[#00267f] px-2 py-1 rounded">Hub (3 tasks)</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Task: About you</span>
+                <span class="text-[#595959]">↔</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Task: Your vehicle</span>
+                <span class="text-[#595959]">↔</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Task: Book inspection</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Check answers</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Confirmation</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="font-bold mb-1">Completion rate assessment:</p>
+              <p class="text-[#595959]">Novel but risky. Non-linear flows work well for experienced digital users, but government service audiences skew older and less digitally confident. The hub model may cause confusion about where to start.</p>
+            </div>
+            <a href="v3-hub-tasks/index.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-4 py-2 rounded text-[1rem] hover:bg-[#1a777d]">View V3 prototype →</a>
+          </div>
+        </div>
+
+        <!-- V4 Card -->
+        <div class="border-2 border-[#e0e4e9] rounded overflow-hidden">
+          <div class="bg-[#e5e9f2] px-4 py-2 flex items-center justify-between">
+            <h2 class="font-bold text-[1.25rem]">V4 — Minimal Pages (Progressive Disclosure)</h2>
+            <span class="text-[1rem] text-[#595959]">4 pages · ~10 min</span>
+          </div>
+          <div class="p-4">
+            <p class="text-[#595959] mb-4"><strong>Key innovation:</strong> All 28 fields across just 4 pages, grouped with visual section headers. Fewer page transitions means fewer potential drop-off points.</p>
+            <div class="mb-4">
+              <p class="font-bold mb-2">Journey map:</p>
+              <div class="flex flex-wrap gap-2 text-[0.875rem]">
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Start</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Page 1: Inspection setup</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Page 2: You + vehicle (20 fields)</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Page 3: Schedule + declare</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Check answers</span>
+                <span class="text-[#595959]">→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Confirmation</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="font-bold mb-1">Completion rate assessment:</p>
+              <p class="text-[#595959]">Fewer pages reduces navigation drop-off but increases per-page cognitive load. Page 2's 20 fields may overwhelm users without their logbook present. Best for digitally confident users.</p>
+            </div>
+            <a href="v4-minimal-pages/index.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-4 py-2 rounded text-[1rem] hover:bg-[#1a777d]">View V4 prototype →</a>
+          </div>
+        </div>
+
+        <!-- V5 Card — RECOMMENDED -->
+        <div class="border-2 border-[#0e5f64] rounded overflow-hidden">
+          <div class="bg-[#0e5f64] px-4 py-2 flex items-center justify-between">
+            <h2 class="font-bold text-[1.25rem] text-white">V5 — Eligibility Gate + Document Checklist</h2>
+            <span class="inline-flex items-center gap-2 bg-[#ffc726] text-black text-[0.875rem] font-bold px-2 py-1 rounded">&#11088; RECOMMENDED</span>
+          </div>
+          <div class="p-4 border-l-4 border-[#0e5f64]">
+            <p class="text-[#595959] mb-4"><strong>Key innovation:</strong> Front-loaded eligibility check (3 yes/no questions) routes ineligible users out immediately. Document checklist acts as a commitment device — users who tick all 5 documents are psychologically prepared and far less likely to abandon mid-form.</p>
+            <div class="mb-4">
+              <p class="font-bold mb-2">Journey map:</p>
+              <div class="flex flex-wrap gap-2 text-[0.875rem]">
+                <span class="bg-[#0e5f64] text-white px-2 py-1 rounded">Start</span>
+                <span>→</span>
+                <span class="bg-[#0e5f64] text-white px-2 py-1 rounded">Eligibility check</span>
+                <span>→</span>
+                <span style="background:#fff0f0;border:1px solid #a42c2c" class="px-2 py-1 rounded">Ineligible (exit)</span>
+                <span class="text-[#595959]">OR</span>
+                <span class="bg-[#0e5f64] text-white px-2 py-1 rounded">Doc checklist</span>
+                <span>→</span>
+                <span class="bg-[#e0e4e9] px-2 py-1 rounded">Steps 1–7</span>
+                <span>→</span>
+                <span class="bg-[#0e5f64] text-white px-2 py-1 rounded">Check + Submit</span>
+              </div>
+            </div>
+            <div class="mb-6">
+              <p class="font-bold mb-2">Why this generates the highest completion rate:</p>
+              <table class="w-full text-[1rem] border-collapse">
+                <thead>
+                  <tr class="bg-[#e5e9f2]">
+                    <th class="text-left p-2 border border-[#e0e4e9]">Factor</th>
+                    <th class="text-left p-2 border border-[#e0e4e9]">V5 mechanism</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-2 border border-[#e0e4e9] font-bold">Pre-qualification</td>
+                    <td class="p-2 border border-[#e0e4e9]">Ineligible users exit at step 1 — no wasted effort for them or the authority</td>
+                  </tr>
+                  <tr class="bg-[#f5f5f5]">
+                    <td class="p-2 border border-[#e0e4e9] font-bold">Commitment device</td>
+                    <td class="p-2 border border-[#e0e4e9]">Ticking 5 document checkboxes creates a psychological contract (Cialdini's commitment principle)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-[#e0e4e9] font-bold">Appropriate length</td>
+                    <td class="p-2 border border-[#e0e4e9]">9 active steps (vs 15 current) — below the threshold where completion drops sharply</td>
+                  </tr>
+                  <tr class="bg-[#f5f5f5]">
+                    <td class="p-2 border border-[#e0e4e9] font-bold">Cognitive load</td>
+                    <td class="p-2 border border-[#e0e4e9]">Technical fields grouped into 3 pages rather than 6 single-field pages</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-[#e0e4e9] font-bold">Clear progress</td>
+                    <td class="p-2 border border-[#e0e4e9]">Step X of 9 counter gives accurate sense of remaining effort</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <a href="v5-eligibility-first/index.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-6 py-4 rounded text-[1.25rem] leading-[1.7] hover:bg-[#1a777d]">View V5 prototype (Recommended) →</a>
+          </div>
+        </div>
+
+      </div><!-- end variant cards -->
+
+      <!-- Summary comparison table -->
+      <div class="max-w-4xl mx-auto mt-12">
+        <h2 class="font-bold text-[1.5rem] mb-4">Quick comparison</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-[1rem] border-collapse">
+            <thead>
+              <tr class="bg-[#e5e9f2]">
+                <th class="text-left p-3 border border-[#e0e4e9]">Variant</th>
+                <th class="text-left p-3 border border-[#e0e4e9]">Pages</th>
+                <th class="text-left p-3 border border-[#e0e4e9]">Eligibility gate</th>
+                <th class="text-left p-3 border border-[#e0e4e9]">Progress indicator</th>
+                <th class="text-left p-3 border border-[#e0e4e9]">Adaptive questions</th>
+                <th class="text-left p-3 border border-[#e0e4e9]">Completion estimate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border border-[#e0e4e9]">Current (baseline)</td>
+                <td class="p-3 border border-[#e0e4e9]">17</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9] text-[#595959]">Baseline</td>
+              </tr>
+              <tr class="bg-[#f5f5f5]">
+                <td class="p-3 border border-[#e0e4e9]">V1 – Chunked</td>
+                <td class="p-3 border border-[#e0e4e9]">10</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">Yes</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">+8–12%</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-[#e0e4e9]">V2 – Triage</td>
+                <td class="p-3 border border-[#e0e4e9]">8–12</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">Partial</td>
+                <td class="p-3 border border-[#e0e4e9]">Yes</td>
+                <td class="p-3 border border-[#e0e4e9]">+15–20%</td>
+              </tr>
+              <tr class="bg-[#f5f5f5]">
+                <td class="p-3 border border-[#e0e4e9]">V3 – Hub</td>
+                <td class="p-3 border border-[#e0e4e9]">6 (non-linear)</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">Visual tasks</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">+5–10%</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-[#e0e4e9]">V4 – Minimal</td>
+                <td class="p-3 border border-[#e0e4e9]">4</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">Page counter</td>
+                <td class="p-3 border border-[#e0e4e9]">No</td>
+                <td class="p-3 border border-[#e0e4e9]">+5–8%</td>
+              </tr>
+              <tr class="bg-[#eaf9f9]">
+                <td class="p-3 border border-[#0e5f64] font-bold">V5 – Eligibility &#11088;</td>
+                <td class="p-3 border border-[#0e5f64] font-bold">11 (9 + 2 pre)</td>
+                <td class="p-3 border border-[#0e5f64] font-bold">Yes</td>
+                <td class="p-3 border border-[#0e5f64] font-bold">Step X of 9</td>
+                <td class="p-3 border border-[#0e5f64]">No</td>
+                <td class="p-3 border border-[#0e5f64] font-bold text-[#0e5f64]">+25–35%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-[#595959] text-[1rem] mt-2">* Completion rate estimates are based on UX research benchmarks, not measured data from this service.</p>
+      </div>
+
+    </div><!-- end container -->
+  </main>
+  <div id="site-footer"></div>
+  <script src="../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+</body>
+</html>

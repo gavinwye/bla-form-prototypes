@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete your application – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="index.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-6">← Back</a>
+
+        <p class="border-l-4 border-bb-blue-40 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-4">Complete your application</h1>
+        <p class="text-bb-mid-grey-00 mb-8">Complete all three tasks to submit your application. You can complete them in any order.</p>
+
+        <!-- Task cards -->
+        <div class="space-y-4 mb-8" id="task-list">
+
+          <div class="border-2 border-bb-grey-00 rounded-sm p-s flex items-center justify-between gap-4" id="task-1-card">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="size-10 rounded-full bg-bb-blue-10 text-bb-blue-100 flex items-center justify-center font-bold text-[1rem] shrink-0">1</div>
+              <div class="min-w-0">
+                <p class="font-bold text-[1.25rem]">About you</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Your name, contact details and address</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 shrink-0">
+              <span id="task-1-status" class="text-bb-mid-grey-00 text-[1rem] whitespace-nowrap">Not started</span>
+              <a href="task-yourself.html" id="task-1-link" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-s py-xs rounded-sm text-[1rem] hover:bg-[#1a777d] whitespace-nowrap">Start</a>
+            </div>
+          </div>
+
+          <div class="border-2 border-bb-grey-00 rounded-sm p-s flex items-center justify-between gap-4" id="task-2-card">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="size-10 rounded-full bg-bb-blue-10 text-bb-blue-100 flex items-center justify-center font-bold text-[1rem] shrink-0">2</div>
+              <div class="min-w-0">
+                <p class="font-bold text-[1.25rem]">About your vehicle</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Vehicle details, registration and technical specifications</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 shrink-0">
+              <span id="task-2-status" class="text-bb-mid-grey-00 text-[1rem] whitespace-nowrap">Not started</span>
+              <a href="task-vehicle.html" id="task-2-link" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-s py-xs rounded-sm text-[1rem] hover:bg-[#1a777d] whitespace-nowrap">Start</a>
+            </div>
+          </div>
+
+          <div class="border-2 border-bb-grey-00 rounded-sm p-s flex items-center justify-between gap-4" id="task-3-card">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="size-10 rounded-full bg-bb-blue-10 text-bb-blue-100 flex items-center justify-center font-bold text-[1rem] shrink-0">3</div>
+              <div class="min-w-0">
+                <p class="font-bold text-[1.25rem]">Book your inspection</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Choose a date, time and describe the vehicle's purpose</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 shrink-0">
+              <span id="task-3-status" class="text-bb-mid-grey-00 text-[1rem] whitespace-nowrap">Not started</span>
+              <a href="task-book.html" id="task-3-link" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-s py-xs rounded-sm text-[1rem] hover:bg-[#1a777d] whitespace-nowrap">Start</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Progress summary -->
+        <p class="text-bb-mid-grey-00 text-[1rem] mb-6" id="progress-text"></p>
+
+        <!-- Review button - only shown when all tasks complete -->
+        <div id="review-section" class="hidden">
+          <hr class="border-bb-grey-00 mb-6">
+          <p class="text-bb-mid-grey-00 mb-4">All tasks complete. Review your answers before submitting.</p>
+          <a href="check-answers.html" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Review and submit</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    function updateHub() {
+      const data = JSON.parse(localStorage.getItem('mvi-v3') || '{}');
+
+      const tasks = [
+        { id: 'task-1', done: data.task1Done },
+        { id: 'task-2', done: data.task2Done },
+        { id: 'task-3', done: data.task3Done },
+      ];
+
+      tasks.forEach(t => {
+        const statusEl = document.getElementById(`${t.id}-status`);
+        const linkEl = document.getElementById(`${t.id}-link`);
+        const cardEl = document.getElementById(`${t.id}-card`);
+        if (t.done) {
+          statusEl.innerHTML = '<span class="text-bb-green-00 font-bold">&#10003; Completed</span>';
+          linkEl.textContent = 'Change';
+          linkEl.classList.remove('bg-bb-teal-00','hover:bg-[#1a777d]');
+          linkEl.classList.add('bg-transparent','text-bb-teal-00','border-2','border-bb-teal-00','hover:bg-bb-teal-10');
+          cardEl.classList.remove('border-bb-grey-00');
+          cardEl.classList.add('border-bb-green-00');
+          // Update number circle
+          const circle = cardEl.querySelector('.rounded-full');
+          circle.classList.remove('bg-bb-blue-10','text-bb-blue-100');
+          circle.classList.add('bg-bb-green-00','text-white');
+        }
+      });
+
+      const completedCount = tasks.filter(t => t.done).length;
+      document.getElementById('progress-text').textContent = `${completedCount} of 3 tasks completed`;
+
+      const allDone = tasks.every(t => t.done);
+      if (allDone) {
+        document.getElementById('review-section').classList.remove('hidden');
+      }
+    }
+
+    updateHub();
+  </script>
+</body>
+</html>

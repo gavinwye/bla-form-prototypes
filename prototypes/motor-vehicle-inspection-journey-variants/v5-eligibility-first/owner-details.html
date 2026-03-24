@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner details – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="inspection-type.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-8 block">← Back</a>
+
+        <div class="mb-6">
+          <p class="text-[1rem] text-bb-mid-grey-00 mb-2">Step 2 of 9</p>
+          <div class="bg-bb-grey-00 rounded-full h-2 w-full max-w-sm">
+            <div class="bg-bb-teal-00 h-2 rounded-full transition-all" style="width:22%"></div>
+          </div>
+        </div>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 rounded-sm p-s mb-6">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-6 text-bb-red-00 space-y-1"></ul>
+        </div>
+
+        <p class="border-l-4 border-bb-blue-40 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-2">Owner details</h1>
+        <p class="text-bb-mid-grey-00 mb-8">These should match your National Registration card.</p>
+
+        <form novalidate class="space-y-6">
+
+          <div class="flex flex-col gap-xs">
+            <label for="full-name" class="block text-[1.25rem] font-bold text-bb-black-00">Full name</label>
+            <div id="full-name-wrap" class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="full-name" name="full-name" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+            <p id="full-name-error" class="hidden text-bb-red-00 text-[1.1rem]"></p>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label for="telephone" class="block text-[1.25rem] font-bold text-bb-black-00">Telephone number</label>
+            <p class="text-bb-mid-grey-00 text-[1.25rem]">For example, 246-1234</p>
+            <div id="telephone-wrap" class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="tel" id="telephone" name="telephone" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+            <p id="telephone-error" class="hidden text-bb-red-00 text-[1.1rem]"></p>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label for="street-address" class="block text-[1.25rem] font-bold text-bb-black-00">Street address</label>
+            <div id="street-address-wrap" class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="street-address" name="street-address" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+            <p id="street-address-error" class="hidden text-bb-red-00 text-[1.1rem]"></p>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label for="parish" class="block text-[1.25rem] font-bold text-bb-black-00">Parish</label>
+            <div id="parish-wrap" class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <select id="parish" name="parish" class="w-full p-s rounded-[inherit] outline-none bg-bb-white-00">
+                <option value="">Select a parish</option>
+                <option>Christ Church</option><option>St. Andrew</option><option>St. George</option>
+                <option>St. James</option><option>St. John</option><option>St. Joseph</option>
+                <option>St. Lucy</option><option>St. Michael</option><option>St. Peter</option>
+                <option>St. Philip</option><option>St. Thomas</option>
+              </select>
+            </div>
+            <p id="parish-error" class="hidden text-bb-red-00 text-[1.1rem]"></p>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label for="postal-code" class="block text-[1.25rem] font-bold text-bb-black-00">Postal code</label>
+            <p class="text-bb-mid-grey-00 text-[1.25rem]">For example, BB11000</p>
+            <div id="postal-code-wrap" class="relative inline-flex w-full max-w-xs rounded-sm border-2 border-bb-black-00 bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="postal-code" name="postal-code" class="w-full p-s outline-none rounded-[inherit]" />
+            </div>
+            <p id="postal-code-error" class="hidden text-bb-red-00 text-[1.1rem]"></p>
+          </div>
+
+          <div class="flex gap-4">
+            <button type="button" onclick="handleContinue()"
+              class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100 outline-none">
+              Continue
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const saved = JSON.parse(localStorage.getItem('mvi-v5') || '{}');
+    if (saved.fullName) document.getElementById('full-name').value = saved.fullName;
+    if (saved.telephone) document.getElementById('telephone').value = saved.telephone;
+    if (saved.streetAddress) document.getElementById('street-address').value = saved.streetAddress;
+    if (saved.parish) document.getElementById('parish').value = saved.parish;
+    if (saved.postalCode) document.getElementById('postal-code').value = saved.postalCode;
+
+    function handleContinue() {
+      const errors = [];
+      ['full-name','telephone','street-address','postal-code'].forEach(id => {
+        document.getElementById(id+'-wrap').classList.remove('border-bb-red-00');
+        document.getElementById(id+'-error').classList.add('hidden');
+      });
+      document.getElementById('parish-wrap').classList.remove('border-bb-red-00');
+      document.getElementById('parish-error').classList.add('hidden');
+      document.getElementById('error-summary').classList.add('hidden');
+      document.getElementById('error-list').innerHTML = '';
+
+      const fullName = document.getElementById('full-name').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
+      const streetAddress = document.getElementById('street-address').value.trim();
+      const parish = document.getElementById('parish').value;
+      const postalCode = document.getElementById('postal-code').value.trim();
+
+      if (!fullName) { errors.push('Full name – Enter your full name'); document.getElementById('full-name-wrap').classList.add('border-bb-red-00'); document.getElementById('full-name-error').textContent='Enter your full name'; document.getElementById('full-name-error').classList.remove('hidden'); }
+      if (!telephone) { errors.push('Telephone – Enter your telephone number'); document.getElementById('telephone-wrap').classList.add('border-bb-red-00'); document.getElementById('telephone-error').textContent='Enter your telephone number'; document.getElementById('telephone-error').classList.remove('hidden'); }
+      if (!streetAddress) { errors.push('Street address – Enter your street address'); document.getElementById('street-address-wrap').classList.add('border-bb-red-00'); document.getElementById('street-address-error').textContent='Enter your street address'; document.getElementById('street-address-error').classList.remove('hidden'); }
+      if (!parish) { errors.push('Parish – Select a parish'); document.getElementById('parish-wrap').classList.add('border-bb-red-00'); document.getElementById('parish-error').textContent='Select a parish'; document.getElementById('parish-error').classList.remove('hidden'); }
+      if (!postalCode) { errors.push('Postal code – Enter your postal code'); document.getElementById('postal-code-wrap').classList.add('border-bb-red-00'); document.getElementById('postal-code-error').textContent='Enter your postal code'; document.getElementById('postal-code-error').classList.remove('hidden'); }
+
+      if (errors.length > 0) {
+        const list = document.getElementById('error-list');
+        errors.forEach(e => { const li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+        document.getElementById('error-summary').classList.remove('hidden');
+        document.title = 'Error: Owner details – Apply for a motor vehicle inspection';
+        window.scrollTo(0,0);
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v5') || '{}');
+      data.fullName = fullName;
+      data.telephone = telephone;
+      data.streetAddress = streetAddress;
+      data.parish = parish;
+      data.postalCode = postalCode;
+      localStorage.setItem('mvi-v5', JSON.stringify(data));
+      window.location.href = 'vehicle-identity.html';
+    }
+  </script>
+</body>
+</html>

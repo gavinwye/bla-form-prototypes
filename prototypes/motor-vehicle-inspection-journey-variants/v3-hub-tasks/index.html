@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="#" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-6">← Back</a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-2">Apply for a motor vehicle inspection</h1>
+        <p class="text-bb-mid-grey-00 mb-6">Licensing Authority, Pine, St. Michael, Barbados</p>
+
+        <p class="mb-6">Use this service to apply for a motor vehicle inspection. Complete three tasks to submit your application. You can complete them in any order and return to any task at any time.</p>
+
+        <!-- Task overview -->
+        <div class="bg-bb-teal-10 border-l-4 border-bb-teal-00 p-s mb-8 rounded-sm">
+          <p class="font-bold mb-3">This application has 3 tasks:</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="size-8 rounded-full bg-bb-teal-00 text-white flex items-center justify-center font-bold text-[0.875rem] shrink-0">1</div>
+              <div>
+                <p class="font-bold">Tell us about yourself</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Your name, contact details and address</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="size-8 rounded-full bg-bb-teal-00 text-white flex items-center justify-center font-bold text-[0.875rem] shrink-0">2</div>
+              <div>
+                <p class="font-bold">Tell us about your vehicle</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Vehicle details, registration and technical specifications</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="size-8 rounded-full bg-bb-teal-00 text-white flex items-center justify-center font-bold text-[0.875rem] shrink-0">3</div>
+              <div>
+                <p class="font-bold">Book your inspection</p>
+                <p class="text-bb-mid-grey-00 text-[1rem]">Choose a date, time and describe the vehicle's purpose</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="font-bold text-[1.5rem] mb-3">How to apply</h2>
+        <p class="mb-4">Select "Start application" below. You will be taken to a task list where you can complete each task in any order. When all three tasks are done, you can review and submit your application.</p>
+        <p class="mb-6">Estimated time: <strong>10–12 minutes</strong></p>
+
+        <a href="hub.html" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100 mb-10">
+          Start application
+        </a>
+
+        <h2 class="font-bold text-[1.5rem] mb-3">What you will need</h2>
+        <ul class="list-disc pl-6 space-y-2 mb-8">
+          <li>Vehicle logbook (log book)</li>
+          <li>National Registration card or passport</li>
+          <li>Vehicle registration certificate (if previously registered)</li>
+          <li>Your preferred inspection date and time</li>
+        </ul>
+
+        <h2 class="font-bold text-[1.5rem] mb-3">Before you start</h2>
+        <p class="mb-4">You can save your progress and return to complete unfinished tasks at any time during the same browser session.</p>
+        <p>If you need help, contact the Licensing Authority on <strong>246-535-0500</strong> or visit the office at Pine, St. Michael.</p>
+
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+</body>
+</html>

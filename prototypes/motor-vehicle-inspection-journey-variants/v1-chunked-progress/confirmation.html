@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application submitted – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-blue-100': '#00267f','bb-blue-40': '#99a8cc',
+            'bb-blue-10': '#e5e9f2','bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, sans-serif; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="container mx-auto px-4 py-m">
+      <div class="max-w-2xl">
+
+        <!-- Confirmation panel -->
+        <div class="bg-bb-teal-00 text-white p-m rounded-sm mb-8">
+          <h1 class="font-bold text-[2rem] leading-[1.2] mb-2">Application submitted</h1>
+          <p class="text-[1.25rem] mb-1">Your reference number</p>
+          <p class="font-bold text-[1.5rem] tracking-wide">LA12MVI45</p>
+        </div>
+
+        <!-- What happens next -->
+        <h2 class="font-bold text-[1.5rem] mb-4">What happens next</h2>
+
+        <p class="mb-4">The Licensing Authority will contact you to confirm your inspection appointment. Please allow 2–3 working days for a response.</p>
+
+        <p class="mb-6">Please bring the following to your inspection:</p>
+        <ul class="list-disc pl-6 space-y-2 mb-8">
+          <li>Original vehicle logbook</li>
+          <li>National Registration card</li>
+          <li>Proof of address</li>
+          <li>Valid insurance certificate</li>
+        </ul>
+
+        <div class="bg-bb-blue-10 border-l-4 border-bb-blue-40 p-s rounded-sm mb-8">
+          <p class="font-bold mb-1">Contact the Licensing Authority</p>
+          <p class="mb-1">Telephone: <a href="tel:2465350085" class="text-bb-teal-00 underline hover:no-underline">246-535-0085</a></p>
+          <p>Location: Wildey, St. Michael, Barbados</p>
+        </div>
+
+        <p class="mb-8">
+          <a href="index.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Return to start</a>
+        </p>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    // Clear stored data on confirmation
+    localStorage.removeItem('mvi-v1');
+  </script>
+</body>
+</html>
