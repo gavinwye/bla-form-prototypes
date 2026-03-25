@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule your inspection – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-blue-100': '#00267f','bb-blue-40': '#99a8cc',
+            'bb-blue-10': '#e5e9f2','bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, sans-serif; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .input-error { border-color: #a42c2c !important; }
+  </style>
+</head>
+<body>
+  <div id="site-header" class="bg-bb-yellow-100 bg-bb-blue-100 bg-bb-blue-10 text-bb-white-00 text-bb-black-00"></div>
+
+  <main>
+    <div class="container mx-auto px-4 py-m">
+      <div class="max-w-2xl">
+
+        <a href="numeric-specs.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-8 block">← Back</a>
+
+        <!-- Progress bar -->
+        <div class="bg-bb-grey-00 rounded-full h-2 w-full max-w-md mb-2">
+          <div class="bg-bb-teal-00 h-2 rounded-full" style="width: 90%"></div>
+        </div>
+        <p class="text-bb-mid-grey-00 text-[1rem] mb-6">Section 5 of 5</p>
+
+        <!-- Error summary -->
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 p-s mb-6 rounded-sm">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-s text-bb-red-00"></ul>
+        </div>
+
+        <!-- Caption + H1 -->
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-8">Schedule your inspection</h1>
+
+        <form novalidate>
+          <div class="space-y-8">
+
+            <!-- Purpose of use -->
+            <div class="flex flex-col gap-xs w-full items-start">
+              <label for="purpose-of-use" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">What will the vehicle be used for?</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, Private transport, Commercial delivery, Public hire, Agriculture</p>
+              <div id="purpose-of-use-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the purpose of use</div>
+              <div id="purpose-of-use-wrapper" class="relative inline-flex w-full max-w-md rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+                <input type="text" id="purpose-of-use" name="purpose-of-use" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+            <!-- Preferred examination date -->
+            <div class="flex flex-col gap-xs w-full items-start">
+              <p class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Preferred examination date</p>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 27 03 2007</p>
+              <div id="exam-date-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter a valid future date for the examination</div>
+              <div class="flex gap-s items-end flex-wrap">
+                <!-- Day -->
+                <div class="flex flex-col gap-xs">
+                  <label for="exam-day" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Day</label>
+                  <div id="exam-day-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 5rem;">
+                    <input type="text" id="exam-day" name="exam-day" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                  </div>
+                </div>
+                <!-- Month -->
+                <div class="flex flex-col gap-xs">
+                  <label for="exam-month" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Month</label>
+                  <div id="exam-month-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 5rem;">
+                    <input type="text" id="exam-month" name="exam-month" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                  </div>
+                </div>
+                <!-- Year -->
+                <div class="flex flex-col gap-xs">
+                  <label for="exam-year" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Year</label>
+                  <div id="exam-year-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 7rem;">
+                    <input type="text" id="exam-year" name="exam-year" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preferred examination time -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="exam-time" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Preferred examination time</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 09:00 AM, 2:30 PM</p>
+              <div id="exam-time-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter a preferred examination time</div>
+              <div id="exam-time-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 12rem;">
+                <input type="text" id="exam-time" name="exam-time" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Separator -->
+          <hr class="my-10 border-bb-grey-00">
+
+          <!-- Declaration -->
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-6">Declaration</h2>
+
+          <div class="bg-bb-blue-10 p-s rounded-sm mb-6">
+            <p class="text-bb-black-00">I declare that the information provided in this application is true and correct to the best of my knowledge and belief, and I understand that providing false information is an offence under the laws of Barbados.</p>
+          </div>
+
+          <div id="declaration-error" class="hidden text-bb-red-00 font-bold text-[1.25rem] mb-4">You must confirm the declaration to continue</div>
+
+          <div class="flex items-start gap-4">
+            <button type="button" role="checkbox" aria-checked="false" id="declaration-check"
+              class="mt-1 relative inline-flex size-8 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-sm transition-all outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100">
+            </button>
+            <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer" onclick="document.getElementById('declaration-check').click()">I confirm that the information I have provided is true and correct</label>
+          </div>
+
+          <div class="mt-10 flex gap-4">
+            <button type="button" id="continue-btn" class="relative inline-flex items-center justify-center gap-2 text-[20px] whitespace-nowrap bg-bb-teal-00 text-white hover:bg-[#1a777d] px-xm py-s rounded-sm leading-[1.7] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Continue</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    // Declaration checkbox
+    document.getElementById('declaration-check').addEventListener('click', function() {
+      const checked = this.getAttribute('aria-checked') === 'true';
+      this.setAttribute('aria-checked', checked ? 'false' : 'true');
+      this.innerHTML = checked ? '' : '<svg class="size-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>';
+    });
+
+    // Restore saved values
+    const saved = JSON.parse(localStorage.getItem('mvi-v1') || '{}');
+    if (saved.purposeOfUse) document.getElementById('purpose-of-use').value = saved.purposeOfUse;
+    if (saved.examDay) document.getElementById('exam-day').value = saved.examDay;
+    if (saved.examMonth) document.getElementById('exam-month').value = saved.examMonth;
+    if (saved.examYear) document.getElementById('exam-year').value = saved.examYear;
+    if (saved.examTime) document.getElementById('exam-time').value = saved.examTime;
+    if (saved.declaration === true) {
+      document.getElementById('declaration-check').click();
+    }
+
+    function setFieldError(baseId, show) {
+      const err = document.getElementById(baseId + '-error');
+      const wrapper = document.getElementById(baseId + '-wrapper');
+      if (show) {
+        if (err) err.classList.remove('hidden');
+        if (wrapper) wrapper.classList.add('input-error');
+      } else {
+        if (err) err.classList.add('hidden');
+        if (wrapper) wrapper.classList.remove('input-error');
+      }
+    }
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      const purposeOfUse = document.getElementById('purpose-of-use').value.trim();
+      const examDay = document.getElementById('exam-day').value.trim();
+      const examMonth = document.getElementById('exam-month').value.trim();
+      const examYear = document.getElementById('exam-year').value.trim();
+      const examTime = document.getElementById('exam-time').value.trim();
+      const declarationChecked = document.getElementById('declaration-check').getAttribute('aria-checked') === 'true';
+
+      let errors = [];
+      document.getElementById('error-summary').classList.add('hidden');
+      document.getElementById('error-list').innerHTML = '';
+      document.getElementById('declaration-error').classList.add('hidden');
+      document.title = 'Schedule your inspection – Apply for a motor vehicle inspection';
+
+      setFieldError('purpose-of-use', !purposeOfUse);
+      if (!purposeOfUse) errors.push('Enter the purpose of use');
+
+      // Date validation
+      let dateValid = false;
+      const dayNum = parseInt(examDay, 10);
+      const monthNum = parseInt(examMonth, 10);
+      const yearNum = parseInt(examYear, 10);
+      const allDatePresent = examDay && examMonth && examYear;
+      if (!allDatePresent) {
+        setFieldError('exam-date', true);
+        // Mark individual fields missing
+        if (!examDay) document.getElementById('exam-day-wrapper').classList.add('input-error');
+        if (!examMonth) document.getElementById('exam-month-wrapper').classList.add('input-error');
+        if (!examYear) document.getElementById('exam-year-wrapper').classList.add('input-error');
+        errors.push('Enter a complete future date for the examination');
+      } else {
+        // Clear individual field errors
+        document.getElementById('exam-day-wrapper').classList.remove('input-error');
+        document.getElementById('exam-month-wrapper').classList.remove('input-error');
+        document.getElementById('exam-year-wrapper').classList.remove('input-error');
+        if (
+          dayNum < 1 || dayNum > 31 ||
+          monthNum < 1 || monthNum > 12 ||
+          yearNum < 2020
+        ) {
+          setFieldError('exam-date', true);
+          errors.push('Enter a valid date for the examination');
+        } else {
+          const enteredDate = new Date(yearNum, monthNum - 1, dayNum);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          if (enteredDate <= today) {
+            setFieldError('exam-date', true);
+            errors.push('The examination date must be in the future');
+          } else {
+            setFieldError('exam-date', false);
+            dateValid = true;
+          }
+        }
+      }
+
+      setFieldError('exam-time', !examTime);
+      if (!examTime) errors.push('Enter a preferred examination time');
+
+      if (!declarationChecked) {
+        document.getElementById('declaration-error').classList.remove('hidden');
+        errors.push('You must confirm the declaration to continue');
+      }
+
+      if (errors.length > 0) {
+        const summary = document.getElementById('error-summary');
+        const list = document.getElementById('error-list');
+        errors.forEach(msg => {
+          const li = document.createElement('li');
+          li.textContent = msg;
+          list.appendChild(li);
+        });
+        summary.classList.remove('hidden');
+        summary.scrollIntoView({ behavior: 'smooth' });
+        document.title = 'Error: Schedule your inspection – Apply for a motor vehicle inspection';
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v1') || '{}');
+      data.purposeOfUse = purposeOfUse;
+      data.examDay = examDay;
+      data.examMonth = examMonth;
+      data.examYear = examYear;
+      data.examDate = `${examDay.padStart(2,'0')} ${examMonth.padStart(2,'0')} ${examYear}`;
+      data.examTime = examTime;
+      data.declaration = true;
+      localStorage.setItem('mvi-v1', JSON.stringify(data));
+
+      window.location.href = 'check-answers.html';
+    });
+  </script>
+</body>
+</html>

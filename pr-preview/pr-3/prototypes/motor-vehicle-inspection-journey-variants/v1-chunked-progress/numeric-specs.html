@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle specifications – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-blue-100': '#00267f','bb-blue-40': '#99a8cc',
+            'bb-blue-10': '#e5e9f2','bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, sans-serif; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .input-error { border-color: #a42c2c !important; }
+  </style>
+</head>
+<body>
+  <div id="site-header" class="bg-bb-yellow-100 bg-bb-blue-100 bg-bb-blue-10 text-bb-white-00 text-bb-black-00"></div>
+
+  <main>
+    <div class="container mx-auto px-4 py-m">
+      <div class="max-w-2xl">
+
+        <a href="technical-data.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-8 block">← Back</a>
+
+        <!-- Progress bar -->
+        <div class="bg-bb-grey-00 rounded-full h-2 w-full max-w-md mb-2">
+          <div class="bg-bb-teal-00 h-2 rounded-full" style="width: 75%"></div>
+        </div>
+        <p class="text-bb-mid-grey-00 text-[1rem] mb-6">Section 4 of 5</p>
+
+        <!-- Error summary -->
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 p-s mb-6 rounded-sm">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-s text-bb-red-00"></ul>
+        </div>
+
+        <!-- Caption + H1 -->
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-2">Vehicle specifications</h1>
+        <p class="text-bb-mid-grey-00 mb-8">These details are in your vehicle logbook.</p>
+
+        <form novalidate>
+          <div class="space-y-8">
+
+            <!-- Year manufactured -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="year-manufactured" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Year manufactured</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 2018</p>
+              <div id="year-manufactured-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the year of manufacture</div>
+              <div id="year-manufactured-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 7rem;">
+                <input type="text" id="year-manufactured" name="year-manufactured" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+            <!-- Number of cylinders -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="cylinders" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Number of cylinders</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 4</p>
+              <div id="cylinders-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the number of cylinders</div>
+              <div id="cylinders-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 6rem;">
+                <input type="text" id="cylinders" name="cylinders" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+            <!-- Engine capacity -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="engine-capacity" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Engine capacity</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">In cubic centimetres. For example, 1800</p>
+              <div id="engine-capacity-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the engine capacity in cc</div>
+              <div class="flex items-center gap-s">
+                <div id="engine-capacity-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 9rem;">
+                  <input type="text" id="engine-capacity" name="engine-capacity" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+                <span class="text-bb-black-00 font-bold">cc</span>
+              </div>
+            </div>
+
+            <!-- Number of axles -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="axles" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Number of axles</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 2</p>
+              <div id="axles-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the number of axles</div>
+              <div id="axles-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 6rem;">
+                <input type="text" id="axles" name="axles" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+            <!-- Hand drive -->
+            <fieldset>
+              <legend class="font-bold text-[1.25rem] leading-normal text-bb-black-00 mb-4">Hand drive</legend>
+              <div id="hand-drive-error" class="hidden text-bb-red-00 font-bold text-[1.25rem] mb-3">Select the hand drive</div>
+              <div class="flex flex-col gap-s items-start w-full">
+                <div class="flex gap-5 items-center">
+                  <button type="button" role="radio" aria-checked="false" data-group="hand-drive" data-value="right"
+                    class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full transition-all outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100">
+                  </button>
+                  <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Right-hand drive</label>
+                </div>
+                <div class="flex gap-5 items-center">
+                  <button type="button" role="radio" aria-checked="false" data-group="hand-drive" data-value="left"
+                    class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full transition-all outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100">
+                  </button>
+                  <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Left-hand drive</label>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Weight certificate -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="weight-cert" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Weight certificate</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">The unladen weight as shown on the weight certificate</p>
+              <div id="weight-cert-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the weight certificate value</div>
+              <div class="flex items-center gap-s">
+                <div id="weight-cert-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 10rem;">
+                  <input type="text" id="weight-cert" name="weight-cert" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+                <span class="text-bb-black-00 font-bold">kg</span>
+              </div>
+            </div>
+
+            <!-- Gross weight -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="gross-weight" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Gross weight</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">Maximum permitted weight when fully loaded</p>
+              <div id="gross-weight-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the gross weight</div>
+              <div class="flex items-center gap-s">
+                <div id="gross-weight-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 10rem;">
+                  <input type="text" id="gross-weight" name="gross-weight" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+                <span class="text-bb-black-00 font-bold">kg</span>
+              </div>
+            </div>
+
+            <!-- Number of passengers -->
+            <div class="flex flex-col gap-xs items-start">
+              <label for="passengers" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Number of passengers</label>
+              <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">Maximum number of passengers (including driver)</p>
+              <div id="passengers-error" class="hidden text-bb-red-00 font-bold text-[1.25rem]">Enter the number of passengers</div>
+              <div id="passengers-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width: 6rem;">
+                <input type="text" id="passengers" name="passengers" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="mt-10 flex gap-4">
+            <button type="button" id="continue-btn" class="relative inline-flex items-center justify-center gap-2 text-[20px] whitespace-nowrap bg-bb-teal-00 text-white hover:bg-[#1a777d] px-xm py-s rounded-sm leading-[1.7] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Continue</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    // Radio button behaviour
+    document.querySelectorAll('.radio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group;
+        document.querySelectorAll(`.radio-btn[data-group="${group}"]`).forEach(b => {
+          b.setAttribute('aria-checked', 'false');
+          b.innerHTML = '';
+        });
+        btn.setAttribute('aria-checked', 'true');
+        btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>';
+      });
+    });
+
+    // Restore saved values
+    const saved = JSON.parse(localStorage.getItem('mvi-v1') || '{}');
+    if (saved.yearManufactured) document.getElementById('year-manufactured').value = saved.yearManufactured;
+    if (saved.cylinders) document.getElementById('cylinders').value = saved.cylinders;
+    if (saved.engineCapacity) document.getElementById('engine-capacity').value = saved.engineCapacity;
+    if (saved.axles) document.getElementById('axles').value = saved.axles;
+    if (saved.handDrive) {
+      const btn = document.querySelector(`.radio-btn[data-group="hand-drive"][data-value="${saved.handDrive}"]`);
+      if (btn) btn.click();
+    }
+    if (saved.weightCert) document.getElementById('weight-cert').value = saved.weightCert;
+    if (saved.grossWeight) document.getElementById('gross-weight').value = saved.grossWeight;
+    if (saved.passengers) document.getElementById('passengers').value = saved.passengers;
+
+    function setFieldError(baseId, show) {
+      const err = document.getElementById(baseId + '-error');
+      const wrapper = document.getElementById(baseId + '-wrapper');
+      if (show) {
+        if (err) err.classList.remove('hidden');
+        if (wrapper) wrapper.classList.add('input-error');
+      } else {
+        if (err) err.classList.add('hidden');
+        if (wrapper) wrapper.classList.remove('input-error');
+      }
+    }
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      const yearManufactured = document.getElementById('year-manufactured').value.trim();
+      const cylinders = document.getElementById('cylinders').value.trim();
+      const engineCapacity = document.getElementById('engine-capacity').value.trim();
+      const axles = document.getElementById('axles').value.trim();
+      const handDriveBtn = document.querySelector('.radio-btn[data-group="hand-drive"][aria-checked="true"]');
+      const weightCert = document.getElementById('weight-cert').value.trim();
+      const grossWeight = document.getElementById('gross-weight').value.trim();
+      const passengers = document.getElementById('passengers').value.trim();
+
+      let errors = [];
+      document.getElementById('error-summary').classList.add('hidden');
+      document.getElementById('error-list').innerHTML = '';
+      document.getElementById('hand-drive-error').classList.add('hidden');
+      document.title = 'Vehicle specifications – Apply for a motor vehicle inspection';
+
+      setFieldError('year-manufactured', !yearManufactured);
+      if (!yearManufactured) errors.push('Enter the year of manufacture');
+
+      setFieldError('cylinders', !cylinders);
+      if (!cylinders) errors.push('Enter the number of cylinders');
+
+      setFieldError('engine-capacity', !engineCapacity);
+      if (!engineCapacity) errors.push('Enter the engine capacity in cc');
+
+      setFieldError('axles', !axles);
+      if (!axles) errors.push('Enter the number of axles');
+
+      if (!handDriveBtn) {
+        document.getElementById('hand-drive-error').classList.remove('hidden');
+        errors.push('Select the hand drive');
+      }
+
+      setFieldError('weight-cert', !weightCert);
+      if (!weightCert) errors.push('Enter the weight certificate value');
+
+      setFieldError('gross-weight', !grossWeight);
+      if (!grossWeight) errors.push('Enter the gross weight');
+
+      setFieldError('passengers', !passengers);
+      if (!passengers) errors.push('Enter the number of passengers');
+
+      if (errors.length > 0) {
+        const summary = document.getElementById('error-summary');
+        const list = document.getElementById('error-list');
+        errors.forEach(msg => {
+          const li = document.createElement('li');
+          li.textContent = msg;
+          list.appendChild(li);
+        });
+        summary.classList.remove('hidden');
+        summary.scrollIntoView({ behavior: 'smooth' });
+        document.title = 'Error: Vehicle specifications – Apply for a motor vehicle inspection';
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v1') || '{}');
+      data.yearManufactured = yearManufactured;
+      data.cylinders = cylinders;
+      data.engineCapacity = engineCapacity;
+      data.axles = axles;
+      data.handDrive = handDriveBtn.dataset.value;
+      data.handDriveLabel = handDriveBtn.dataset.value === 'right' ? 'Right-hand drive' : 'Left-hand drive';
+      data.weightCert = weightCert;
+      data.grossWeight = grossWeight;
+      data.passengers = passengers;
+      localStorage.setItem('mvi-v1', JSON.stringify(data));
+
+      window.location.href = 'schedule-declare.html';
+    });
+  </script>
+</body>
+</html>
