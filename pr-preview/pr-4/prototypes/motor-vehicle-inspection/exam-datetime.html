@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examination date and time – Application for Inspection of a Motor Vehicle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00':'#e8a833','bb-yellow-100':'#ffc726','bb-yellow-40':'#ffe9a8','bb-yellow-10':'#fff9e9',
+            'bb-blue-00':'#00164a','bb-blue-100':'#00267f','bb-blue-40':'#99a8cc','bb-blue-10':'#e5e9f2',
+            'bb-black-00':'#000000','bb-mid-grey-00':'#595959','bb-grey-00':'#e0e4e9','bb-white-00':'#ffffff',
+            'bb-green-00':'#00654a','bb-green-100':'#1fbf84','bb-green-40':'#a5e5ce','bb-green-10':'#e9f9f3',
+            'bb-red-00':'#a42c2c','bb-red-100':'#ff6b6b','bb-red-40':'#ffc4c4','bb-red-10':'#fff0f0',
+            'bb-teal-00':'#0e5f64','bb-teal-100':'#30c0c8','bb-teal-40':'#ace6e9','bb-teal-10':'#eaf9f9',
+            'bb-purple-00':'#4a235a','bb-purple-100':'#a962c7','bb-pink-00':'#ad1157','bb-pink-100':'#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','"Segoe UI"','Roboto','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem','xl':'8rem' },
+          borderRadius: { 'sm':'0.25rem','md':'0.375rem','lg':'0.5rem' },
+          boxShadow: { 'form-hover':'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display':'5rem','h1':'3.5rem','h2':'2.5rem','h3':'1.5rem','h4':'1.25rem','body-lg':'2rem','body':'1.25rem','caption':'1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,"system-ui","Segoe UI",Roboto,sans-serif; font-weight:400; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; -webkit-font-smoothing:antialiased; }
+    .container { max-width:1200px; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+        <a href="purpose.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">← Back</a>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-4 border-bb-red-00 p-s mb-m" tabindex="-1" role="alert" aria-labelledby="error-summary-title">
+          <h2 id="error-summary-title" class="font-bold text-[1.25rem] text-bb-red-00 mb-xs">There is a problem</h2>
+          <ul id="error-summary-list" class="list-disc pl-5 space-y-1 text-bb-red-00"></ul>
+        </div>
+
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-xs">Application for Inspection of a Motor Vehicle</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">When would you like the examination?</h1>
+
+        <form novalidate class="space-y-8">
+
+          <!-- Exam date -->
+          <fieldset class="border-0 p-0 m-0">
+            <legend class="block text-[1.25rem] leading-normal font-bold text-bb-black-00 mb-xs">Preferred examination date</legend>
+            <p id="examDate-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold mb-xs" role="alert"></p>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00 mb-xs">For example, 27 03 2007</p>
+            <div class="flex gap-s items-end flex-wrap">
+              <!-- Day -->
+              <div class="flex flex-col gap-xs">
+                <label for="examDay" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Day</label>
+                <div id="examDay-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;">
+                  <input type="text" id="examDay" name="examDay" inputmode="numeric" maxlength="2" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <!-- Month -->
+              <div class="flex flex-col gap-xs">
+                <label for="examMonth" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Month</label>
+                <div id="examMonth-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;">
+                  <input type="text" id="examMonth" name="examMonth" inputmode="numeric" maxlength="2" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <!-- Year -->
+              <div class="flex flex-col gap-xs">
+                <label for="examYear" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Year</label>
+                <div id="examYear-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:7rem;">
+                  <input type="text" id="examYear" name="examYear" inputmode="numeric" maxlength="4" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Preferred time -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="examTime-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="examTime" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Preferred examination time</label>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 09:00 AM, 2:30 PM</p>
+            <div id="examTime-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:12rem;">
+              <input type="text" id="examTime" name="examTime" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <div class="mt-8 flex gap-4">
+            <button type="button" id="continue-btn" class="relative inline-flex items-center justify-center gap-2 text-[1.25rem] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] active:bg-[#0a4549] px-xm py-s rounded-sm leading-[1.7] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+              Continue
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    injectChrome();
+
+    const d = getData('motor-vehicle-inspection');
+    if (d.examDay) document.getElementById('examDay').value = d.examDay;
+    if (d.examMonth) document.getElementById('examMonth').value = d.examMonth;
+    if (d.examYear) document.getElementById('examYear').value = d.examYear;
+    if (d.examTime) document.getElementById('examTime').value = d.examTime;
+
+    function markDateError(msg) {
+      ['examDay','examMonth','examYear'].forEach(id => {
+        const w = document.getElementById(id + '-wrapper');
+        if (w) { w.classList.remove('border-bb-black-00'); w.classList.add('border-bb-red-00'); }
+        const el = document.getElementById(id);
+        if (el) el.setAttribute('aria-invalid','true');
+      });
+      const errEl = document.getElementById('examDate-error');
+      errEl.textContent = msg;
+      errEl.classList.remove('hidden');
+    }
+
+    function clearDateError() {
+      ['examDay','examMonth','examYear'].forEach(id => {
+        const w = document.getElementById(id + '-wrapper');
+        if (w) { w.classList.add('border-bb-black-00'); w.classList.remove('border-bb-red-00'); }
+        const el = document.getElementById(id);
+        if (el) el.removeAttribute('aria-invalid');
+      });
+      const errEl = document.getElementById('examDate-error');
+      errEl.classList.add('hidden');
+      errEl.textContent = '';
+    }
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      const errors = [];
+      hideErrorSummary();
+      clearDateError();
+      clearFieldError('examTime');
+
+      const day = document.getElementById('examDay').value.trim();
+      const month = document.getElementById('examMonth').value.trim();
+      const year = document.getElementById('examYear').value.trim();
+      const time = document.getElementById('examTime').value.trim();
+
+      // Date validation
+      if (!day || !month || !year) {
+        errors.push({ fieldId: 'examDay', message: 'Preferred examination date – Enter a complete date' });
+        markDateError('Enter a complete date including day, month and year');
+      } else {
+        const d = parseInt(day, 10), m = parseInt(month, 10), y = parseInt(year, 10);
+        const today = new Date(); today.setHours(0,0,0,0);
+        const entered = new Date(y, m - 1, d);
+        if (isNaN(d) || isNaN(m) || isNaN(y) || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900) {
+          errors.push({ fieldId: 'examDay', message: 'Preferred examination date – Enter a valid date' });
+          markDateError('Enter a valid date');
+        } else if (entered < today) {
+          errors.push({ fieldId: 'examDay', message: 'Preferred examination date – The date must be in the future' });
+          markDateError('The examination date must be in the future');
+        }
+      }
+
+      if (!time) {
+        errors.push({ fieldId: 'examTime', message: 'Preferred examination time – Enter a preferred time' });
+        setFieldError('examTime', 'Enter a preferred time');
+      }
+
+      if (errors.length > 0) { showErrorSummary(errors); return; }
+
+      saveData({ examDay: day, examMonth: month, examYear: year, examTime: time }, 'motor-vehicle-inspection');
+      window.location.href = 'declaration.html';
+    });
+  </script>
+</body>
+</html>

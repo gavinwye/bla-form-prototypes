@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification submitted – Transfer of Vehicle (Joint Owners)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00': '#e8a833', 'bb-yellow-100': '#ffc726', 'bb-yellow-40': '#ffe9a8', 'bb-yellow-10': '#fff9e9',
+            'bb-blue-00': '#00164a', 'bb-blue-100': '#00267f', 'bb-blue-40': '#99a8cc', 'bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000', 'bb-mid-grey-00': '#595959', 'bb-grey-00': '#e0e4e9', 'bb-white-00': '#ffffff',
+            'bb-green-00': '#00654a', 'bb-green-100': '#1fbf84', 'bb-green-40': '#a5e5ce', 'bb-green-10': '#e9f9f3',
+            'bb-red-00': '#a42c2c', 'bb-red-100': '#ff6b6b', 'bb-red-40': '#ffc4c4', 'bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64', 'bb-teal-100': '#30c0c8', 'bb-teal-40': '#ace6e9', 'bb-teal-10': '#eaf9f9',
+            'bb-purple-00': '#4a235a', 'bb-purple-100': '#a962c7', 'bb-pink-00': '#ad1157', 'bb-pink-100': '#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', '"Segoe UI"', 'Roboto', 'sans-serif'] },
+          spacing: { 'xs': '0.5rem', 's': '1rem', 'xm': '1.5rem', 'm': '2rem', 'l': '4rem', 'xl': '8rem' },
+          borderRadius: { 'sm': '0.25rem', 'md': '0.375rem', 'lg': '0.5rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display': '5rem', 'h1': '3.5rem', 'h2': '2.5rem', 'h3': '1.5rem', 'h4': '1.25rem', 'body-lg': '2rem', 'body': '1.25rem', 'caption': '1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; -webkit-font-smoothing: antialiased; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+
+        <!-- Confirmation panel -->
+        <div class="bg-bb-teal-00 text-bb-white-00 p-m mb-m rounded-sm">
+          <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-s">Notification submitted</h1>
+          <p class="text-[1.25rem] leading-normal">Your reference number</p>
+          <p class="font-bold text-[2rem] leading-[1.15] mt-xs" id="reference-number"></p>
+        </div>
+
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">What happens next</h2>
+        <p class="text-[1.25rem] leading-normal mb-s">The Barbados Licensing Authority has been notified of the transfer.</p>
+        <p class="text-[1.25rem] leading-normal mb-m">The transferee must visit the BLA to complete the transfer of ownership within the required timeframe.</p>
+
+        <a href="index.html"
+          class="inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 active:no-underline focus-visible:bg-bb-yellow-100 focus-visible:no-underline active:text-bb-black-00 focus-visible:text-bb-black-00 text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">
+          Return to start
+        </a>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    const STORAGE_KEY = 'transfer-of-vehicle-joint';
+
+    injectChrome();
+
+    function generateRef() {
+      const digits = String(Math.floor(Math.random() * 90) + 10);
+      const letters = Array.from({length: 3}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');
+      return 'TVJ' + digits + letters;
+    }
+
+    const saved = getData(STORAGE_KEY);
+    let ref = saved['confirmation-ref'];
+    if (!ref) {
+      ref = generateRef();
+      saveData({ 'confirmation-ref': ref }, STORAGE_KEY);
+    }
+    document.getElementById('reference-number').textContent = ref;
+  </script>
+</body>
+</html>
