@@ -1,0 +1,96 @@
+<!-- Subject: Your vehicle registration application has been submitted – Reference {{REFERENCE_NUMBER}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your vehicle registration application has been submitted – Reference {{REFERENCE_NUMBER}}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #000000;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <tr>
+      <td style="padding-bottom: 20px; border-bottom: 4px solid #0e5f64;">
+        <p style="margin: 0; font-size: 18px; font-weight: bold; color: #000000;">Government of Barbados</p>
+        <p style="margin: 4px 0 0; font-size: 14px; color: #595959;">Barbados Licensing Authority</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 30px 0 20px;">
+        <h1 style="margin: 0 0 10px; font-size: 24px; font-weight: bold; color: #0e5f64;">Register or Renew Your Motor Vehicle Licence</h1>
+        <p style="margin: 0; font-size: 16px;">Dear {{APPLICANT_NAME}},</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 20px;">
+        <p style="margin: 0 0 15px;">Your application has been submitted successfully.</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; width: 100%; border-left: 4px solid #0e5f64;">
+          <tr>
+            <td style="padding: 15px 20px;">
+              <p style="margin: 0 0 5px; font-size: 14px; color: #595959;">Reference number</p>
+              <p style="margin: 0; font-size: 22px; font-weight: bold;">{{REFERENCE_NUMBER}}</p>
+              <p style="margin: 10px 0 0; font-size: 14px; color: #595959;">Date submitted</p>
+              <p style="margin: 0; font-size: 16px;">{{DATE_SUBMITTED}}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 20px;">
+        <h2 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #000000;">Summary of your application</h2>
+        <p style="margin: 20px 0 8px; font-size: 16px; font-weight: bold; color: #0e5f64;">Application type</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Type</td><td style="padding: 8px 0; font-size: 14px;">{{APPLICATION_TYPE}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Registration number</td><td style="padding: 8px 0; font-size: 14px;">{{REGISTRATION_NUMBER}}</td></tr></table>
+        <p style="margin: 20px 0 8px; font-size: 16px; font-weight: bold; color: #0e5f64;">Owner details</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">National Registration Number</td><td style="padding: 8px 0; font-size: 14px;">{{NRN}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Full name</td><td style="padding: 8px 0; font-size: 14px;">{{FULL_NAME}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Address</td><td style="padding: 8px 0; font-size: 14px;">{{ADDRESS}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Parish</td><td style="padding: 8px 0; font-size: 14px;">{{PARISH}}</td></tr></table>
+        <p style="margin: 20px 0 8px; font-size: 16px; font-weight: bold; color: #0e5f64;">Vehicle description</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Make</td><td style="padding: 8px 0; font-size: 14px;">{{MAKE}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Model</td><td style="padding: 8px 0; font-size: 14px;">{{MODEL}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Year of manufacture</td><td style="padding: 8px 0; font-size: 14px;">{{YEAR_OF_MANUFACTURE}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Body type</td><td style="padding: 8px 0; font-size: 14px;">{{BODY_TYPE}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Engine number</td><td style="padding: 8px 0; font-size: 14px;">{{ENGINE_NUMBER}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Chassis number</td><td style="padding: 8px 0; font-size: 14px;">{{CHASSIS_NUMBER}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Fuel type</td><td style="padding: 8px 0; font-size: 14px;">{{FUEL_TYPE}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Seating capacity</td><td style="padding: 8px 0; font-size: 14px;">{{SEATING_CAPACITY}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Gross vehicle weight</td><td style="padding: 8px 0; font-size: 14px;">{{GROSS_WEIGHT}}</td></tr></table>
+        <p style="margin: 20px 0 8px; font-size: 16px; font-weight: bold; color: #0e5f64;">Insurance details</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Insurer name</td><td style="padding: 8px 0; font-size: 14px;">{{INSURER_NAME}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Policy number</td><td style="padding: 8px 0; font-size: 14px;">{{POLICY_NUMBER}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Policy expiry date</td><td style="padding: 8px 0; font-size: 14px;">{{POLICY_EXPIRY}}</td></tr></table>
+        <p style="margin: 20px 0 8px; font-size: 16px; font-weight: bold; color: #0e5f64;">Examiner's certificate</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Certificate number</td><td style="padding: 8px 0; font-size: 14px;">{{CERTIFICATE_NUMBER}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Examiner's name</td><td style="padding: 8px 0; font-size: 14px;">{{EXAMINER_NAME}}</td></tr></table>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-bottom: 1px solid #e0e4e9;"><tr><td style="padding: 8px 0; width: 180px; font-weight: bold; vertical-align: top; font-size: 14px;">Date issued</td><td style="padding: 8px 0; font-size: 14px;">{{DATE_ISSUED}}</td></tr></table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 20px;">
+        <h2 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #000000;">What happens next</h2>
+        <p style="margin: 0;">The Barbados Licensing Authority will review your application. You will be contacted once processing is complete and your licence disc is ready for collection.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 20px;">
+        <p style="margin: 0;">Keep your reference number safe. You may need it if you contact the Barbados Licensing Authority about your application.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 20px; border-top: 1px solid #e0e4e9;">
+        <h2 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #000000;">Contact</h2>
+        <p style="margin: 0 0 5px;">Barbados Licensing Authority</p>
+        <p style="margin: 0 0 5px;">Email: <a href="mailto:enquiries@bla.gov.bb" style="color: #0e5f64;">enquiries@bla.gov.bb</a></p>
+        <p style="margin: 0 0 5px;">Phone: 246-426-3981</p>
+        <p style="margin: 0;">Pine East-West Boulevard, The Pine, St. Michael, Barbados</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 20px; font-size: 12px; color: #595959;">
+        <p style="margin: 0;">This is an automated email sent by the Barbados Licensing Authority. Please do not reply directly to this email.</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
