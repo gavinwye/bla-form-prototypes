@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About this inspection – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header" class="bg-bb-yellow-100 bg-bb-blue-100 bg-bb-blue-10 text-bb-white-00 text-bb-black-00"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="document-checklist.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-8 block">← Back</a>
+
+        <!-- Progress bar -->
+        <div class="mb-6">
+          <p class="text-[1rem] text-bb-mid-grey-00 mb-2">Step 1 of 9</p>
+          <div class="bg-bb-grey-00 rounded-full h-2 w-full max-w-sm">
+            <div class="bg-bb-teal-00 h-2 rounded-full transition-all" style="width:11%"></div>
+          </div>
+        </div>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-2 border-bb-red-00 rounded-sm p-s mb-6">
+          <h2 class="font-bold text-[1.25rem] text-bb-red-00 mb-2">There is a problem</h2>
+          <ul id="error-list" class="list-disc pl-6 text-bb-red-00 space-y-1"></ul>
+        </div>
+
+        <p class="border-l-4 border-bb-blue-40 py-xs pl-s text-bb-mid-grey-00 mb-2">Apply for a motor vehicle inspection</p>
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-8">About this inspection</h1>
+
+        <form novalidate class="space-y-10">
+
+          <!-- Vehicle category -->
+          <fieldset>
+            <legend class="font-bold text-[1.25rem] mb-4">What category is this vehicle?</legend>
+            <div id="cat-error" class="hidden text-bb-red-00 text-[1.1rem] mb-3"></div>
+            <div class="space-y-3">
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="private-motor-car"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Private motor car</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="motor-cycle"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Motor cycle</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="motor-lorry"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Motor lorry / goods vehicle</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="public-service"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Public service vehicle (bus, minibus, taxi)</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="agricultural"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Agricultural vehicle</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="category" data-value="special-purpose"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Special purpose vehicle</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Inspection purpose -->
+          <fieldset>
+            <legend class="font-bold text-[1.25rem] mb-4">What is the purpose of this inspection?</legend>
+            <div id="purpose-error" class="hidden text-bb-red-00 text-[1.1rem] mb-3"></div>
+            <div class="space-y-3">
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="purpose" data-value="initial-registration"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Initial registration (new vehicle)</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="purpose" data-value="transfer-of-ownership"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Transfer of ownership</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="purpose" data-value="repairs-modifications"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Following repairs or modifications</label>
+              </div>
+              <div class="flex gap-5 items-center">
+                <button type="button" role="radio" aria-checked="false" data-group="purpose" data-value="other"
+                  class="radio-btn relative inline-flex size-12 shrink-0 items-center justify-center bg-bb-white-00 border-2 border-bb-black-00 rounded-full outline-none hover:cursor-pointer hover:shadow-form-hover focus-visible:ring-4 focus-visible:ring-bb-teal-100"></button>
+                <label class="text-[1.25rem] leading-normal text-bb-black-00 cursor-pointer">Other</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="flex gap-4">
+            <button type="button" onclick="handleContinue()"
+              class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100 outline-none">
+              Continue
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const saved = JSON.parse(localStorage.getItem('mvi-v5') || '{}');
+
+    document.querySelectorAll('.radio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group;
+        document.querySelectorAll(`.radio-btn[data-group="${group}"]`).forEach(b => {
+          b.setAttribute('aria-checked','false'); b.innerHTML = '';
+        });
+        btn.setAttribute('aria-checked','true');
+        btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>';
+      });
+    });
+
+    // Restore saved values
+    if (saved.category) {
+      const btn = document.querySelector(`.radio-btn[data-group="category"][data-value="${saved.category}"]`);
+      if (btn) { btn.setAttribute('aria-checked','true'); btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>'; }
+    }
+    if (saved.purpose) {
+      const btn = document.querySelector(`.radio-btn[data-group="purpose"][data-value="${saved.purpose}"]`);
+      if (btn) { btn.setAttribute('aria-checked','true'); btn.innerHTML = '<div class="size-5 rounded-full bg-bb-black-00"></div>'; }
+    }
+
+    function handleContinue() {
+      const errors = [];
+      document.getElementById('cat-error').classList.add('hidden');
+      document.getElementById('purpose-error').classList.add('hidden');
+      document.getElementById('error-summary').classList.add('hidden');
+      document.getElementById('error-list').innerHTML = '';
+
+      const category = document.querySelector('.radio-btn[data-group="category"][aria-checked="true"]');
+      const purpose = document.querySelector('.radio-btn[data-group="purpose"][aria-checked="true"]');
+
+      if (!category) {
+        errors.push('Vehicle category – Select a vehicle category');
+        document.getElementById('cat-error').textContent = 'Select a vehicle category';
+        document.getElementById('cat-error').classList.remove('hidden');
+      }
+      if (!purpose) {
+        errors.push('Inspection purpose – Select the purpose of this inspection');
+        document.getElementById('purpose-error').textContent = 'Select the purpose of this inspection';
+        document.getElementById('purpose-error').classList.remove('hidden');
+      }
+
+      if (errors.length > 0) {
+        const list = document.getElementById('error-list');
+        errors.forEach(e => { const li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+        document.getElementById('error-summary').classList.remove('hidden');
+        document.title = 'Error: About this inspection – Apply for a motor vehicle inspection';
+        window.scrollTo(0,0);
+        return;
+      }
+
+      const data = JSON.parse(localStorage.getItem('mvi-v5') || '{}');
+      data.category = category.dataset.value;
+      data.purpose = purpose.dataset.value;
+      localStorage.setItem('mvi-v5', JSON.stringify(data));
+      window.location.href = 'owner-details.html';
+    }
+  </script>
+</body>
+</html>
