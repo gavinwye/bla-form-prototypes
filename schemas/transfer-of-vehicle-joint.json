@@ -1,0 +1,263 @@
+{
+  "id": "transfer-of-vehicle-joint",
+  "name": "Transfer of Vehicle (Joint Owners)",
+  "description": "Notify the Barbados Licensing Authority of the transfer of a vehicle by joint owners",
+  "fields": [
+    {
+      "name": "owner1",
+      "type": "object",
+      "label": "First owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number / National Registration Number",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{6}-\\d{4}$"
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "owner2",
+      "type": "object",
+      "label": "Second owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number / National Registration Number",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{6}-\\d{4}$"
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "label": "Model",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "transferee",
+      "type": "object",
+      "label": "Transferee details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number / National Registration Number",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{6}-\\d{4}$"
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "retainRegistration",
+      "type": "string",
+      "label": "Do you wish to retain the registration number?",
+      "required": true,
+      "validations": {
+        "regex": "^(yes|no)$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:transfer-of-vehicle-joint:admin_email}}",
+        "template": "transfer-of-vehicle-joint-admin",
+        "subject": "New Transfer of Vehicle (Joint Owners) Notification"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.owner1.email}}",
+        "template": "transfer-of-vehicle-joint-applicant",
+        "subject": "Your Vehicle Transfer Notification Has Been Received"
+      }
+    }
+  ]
+}

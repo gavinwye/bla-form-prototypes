@@ -1,0 +1,136 @@
+{
+  "id": "duty-free-concession-individual",
+  "name": "Request for Duty Free Concession (Individual)",
+  "description": "Apply for a duty free concession on a vehicle for an individual",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number / NRN",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "year",
+          "type": "string",
+          "label": "Year of manufacture",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}$"
+          }
+        },
+        {
+          "name": "vehicleType",
+          "type": "string",
+          "label": "Vehicle type",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:duty-free-concession-individual:admin_email}}",
+        "template": "duty-free-concession-individual-admin",
+        "subject": "New Duty Free Concession Application (Individual)"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "duty-free-concession-individual-applicant",
+        "subject": "Your Duty Free Concession Application Has Been Received"
+      }
+    }
+  ]
+}

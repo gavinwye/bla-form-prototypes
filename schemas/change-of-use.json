@@ -1,0 +1,133 @@
+{
+  "id": "change-of-use",
+  "name": "Change of Use of Vehicle",
+  "description": "Apply to change the registered use of a motor vehicle",
+  "fields": [
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make of vehicle",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "label": "Description of vehicle",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Your details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "useChange",
+      "type": "object",
+      "label": "Change of use",
+      "required": true,
+      "fields": [
+        {
+          "name": "currentUse",
+          "type": "string",
+          "label": "Current use",
+          "required": true,
+          "validations": {
+            "regex": "^(private|commercial|public-service|other)$"
+          }
+        },
+        {
+          "name": "newUse",
+          "type": "string",
+          "label": "New use",
+          "required": true,
+          "validations": {
+            "regex": "^(private|commercial|public-service|other)$"
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:change-of-use:admin_email}}",
+        "template": "change-of-use-admin",
+        "subject": "New Change of Use Application"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "change-of-use-applicant",
+        "subject": "Your Change of Use Application Has Been Received"
+      }
+    }
+  ]
+}

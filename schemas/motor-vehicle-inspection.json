@@ -1,0 +1,379 @@
+{
+  "id": "motor-vehicle-inspection",
+  "name": "Apply for a Motor Vehicle Inspection",
+  "description": "Apply for a motor vehicle inspection with the Barbados Licensing Authority",
+  "fields": [
+    {
+      "name": "inspection",
+      "type": "object",
+      "label": "Inspection details",
+      "required": true,
+      "fields": [
+        {
+          "name": "vehicleCategory",
+          "type": "string",
+          "label": "Vehicle category",
+          "required": true,
+          "validations": {
+            "regex": "^(private-motor-car|motor-cycle|motor-lorry|public-service|agricultural|special-purpose)$"
+          }
+        },
+        {
+          "name": "inspectionPurpose",
+          "type": "string",
+          "label": "Inspection purpose",
+          "required": true,
+          "validations": {
+            "regex": "^(initial-registration|transfer-of-ownership|following-repairs|other)$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "registration",
+      "type": "object",
+      "label": "Registration details",
+      "required": true,
+      "fields": [
+        {
+          "name": "previouslyRegistered",
+          "type": "string",
+          "label": "Previously registered",
+          "required": true,
+          "validations": {
+            "regex": "^(yes|no)$"
+          }
+        },
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": false,
+          "validations": {
+            "max": 20
+          },
+          "conditionalOn": {
+            "field": "registration.previouslyRegistered",
+            "value": "yes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "manufacturer",
+      "type": "object",
+      "label": "Manufacturer details",
+      "required": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "label": "Name of manufacturer",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "label": "Country of manufacture",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleDescription",
+      "type": "object",
+      "label": "Vehicle description",
+      "required": true,
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "label": "Description",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "primaryColour",
+          "type": "string",
+          "label": "Primary colour",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "secondaryColour",
+          "type": "string",
+          "label": "Secondary colour",
+          "required": false,
+          "validations": {
+            "max": 50
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleSpecs",
+      "type": "object",
+      "label": "Vehicle specifications",
+      "required": true,
+      "fields": [
+        {
+          "name": "yearManufactured",
+          "type": "string",
+          "label": "Year manufactured",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}$"
+          }
+        },
+        {
+          "name": "numberOfCylinders",
+          "type": "string",
+          "label": "Number of cylinders",
+          "required": true,
+          "validations": {
+            "regex": "^\\d+$"
+          }
+        },
+        {
+          "name": "engineCapacity",
+          "type": "string",
+          "label": "Engine capacity (cc)",
+          "required": true,
+          "validations": {
+            "regex": "^\\d+$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "engineNumber",
+      "type": "string",
+      "label": "Engine number",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "name": "chassisNumber",
+      "type": "string",
+      "label": "Chassis number",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "name": "vehicleConfig",
+      "type": "object",
+      "label": "Vehicle configuration",
+      "required": true,
+      "fields": [
+        {
+          "name": "numberOfAxles",
+          "type": "string",
+          "label": "Number of axles",
+          "required": true,
+          "validations": {
+            "regex": "^\\d+$"
+          }
+        },
+        {
+          "name": "handDrive",
+          "type": "string",
+          "label": "Hand drive",
+          "required": true,
+          "validations": {
+            "regex": "^(right-hand|left-hand)$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "weightAndPassengers",
+      "type": "object",
+      "label": "Weight and passengers",
+      "required": true,
+      "fields": [
+        {
+          "name": "weightCertificate",
+          "type": "string",
+          "label": "Weight certificate (kg)",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "grossWeight",
+          "type": "string",
+          "label": "Gross weight (kg)",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "numberOfPassengers",
+          "type": "string",
+          "label": "Number of passengers",
+          "required": true,
+          "validations": {
+            "regex": "^\\d+$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "owner",
+      "type": "object",
+      "label": "Owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{3}-\\d{4}$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ownerAddress",
+      "type": "object",
+      "label": "Owner address",
+      "required": true,
+      "fields": [
+        {
+          "name": "street",
+          "type": "string",
+          "label": "Street",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "parish",
+          "type": "string",
+          "label": "Parish",
+          "required": true,
+          "validations": {
+            "regex": "^(christ-church|st-andrew|st-george|st-james|st-john|st-joseph|st-lucy|st-michael|st-peter|st-philip|st-thomas)$"
+          }
+        },
+        {
+          "name": "postalCode",
+          "type": "string",
+          "label": "Postal code",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "purpose",
+      "type": "string",
+      "label": "Purpose of use",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 500
+      }
+    },
+    {
+      "name": "examination",
+      "type": "object",
+      "label": "Examination details",
+      "required": true,
+      "fields": [
+        {
+          "name": "preferredDate",
+          "type": "date",
+          "label": "Preferred date",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        },
+        {
+          "name": "preferredTime",
+          "type": "string",
+          "label": "Preferred time",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "type": "object",
+      "label": "Declaration",
+      "required": true,
+      "fields": [
+        {
+          "name": "confirmed",
+          "type": "boolean",
+          "label": "I confirm that the information provided is correct",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:motor-vehicle-inspection:admin_email}}",
+        "template": "motor-vehicle-inspection-admin",
+        "subject": "New Motor Vehicle Inspection Application"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.owner.fullName}}",
+        "template": "motor-vehicle-inspection-applicant",
+        "subject": "Your Motor Vehicle Inspection Application Has Been Received"
+      }
+    }
+  ]
+}
