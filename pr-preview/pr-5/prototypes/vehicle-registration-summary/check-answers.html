@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Vehicle Registration Summary Sheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00':'#e8a833','bb-yellow-100':'#ffc726','bb-yellow-40':'#ffe9a8','bb-yellow-10':'#fff9e9',
+            'bb-blue-00':'#00164a','bb-blue-100':'#00267f','bb-blue-40':'#99a8cc','bb-blue-10':'#e5e9f2',
+            'bb-black-00':'#000000','bb-mid-grey-00':'#595959','bb-grey-00':'#e0e4e9','bb-white-00':'#ffffff',
+            'bb-green-00':'#00654a','bb-green-100':'#1fbf84','bb-green-40':'#a5e5ce','bb-green-10':'#e9f9f3',
+            'bb-red-00':'#a42c2c','bb-red-100':'#ff6b6b','bb-red-40':'#ffc4c4','bb-red-10':'#fff0f0',
+            'bb-teal-00':'#0e5f64','bb-teal-100':'#30c0c8','bb-teal-40':'#ace6e9','bb-teal-10':'#eaf9f9',
+            'bb-purple-00':'#4a235a','bb-purple-100':'#a962c7','bb-pink-00':'#ad1157','bb-pink-100':'#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','"Segoe UI"','Roboto','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem','xl':'8rem' },
+          borderRadius: { 'sm':'0.25rem','md':'0.375rem','lg':'0.5rem' },
+          boxShadow: { 'form-hover':'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display':'5rem','h1':'3.5rem','h2':'2.5rem','h3':'1.5rem','h4':'1.25rem','body-lg':'2rem','body':'1.25rem','caption':'1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,"system-ui","Segoe UI",Roboto,sans-serif; font-weight:400; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; -webkit-font-smoothing:antialiased; }
+    .container { max-width:1200px; }
+    .summary-row { display:grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e0e4e9; align-items: start; }
+    .summary-row:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+
+        <a href="financier.html"
+          class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m">
+          ← Back
+        </a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Check your answers</h1>
+
+        <!-- Registration section -->
+        <section class="mb-m">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Registration</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Registration type</dt>
+            <dd id="ans-reg-type" class="text-[1.25rem]"></dd>
+            <dd><a href="registration-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> registration type</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Vehicle usage</dt>
+            <dd id="ans-vehicle-usage" class="text-[1.25rem]"></dd>
+            <dd><a href="vehicle-usage.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> vehicle usage</span></a></dd>
+          </div>
+        </section>
+
+        <!-- Ownership section -->
+        <section class="mb-m">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Ownership</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Ownership type</dt>
+            <dd id="ans-ownership-type" class="text-[1.25rem]"></dd>
+            <dd><a href="ownership-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> ownership type</span></a></dd>
+          </div>
+        </section>
+
+        <!-- Primary owner section -->
+        <section class="mb-m">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Primary owner</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Full name</dt>
+            <dd id="ans-owner1-name" class="text-[1.25rem]"></dd>
+            <dd><a href="owner-1-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> primary owner full name</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">ID number / NRN</dt>
+            <dd id="ans-owner1-id" class="text-[1.25rem]"></dd>
+            <dd><a href="owner-1-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> primary owner ID number</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Address</dt>
+            <dd id="ans-owner1-address" class="text-[1.25rem] whitespace-pre-line"></dd>
+            <dd><a href="owner-1-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> primary owner address</span></a></dd>
+          </div>
+        </section>
+
+        <!-- Second owner section (joint only) -->
+        <section id="section-owner2" class="mb-m hidden">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Second owner</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Full name</dt>
+            <dd id="ans-owner2-name" class="text-[1.25rem]"></dd>
+            <dd><a href="owner-2-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> second owner full name</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">ID number / NRN</dt>
+            <dd id="ans-owner2-id" class="text-[1.25rem]"></dd>
+            <dd><a href="owner-2-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> second owner ID number</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Address</dt>
+            <dd id="ans-owner2-address" class="text-[1.25rem] whitespace-pre-line"></dd>
+            <dd><a href="owner-2-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> second owner address</span></a></dd>
+          </div>
+        </section>
+
+        <!-- Government codes section (government only) -->
+        <section id="section-gov-codes" class="mb-m hidden">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Government codes</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Government code</dt>
+            <dd id="ans-gov-code" class="text-[1.25rem]"></dd>
+            <dd><a href="government-codes.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> government code</span></a></dd>
+          </div>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Dependency code</dt>
+            <dd id="ans-dep-code" class="text-[1.25rem]"></dd>
+            <dd><a href="government-codes.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> dependency code</span></a></dd>
+          </div>
+        </section>
+
+        <!-- Financier section -->
+        <section class="mb-m">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s pb-xs border-b-2 border-bb-black-00">Financier</h2>
+          <div class="summary-row">
+            <dt class="font-bold text-[1.25rem]">Is there a financier?</dt>
+            <dd id="ans-has-financier" class="text-[1.25rem]"></dd>
+            <dd><a href="financier.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> whether there is a financier</span></a></dd>
+          </div>
+          <div id="row-financier-name" class="summary-row hidden">
+            <dt class="font-bold text-[1.25rem]">Financier name</dt>
+            <dd id="ans-financier-name" class="text-[1.25rem]"></dd>
+            <dd><a href="financier.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 text-[1.25rem]">Change<span class="sr-only"> financier name</span></a></dd>
+          </div>
+        </section>
+
+        <div class="mt-8 flex gap-4">
+          <button type="button" id="submit-btn"
+            class="relative inline-flex items-center justify-center gap-2 text-[20px] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] hover:shadow-[inset_0_0_0_4px_rgba(222,245,246,0.10)] active:bg-[#0a4549] active:shadow-[inset_0_0_0_3px_rgba(0,0,0,0.20)] px-xm py-s rounded-sm leading-[1.7] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100 focus-visible:rounded-sm">
+            Confirm and submit
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    injectChrome();
+
+    const d = getData('vehicle-registration-summary');
+
+    // Populate registration section
+    document.getElementById('ans-reg-type').textContent = d.registrationType || '—';
+    document.getElementById('ans-vehicle-usage').textContent = d.vehicleUsage || '—';
+
+    // Populate ownership section
+    document.getElementById('ans-ownership-type').textContent = d.ownershipType || '—';
+
+    // Populate primary owner
+    document.getElementById('ans-owner1-name').textContent = d.owner1Name || '—';
+    document.getElementById('ans-owner1-id').textContent = d.owner1Id || '—';
+    document.getElementById('ans-owner1-address').textContent = d.owner1Address || '—';
+
+    // Show second owner section if joint
+    if (d.ownershipType === 'Joint owners') {
+      document.getElementById('section-owner2').classList.remove('hidden');
+      document.getElementById('ans-owner2-name').textContent = d.owner2Name || '—';
+      document.getElementById('ans-owner2-id').textContent = d.owner2Id || '—';
+      document.getElementById('ans-owner2-address').textContent = d.owner2Address || '—';
+    }
+
+    // Show government codes section if government
+    if (d.ownershipType === 'Government') {
+      document.getElementById('section-gov-codes').classList.remove('hidden');
+      document.getElementById('ans-gov-code').textContent = d.govCode || '—';
+      document.getElementById('ans-dep-code').textContent = d.depCode || '—';
+    }
+
+    // Populate financier section
+    document.getElementById('ans-has-financier').textContent = d.hasFinancier || '—';
+    if (d.hasFinancier === 'Yes') {
+      document.getElementById('row-financier-name').classList.remove('hidden');
+      document.getElementById('ans-financier-name').textContent = d.financierName || '—';
+    }
+
+    // Submit
+    document.getElementById('submit-btn').addEventListener('click', function() {
+      window.location.href = 'confirmation.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "id": "retention-of-registration-number",
+  "name": "Retain Your Vehicle Registration Number",
+  "description": "Apply to retain a vehicle registration number",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "contactNumber",
+          "type": "string",
+          "label": "Contact number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "registrationNumber",
+      "type": "string",
+      "label": "Registration number",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 20
+      }
+    },
+    {
+      "name": "reasons",
+      "type": "object",
+      "label": "Reasons for retention",
+      "required": true,
+      "fields": [
+        {
+          "name": "totalLoss",
+          "type": "boolean",
+          "label": "Total loss",
+          "required": false
+        },
+        {
+          "name": "underRepairs",
+          "type": "boolean",
+          "label": "Under repairs",
+          "required": false
+        },
+        {
+          "name": "changeOfUse",
+          "type": "boolean",
+          "label": "Change of use",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:retention-of-registration-number:admin_email}}",
+        "template": "retention-of-registration-number-admin",
+        "subject": "New Application to Retain Vehicle Registration Number"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "retention-of-registration-number-applicant",
+        "subject": "Your Registration Number Retention Application Has Been Received"
+      }
+    }
+  ]
+}

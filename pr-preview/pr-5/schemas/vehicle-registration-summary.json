@@ -1,0 +1,194 @@
+{
+  "id": "vehicle-registration-summary",
+  "name": "Vehicle Registration Summary Sheet",
+  "description": "Complete a vehicle registration summary sheet",
+  "fields": [
+    {
+      "name": "registrationType",
+      "type": "string",
+      "label": "Registration type",
+      "required": true,
+      "validations": {
+        "regex": "^(new-import|transfer-of-ownership|used-transferred-registration|used-new-registration)$"
+      }
+    },
+    {
+      "name": "ownershipType",
+      "type": "string",
+      "label": "Ownership type",
+      "required": true,
+      "validations": {
+        "regex": "^(sole|joint|government|company)$"
+      }
+    },
+    {
+      "name": "owner1",
+      "type": "object",
+      "label": "First owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        }
+      ]
+    },
+    {
+      "name": "owner2",
+      "type": "object",
+      "label": "Second owner details",
+      "required": false,
+      "conditionalOn": {
+        "field": "ownershipType",
+        "value": "joint"
+      },
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "idNumber",
+          "type": "string",
+          "label": "ID number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        }
+      ]
+    },
+    {
+      "name": "governmentCodes",
+      "type": "object",
+      "label": "Government codes",
+      "required": false,
+      "conditionalOn": {
+        "field": "ownershipType",
+        "value": "government"
+      },
+      "fields": [
+        {
+          "name": "governmentCode",
+          "type": "string",
+          "label": "Government code",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "dependencyCode",
+          "type": "string",
+          "label": "Dependency code",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "financier",
+      "type": "object",
+      "label": "Financier details",
+      "required": true,
+      "fields": [
+        {
+          "name": "hasFinancier",
+          "type": "string",
+          "label": "Is there a financier?",
+          "required": true,
+          "validations": {
+            "regex": "^(yes|no)$"
+          }
+        },
+        {
+          "name": "financierName",
+          "type": "string",
+          "label": "Financier name",
+          "required": false,
+          "conditionalOn": {
+            "field": "financier.hasFinancier",
+            "value": "yes"
+          },
+          "validations": {
+            "max": 200
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleUsage",
+      "type": "string",
+      "label": "Vehicle usage",
+      "required": true,
+      "validations": {
+        "regex": "^(private|commercial|public-service|business)$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-registration-summary:admin_email}}",
+        "template": "vehicle-registration-summary-admin",
+        "subject": "New Vehicle Registration Summary Sheet"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-registration-summary:admin_email}}",
+        "template": "vehicle-registration-summary-applicant",
+        "subject": "Your Vehicle Registration Summary Sheet Has Been Received"
+      }
+    }
+  ]
+}

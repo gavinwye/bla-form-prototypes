@@ -1,0 +1,82 @@
+{
+  "id": "scrapping-of-vehicle",
+  "name": "Scrap or Sell Vehicle in Parts",
+  "description": "Notify the Barbados Licensing Authority that a vehicle will be scrapped or sold in parts",
+  "fields": [
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "description",
+          "type": "string",
+          "label": "Vehicle description",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "disposition",
+      "type": "string",
+      "label": "Disposition",
+      "required": true,
+      "validations": {
+        "regex": "^(scrapped|sold-in-parts)$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:scrapping-of-vehicle:admin_email}}",
+        "template": "scrapping-of-vehicle-admin",
+        "subject": "New Scrap or Sell Vehicle in Parts Notification"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:scrapping-of-vehicle:admin_email}}",
+        "template": "scrapping-of-vehicle-applicant",
+        "subject": "Your Vehicle Scrapping Notification Has Been Received"
+      }
+    }
+  ]
+}

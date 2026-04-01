@@ -1,0 +1,211 @@
+{
+  "id": "vehicle-investigation",
+  "name": "Application for Vehicle Investigation",
+  "description": "Request an investigation of a motor vehicle",
+  "fields": [
+    {
+      "name": "owner",
+      "type": "object",
+      "label": "Owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "parish",
+          "type": "string",
+          "label": "Parish",
+          "required": true,
+          "validations": {
+            "regex": "^(christ-church|st-andrew|st-george|st-james|st-john|st-joseph|st-lucy|st-michael|st-peter|st-philip|st-thomas)$"
+          }
+        },
+        {
+          "name": "homeTelephone",
+          "type": "string",
+          "label": "Home telephone",
+          "required": false,
+          "validations": {
+            "max": 20
+          }
+        },
+        {
+          "name": "cellTelephone",
+          "type": "string",
+          "label": "Cell telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "workTelephone",
+          "type": "string",
+          "label": "Work telephone",
+          "required": false,
+          "validations": {
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "label": "Model",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleLocation",
+      "type": "string",
+      "label": "Current location of the vehicle",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 500
+      }
+    },
+    {
+      "name": "alternateContact",
+      "type": "object",
+      "label": "Alternate contact",
+      "required": true,
+      "fields": [
+        {
+          "name": "hasDifferentContact",
+          "type": "string",
+          "label": "Is there a different contact person for the vehicle?",
+          "required": true,
+          "validations": {
+            "regex": "^(yes|no)$"
+          }
+        },
+        {
+          "name": "contactName",
+          "type": "string",
+          "label": "Contact name",
+          "required": false,
+          "conditionalOn": {
+            "field": "alternateContact.hasDifferentContact",
+            "value": "yes"
+          },
+          "validations": {
+            "max": 200
+          }
+        },
+        {
+          "name": "contactTelephone",
+          "type": "string",
+          "label": "Contact telephone",
+          "required": false,
+          "conditionalOn": {
+            "field": "alternateContact.hasDifferentContact",
+            "value": "yes"
+          },
+          "validations": {
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "label": "Reason for investigation",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 1000
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-investigation:admin_email}}",
+        "template": "vehicle-investigation-admin",
+        "subject": "New Application for Vehicle Investigation"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-investigation:admin_email}}",
+        "template": "vehicle-investigation-applicant",
+        "subject": "Your Vehicle Investigation Application Has Been Received"
+      }
+    }
+  ]
+}

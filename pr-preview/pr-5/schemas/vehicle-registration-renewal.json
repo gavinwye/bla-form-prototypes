@@ -1,0 +1,336 @@
+{
+  "id": "vehicle-registration-renewal",
+  "name": "Register or Renew Your Motor Vehicle Licence",
+  "description": "Apply to register or renew a motor vehicle licence",
+  "fields": [
+    {
+      "name": "registrationType",
+      "type": "string",
+      "label": "Registration type",
+      "required": true,
+      "validations": {
+        "regex": "^(new|renewal)$"
+      }
+    },
+    {
+      "name": "vehicleRegistrationNumber",
+      "type": "string",
+      "label": "Vehicle registration number",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 20
+      }
+    },
+    {
+      "name": "owner",
+      "type": "object",
+      "label": "Owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "nationalRegistrationNumber",
+          "type": "string",
+          "label": "National Registration Number",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{6}-\\d{4}$"
+          }
+        },
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "parish",
+          "type": "string",
+          "label": "Parish",
+          "required": true,
+          "validations": {
+            "regex": "^(christ-church|st-andrew|st-george|st-james|st-john|st-joseph|st-lucy|st-michael|st-peter|st-philip|st-thomas)$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleDescription",
+      "type": "object",
+      "label": "Vehicle description",
+      "required": true,
+      "fields": [
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "label": "Model",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "yearOfManufacture",
+          "type": "string",
+          "label": "Year of manufacture",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}$"
+          }
+        },
+        {
+          "name": "bodyType",
+          "type": "string",
+          "label": "Body type",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicleIdentification",
+      "type": "object",
+      "label": "Vehicle identification",
+      "required": true,
+      "fields": [
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": false,
+          "validations": {
+            "max": 30
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "fuelType",
+      "type": "string",
+      "label": "Fuel type",
+      "required": true,
+      "validations": {
+        "regex": "^(petrol|diesel|electric|hybrid)$"
+      }
+    },
+    {
+      "name": "vehicleCapacity",
+      "type": "object",
+      "label": "Vehicle capacity",
+      "required": true,
+      "fields": [
+        {
+          "name": "seatingCapacity",
+          "type": "string",
+          "label": "Seating capacity",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 10
+          }
+        },
+        {
+          "name": "grossWeight",
+          "type": "string",
+          "label": "Gross weight",
+          "required": false,
+          "validations": {
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "insurance",
+      "type": "object",
+      "label": "Insurance details",
+      "required": true,
+      "fields": [
+        {
+          "name": "insurerName",
+          "type": "string",
+          "label": "Insurer name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "policyNumber",
+          "type": "string",
+          "label": "Policy number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "expiryDate",
+          "type": "date",
+          "label": "Expiry date",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "examinerCertificate",
+      "type": "object",
+      "label": "Examiner certificate",
+      "required": true,
+      "fields": [
+        {
+          "name": "certificateNumber",
+          "type": "string",
+          "label": "Certificate number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "examinerName",
+          "type": "string",
+          "label": "Examiner name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "dateIssued",
+          "type": "date",
+          "label": "Date issued",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "firstRegistrationExtras",
+      "type": "object",
+      "label": "First registration extras",
+      "required": false,
+      "conditionalOn": {
+        "field": "registrationType",
+        "value": "new"
+      },
+      "fields": [
+        {
+          "name": "numberOfCylinders",
+          "type": "string",
+          "label": "Number of cylinders",
+          "required": false,
+          "validations": {
+            "max": 10
+          }
+        },
+        {
+          "name": "engineCapacity",
+          "type": "string",
+          "label": "Engine capacity",
+          "required": false,
+          "validations": {
+            "max": 20
+          }
+        },
+        {
+          "name": "numberOfAxles",
+          "type": "string",
+          "label": "Number of axles",
+          "required": false,
+          "validations": {
+            "max": 10
+          }
+        },
+        {
+          "name": "handDrive",
+          "type": "string",
+          "label": "Hand drive",
+          "required": true,
+          "validations": {
+            "regex": "^(left|right)$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "type": "object",
+      "label": "Declaration",
+      "required": true,
+      "fields": [
+        {
+          "name": "confirmed",
+          "type": "boolean",
+          "label": "I confirm that the information provided is true and correct",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-registration-renewal:admin_email}}",
+        "template": "vehicle-registration-renewal-admin",
+        "subject": "New Motor Vehicle Licence Registration/Renewal Application"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vehicle-registration-renewal:admin_email}}",
+        "template": "vehicle-registration-renewal-applicant",
+        "subject": "Your Motor Vehicle Licence Application Has Been Received"
+      }
+    }
+  ]
+}

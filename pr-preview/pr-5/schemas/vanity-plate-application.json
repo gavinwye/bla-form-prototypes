@@ -1,0 +1,130 @@
+{
+  "id": "vanity-plate-application",
+  "name": "Application for an Approved Vanity Plate",
+  "description": "Apply for a vanity plate for a motor vehicle",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "existingRegistration",
+      "type": "object",
+      "label": "Existing registration",
+      "required": true,
+      "fields": [
+        {
+          "name": "hasRegistration",
+          "type": "string",
+          "label": "Do you have an existing vehicle registration?",
+          "required": true,
+          "validations": {
+            "regex": "^(yes|no)$"
+          }
+        },
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": false,
+          "conditionalOn": {
+            "field": "existingRegistration.hasRegistration",
+            "value": "yes"
+          },
+          "validations": {
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "vanityPlate",
+      "type": "object",
+      "label": "Vanity plate details",
+      "required": true,
+      "fields": [
+        {
+          "name": "plateText",
+          "type": "string",
+          "label": "Proposed plate text",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 8
+          }
+        }
+      ]
+    },
+    {
+      "name": "applicationType",
+      "type": "string",
+      "label": "Application type",
+      "required": true,
+      "validations": {
+        "regex": "^(new|renewal)$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:vanity-plate-application:admin_email}}",
+        "template": "vanity-plate-application-admin",
+        "subject": "New Application for an Approved Vanity Plate"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "vanity-plate-application-applicant",
+        "subject": "Your Vanity Plate Application Has Been Received"
+      }
+    }
+  ]
+}
