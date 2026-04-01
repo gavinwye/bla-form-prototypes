@@ -48,6 +48,21 @@
 
         <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Check your answers before sending your notification</h1>
 
+        <!-- Your details section -->
+        <h2 class="font-bold text-[2.5rem] leading-[1.15] mb-s mt-m">Your details</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-m">
+          <div class="flex justify-between py-s gap-4">
+            <dt class="text-[1.25rem] font-bold text-bb-black-00 w-1/3">Full name</dt>
+            <dd class="text-[1.25rem] text-bb-black-00 flex-1" id="summary-fullName"></dd>
+            <dd><a href="your-details.html" class="text-bb-teal-00 underline hover:no-underline whitespace-nowrap">Change<span class="sr-only"> full name</span></a></dd>
+          </div>
+          <div class="flex justify-between py-s gap-4">
+            <dt class="text-[1.25rem] font-bold text-bb-black-00 w-1/3">Email address</dt>
+            <dd class="text-[1.25rem] text-bb-black-00 flex-1" id="summary-email"></dd>
+            <dd><a href="your-details.html" class="text-bb-teal-00 underline hover:no-underline whitespace-nowrap">Change<span class="sr-only"> email address</span></a></dd>
+          </div>
+        </dl>
+
         <!-- Vehicle details section -->
         <h2 class="font-bold text-[2.5rem] leading-[1.15] mb-s mt-m">Vehicle details</h2>
         <dl class="divide-y divide-bb-grey-00 mb-m">
@@ -113,6 +128,8 @@
     const STORAGE_KEY = 'change-of-use';
     const data = getData(STORAGE_KEY);
 
+    document.getElementById('summary-fullName').textContent = data.fullName || '—';
+    document.getElementById('summary-email').textContent = data.email || '—';
     document.getElementById('summary-registration').textContent = data.registration || '—';
     document.getElementById('summary-make').textContent = data.make || '—';
     document.getElementById('summary-description').textContent = data.description || '—';

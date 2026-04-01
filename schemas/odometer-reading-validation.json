@@ -1,0 +1,119 @@
+{
+  "id": "odometer-reading-validation",
+  "name": "Odometer Reading Validation",
+  "description": "Submit an odometer reading for validation of an electric or hybrid vehicle",
+  "fields": [
+    {
+      "name": "owner",
+      "type": "object",
+      "label": "Owner details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        },
+        {
+          "name": "contactNumber",
+          "type": "string",
+          "label": "Contact number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "motorNumber",
+          "type": "string",
+          "label": "Motor number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "vehicleType",
+          "type": "string",
+          "label": "Vehicle type",
+          "required": true,
+          "validations": {
+            "regex": "^(electric|hybrid)$"
+          }
+        }
+      ]
+    },
+    {
+      "name": "odometerReading",
+      "type": "string",
+      "label": "Current odometer reading",
+      "required": true,
+      "validations": {
+        "regex": "^\\d+$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:odometer-reading-validation:admin_email}}",
+        "template": "odometer-reading-validation-admin",
+        "subject": "New Odometer Reading Validation Submission"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.owner.email}}",
+        "template": "odometer-reading-validation-applicant",
+        "subject": "Your Odometer Reading Validation Has Been Received"
+      }
+    }
+  ]
+}

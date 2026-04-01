@@ -1,0 +1,175 @@
+{
+  "id": "importation-of-vehicles",
+  "name": "Application for the Importation of Vehicles into Barbados",
+  "description": "Apply to import a vehicle into Barbados",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name or company name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 254
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "label": "Model",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        },
+        {
+          "name": "year",
+          "type": "string",
+          "label": "Year",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}$"
+          }
+        },
+        {
+          "name": "colour",
+          "type": "string",
+          "label": "Colour",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": false,
+          "validations": {
+            "max": 30
+          }
+        },
+        {
+          "name": "motorNumber",
+          "type": "string",
+          "label": "Motor number",
+          "required": false,
+          "validations": {
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "fuelType",
+      "type": "string",
+      "label": "Fuel type",
+      "required": true,
+      "validations": {
+        "regex": "^(petrol|diesel|electric|hybrid|cng|lpg)$"
+      }
+    },
+    {
+      "name": "steeringConfiguration",
+      "type": "string",
+      "label": "Steering configuration",
+      "required": true,
+      "validations": {
+        "regex": "^(left-hand|right-hand)$"
+      }
+    },
+    {
+      "name": "intendedUse",
+      "type": "string",
+      "label": "Intended use",
+      "required": true,
+      "validations": {
+        "regex": "^(private|commercial|public-service)$"
+      }
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:importation-of-vehicles:admin_email}}",
+        "template": "importation-of-vehicles-admin",
+        "subject": "New Application for the Importation of Vehicles"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "importation-of-vehicles-applicant",
+        "subject": "Your Vehicle Importation Application Has Been Received"
+      }
+    }
+  ]
+}

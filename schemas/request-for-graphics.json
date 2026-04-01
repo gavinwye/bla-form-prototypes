@@ -1,0 +1,116 @@
+{
+  "id": "request-for-graphics",
+  "name": "Request for Graphics and/or Lettering on Vehicle",
+  "description": "Apply to add graphics or lettering to a vehicle",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "businessName",
+          "type": "string",
+          "label": "Business name",
+          "required": false,
+          "validations": {
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "registrationNumber",
+      "type": "string",
+      "label": "Registration number",
+      "required": false,
+      "validations": {
+        "max": 20
+      }
+    },
+    {
+      "name": "graphics",
+      "type": "object",
+      "label": "Graphics and lettering details",
+      "required": true,
+      "fields": [
+        {
+          "name": "front",
+          "type": "string",
+          "label": "Graphics or lettering on the front",
+          "required": false,
+          "validations": {
+            "max": 500
+          }
+        },
+        {
+          "name": "rear",
+          "type": "string",
+          "label": "Graphics or lettering on the rear",
+          "required": false,
+          "validations": {
+            "max": 500
+          }
+        },
+        {
+          "name": "sides",
+          "type": "string",
+          "label": "Graphics or lettering on the sides",
+          "required": false,
+          "validations": {
+            "max": 500
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:request-for-graphics:admin_email}}",
+        "template": "request-for-graphics-admin",
+        "subject": "New Request for Graphics and/or Lettering on Vehicle"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.telephone}}",
+        "template": "request-for-graphics-applicant",
+        "subject": "Your Graphics and Lettering Request Has Been Received"
+      }
+    }
+  ]
+}

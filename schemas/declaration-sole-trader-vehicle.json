@@ -1,0 +1,178 @@
+{
+  "id": "declaration-sole-trader-vehicle",
+  "name": "Declaration Form - Sole Trader Vehicle Registration for Private Use",
+  "description": "Declare a sole trader vehicle for private use registration",
+  "fields": [
+    {
+      "name": "business",
+      "type": "object",
+      "label": "Business details",
+      "required": true,
+      "fields": [
+        {
+          "name": "tradingName",
+          "type": "string",
+          "label": "Trading name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Business address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "label": "Telephone number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "businessRegistrationNumber",
+      "type": "string",
+      "label": "Business registration number",
+      "required": true,
+      "validations": {
+        "min": 1,
+        "max": 50
+      }
+    },
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "year",
+          "type": "string",
+          "label": "Year of manufacture",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}$"
+          }
+        },
+        {
+          "name": "make",
+          "type": "string",
+          "label": "Make of vehicle",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "label": "Description of vehicle",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "seatingCapacity",
+          "type": "string",
+          "label": "Seating capacity",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "type": "object",
+      "label": "Declaration",
+      "required": true,
+      "fields": [
+        {
+          "name": "confirmed",
+          "type": "boolean",
+          "label": "I confirm that the information provided is true and correct",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:declaration-sole-trader-vehicle:admin_email}}",
+        "template": "declaration-sole-trader-vehicle-admin",
+        "subject": "New Sole Trader Vehicle Declaration"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.business.email}}",
+        "template": "declaration-sole-trader-vehicle-applicant",
+        "subject": "Your Sole Trader Vehicle Declaration Has Been Received"
+      }
+    }
+  ]
+}

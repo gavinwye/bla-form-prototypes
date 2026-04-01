@@ -1,0 +1,141 @@
+{
+  "id": "change-of-engine",
+  "name": "Change of Engine",
+  "description": "Apply to register a change of engine for a motor vehicle",
+  "fields": [
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "engine",
+      "type": "object",
+      "label": "Engine details",
+      "required": true,
+      "fields": [
+        {
+          "name": "oldEngineNumber",
+          "type": "string",
+          "label": "Old engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "newEngineNumber",
+          "type": "string",
+          "label": "New engine number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineSource",
+          "type": "string",
+          "label": "Source of new engine",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Your details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "oldEngineDisposal",
+      "type": "object",
+      "label": "Old engine disposal",
+      "required": true,
+      "fields": [
+        {
+          "name": "disposalMethod",
+          "type": "string",
+          "label": "Method of disposal",
+          "required": true,
+          "validations": {
+            "regex": "^(sold|transferred|scrapped|kept)$"
+          }
+        },
+        {
+          "name": "recipient",
+          "type": "string",
+          "label": "Recipient name (if sold or transferred)",
+          "required": false,
+          "validations": {
+            "max": 200
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:change-of-engine:admin_email}}",
+        "template": "change-of-engine-admin",
+        "subject": "New Change of Engine Application"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "change-of-engine-applicant",
+        "subject": "Your Change of Engine Application Has Been Received"
+      }
+    }
+  ]
+}

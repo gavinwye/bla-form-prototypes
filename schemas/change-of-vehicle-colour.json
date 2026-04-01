@@ -1,0 +1,171 @@
+{
+  "id": "change-of-vehicle-colour",
+  "name": "Request to Change the Colour of Vehicle",
+  "description": "Apply to change the registered colour of a motor vehicle",
+  "fields": [
+    {
+      "name": "applicant",
+      "type": "object",
+      "label": "Applicant details",
+      "required": true,
+      "fields": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "label": "Full name",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 200
+          }
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "label": "Address",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 500
+          }
+        },
+        {
+          "name": "dateOfBirth",
+          "type": "date",
+          "label": "Date of birth",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        },
+        {
+          "name": "nationalRegistrationNumber",
+          "type": "string",
+          "label": "National registration number",
+          "required": true,
+          "validations": {
+            "regex": "^\\d{6}-\\d{4}$"
+          }
+        },
+        {
+          "name": "contactNumber",
+          "type": "string",
+          "label": "Contact number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": "Email address",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "vehicle",
+      "type": "object",
+      "label": "Vehicle details",
+      "required": true,
+      "fields": [
+        {
+          "name": "registrationNumber",
+          "type": "string",
+          "label": "Registration number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 20
+          }
+        },
+        {
+          "name": "vehicleType",
+          "type": "string",
+          "label": "Vehicle type",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "chassisNumber",
+          "type": "string",
+          "label": "Chassis number",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        {
+          "name": "engineNumber",
+          "type": "string",
+          "label": "Engine number",
+          "required": false,
+          "validations": {
+            "max": 30
+          }
+        },
+        {
+          "name": "motorNumber",
+          "type": "string",
+          "label": "Motor number",
+          "required": false,
+          "validations": {
+            "max": 30
+          }
+        }
+      ]
+    },
+    {
+      "name": "colourChange",
+      "type": "object",
+      "label": "Colour change",
+      "required": true,
+      "fields": [
+        {
+          "name": "currentColour",
+          "type": "string",
+          "label": "Current colour",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        },
+        {
+          "name": "newColour",
+          "type": "string",
+          "label": "New colour",
+          "required": true,
+          "validations": {
+            "min": 1,
+            "max": 50
+          }
+        }
+      ]
+    }
+  ],
+  "processors": [
+    {
+      "type": "email",
+      "config": {
+        "to": "{{db:change-of-vehicle-colour:admin_email}}",
+        "template": "change-of-vehicle-colour-admin",
+        "subject": "New Change of Vehicle Colour Application"
+      }
+    },
+    {
+      "type": "email",
+      "config": {
+        "to": "{{formData.applicant.email}}",
+        "template": "change-of-vehicle-colour-applicant",
+        "subject": "Your Change of Vehicle Colour Application Has Been Received"
+      }
+    }
+  ]
+}

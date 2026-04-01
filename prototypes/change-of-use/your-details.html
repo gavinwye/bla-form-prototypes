@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vehicle details – Change of Engine</title>
+  <title>Your details – Change of Use of Vehicle</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
     <div class="container mx-auto px-4">
       <div class="max-w-[720px]">
 
-        <a href="your-details.html"
+        <a href="index.html"
           class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">
           ← Back
         </a>
@@ -51,26 +51,27 @@
           <ul id="error-summary-list" class="list-disc pl-m space-y-xs"></ul>
         </div>
 
-        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-xs">Change of Engine</p>
-        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Vehicle details</h1>
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-xs">Change of Use of Vehicle</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Your details</h1>
 
         <form novalidate class="space-y-8">
 
-          <!-- Registration number -->
+          <!-- Full name -->
           <div class="flex flex-col gap-xs w-full items-start">
-            <p id="registration-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
-            <label for="registration" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Registration number</label>
-            <div id="registration-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
-              <input type="text" id="registration" name="registration" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            <p id="fullName-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="fullName" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Full name</label>
+            <div id="fullName-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="fullName" name="fullName" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
             </div>
           </div>
 
-          <!-- Chassis number -->
+          <!-- Email address -->
           <div class="flex flex-col gap-xs w-full items-start">
-            <p id="chassis-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
-            <label for="chassis" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Chassis number</label>
-            <div id="chassis-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
-              <input type="text" id="chassis" name="chassis" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            <p id="email-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="email" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Email address</label>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">We will send a confirmation to this address</p>
+            <div id="email-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="email" id="email" name="email" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
             </div>
           </div>
 
@@ -92,16 +93,16 @@
   <script>
     injectChrome();
 
-    const STORAGE_KEY = 'change-of-engine';
+    const STORAGE_KEY = 'change-of-use';
 
     const saved = getData(STORAGE_KEY);
-    if (saved.registration) document.getElementById('registration').value = saved.registration;
-    if (saved.chassis) document.getElementById('chassis').value = saved.chassis;
+    if (saved.fullName) document.getElementById('fullName').value = saved.fullName;
+    if (saved.email) document.getElementById('email').value = saved.email;
 
     document.getElementById('btn-continue').addEventListener('click', function () {
       const fields = [
-        { id: 'registration', label: 'Registration number' },
-        { id: 'chassis', label: 'Chassis number' },
+        { id: 'fullName', label: 'Full name' },
+        { id: 'email', label: 'Email address' },
       ];
 
       const errors = [];
@@ -110,10 +111,18 @@
         clearFieldError(f.id);
         const val = document.getElementById(f.id).value.trim();
         if (!val) {
-          setFieldError(f.id, f.label + ' – Enter ' + f.label.toLowerCase());
-          errors.push({ fieldId: f.id, message: f.label + ' – Enter ' + f.label.toLowerCase() });
+          setFieldError(f.id, f.label + ' – Enter your ' + f.label.toLowerCase());
+          errors.push({ fieldId: f.id, message: f.label + ' – Enter your ' + f.label.toLowerCase() });
         }
       });
+
+      // Email format validation
+      const emailVal = document.getElementById('email').value.trim();
+      if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        clearFieldError('email');
+        setFieldError('email', 'Email address – Enter a valid email address');
+        errors.push({ fieldId: 'email', message: 'Email address – Enter a valid email address' });
+      }
 
       if (errors.length > 0) {
         showErrorSummary(errors);
@@ -123,11 +132,11 @@
       hideErrorSummary();
 
       saveData({
-        registration: document.getElementById('registration').value.trim(),
-        chassis: document.getElementById('chassis').value.trim(),
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
       }, STORAGE_KEY);
 
-      window.location.href = 'engine-details.html';
+      window.location.href = 'vehicle-details.html';
     });
   </script>
 </body>
