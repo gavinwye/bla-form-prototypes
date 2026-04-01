@@ -1,0 +1,16 @@
+{
+  "name": "bla-forms-telegram-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Barbados Licensing Authority form submissions",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "grammy": "^1.25.0",
+    "@grammyjs/conversations": "^2.0.0",
+    "dotenv": "^16.4.0"
+  }
+}
