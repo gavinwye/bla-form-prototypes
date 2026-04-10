@@ -1,0 +1,121 @@
+{
+  "bla": {
+    "email": "enquiries@bla.gov.bb",
+    "name": "Barbados Licensing Authority",
+    "address": "Pine East-West Boulevard, The Pine, St. Michael, Barbados",
+    "phone": "246-426-3981",
+    "website": "https://bla.gov.bb"
+  },
+  "forms": {
+    "change-of-engine": {
+      "title": "Change of Engine",
+      "refPrefix": "COE",
+      "submissionType": "notification"
+    },
+    "change-of-use": {
+      "title": "Change of Use of Vehicle",
+      "refPrefix": "COU",
+      "submissionType": "notification"
+    },
+    "change-of-vehicle-colour": {
+      "title": "Request to Change the Colour of Vehicle",
+      "refPrefix": "CVC",
+      "submissionType": "request"
+    },
+    "declaration-company-vehicle": {
+      "title": "Declaration Form – Company Vehicle Registration for Private Use",
+      "refPrefix": "DC",
+      "submissionType": "declaration"
+    },
+    "declaration-partnership-vehicle": {
+      "title": "Declaration Form – Partnership Vehicle Registration for Private Use",
+      "refPrefix": "DP",
+      "submissionType": "declaration"
+    },
+    "declaration-sole-trader-vehicle": {
+      "title": "Declaration Form – Sole Trader Vehicle Registration for Private Use",
+      "refPrefix": "DST",
+      "submissionType": "declaration"
+    },
+    "duty-free-concession-business": {
+      "title": "Request for Duty Free Concession (Business)",
+      "refPrefix": "DFB",
+      "submissionType": "request"
+    },
+    "duty-free-concession-individual": {
+      "title": "Request for Duty Free Concession (Individual)",
+      "refPrefix": "DFI",
+      "submissionType": "request"
+    },
+    "importation-of-vehicles": {
+      "title": "Application for the Importation of Vehicles into Barbados",
+      "refPrefix": "IOV",
+      "submissionType": "application"
+    },
+    "motor-vehicle-inspection": {
+      "title": "Apply for a Motor Vehicle Inspection",
+      "refPrefix": "LA",
+      "submissionType": "application"
+    },
+    "odometer-reading-validation": {
+      "title": "Odometer Reading Validation",
+      "refPrefix": "OR",
+      "submissionType": "submission"
+    },
+    "registration-temporary-stay": {
+      "title": "Register Your Vehicle for a Temporary Stay in Barbados",
+      "refPrefix": "RTS",
+      "submissionType": "application"
+    },
+    "request-for-graphics": {
+      "title": "Request for Graphics and/or Lettering on Vehicle",
+      "refPrefix": "RFG",
+      "submissionType": "request"
+    },
+    "retention-of-registration-number": {
+      "title": "Retain Your Vehicle Registration Number",
+      "refPrefix": "RON",
+      "submissionType": "request"
+    },
+    "sale-of-vehicle-individual": {
+      "title": "Sale of Vehicle (Individual Owner)",
+      "refPrefix": "SVI",
+      "submissionType": "notification"
+    },
+    "sale-of-vehicle-joint": {
+      "title": "Sale of Vehicle (Joint Owners)",
+      "refPrefix": "SVJ",
+      "submissionType": "notification"
+    },
+    "scrapping-of-vehicle": {
+      "title": "Scrap or Sell Vehicle in Parts",
+      "refPrefix": "SOV",
+      "submissionType": "notification"
+    },
+    "transfer-of-vehicle-individual": {
+      "title": "Transfer of Vehicle (Individual Owner)",
+      "refPrefix": "TVI",
+      "submissionType": "notification"
+    },
+    "transfer-of-vehicle-joint": {
+      "title": "Transfer of Vehicle (Joint Owners)",
+      "refPrefix": "TVJ",
+      "submissionType": "notification"
+    },
+    "vanity-plate-application": {
+      "title": "Application for an Approved Vanity Plate",
+      "refPrefix": "VP",
+      "submissionType": "application"
+    },
+    "vehicle-investigation": {
+      "title": "Application for Vehicle Investigation",
+      "refPrefix": "VI",
+      "submissionType": "application"
+    },
+    "vehicle-registration-renewal": {
+      "title": "Register or Renew Your Motor Vehicle Licence",
+      "refPrefix": "VRR",
+      "submissionType": "application"
+    }
+  }
+}
