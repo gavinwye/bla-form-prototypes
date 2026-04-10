@@ -87,6 +87,20 @@
       saveData({ confirmationRef: ref }, STORAGE_KEY);
     }
     document.getElementById('ref-number').textContent = ref;
+
+    // Show email previews on preview deploys
+    const dateFormatted = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    injectEmailPreviews('change-of-engine', {
+      '{{REFERENCE_NUMBER}}': ref,
+      '{{DATE_SUBMITTED}}': dateFormatted,
+      '{{APPLICANT_NAME}}': data.fullName || '',
+      '{{REGISTRATION_NUMBER}}': data.registration || '',
+      '{{CHASSIS_NUMBER}}': data.chassis || '',
+      '{{OLD_ENGINE_NUMBER}}': data.oldEngine || '',
+      '{{NEW_ENGINE_NUMBER}}': data.newEngine || '',
+      '{{ENGINE_SOURCE}}': data.engineSource || '',
+      '{{OLD_ENGINE_DISPOSAL}}': data.disposal || '',
+    }, document.querySelector('.max-w-\\[720px\\]'));
   </script>
 </body>
 </html>

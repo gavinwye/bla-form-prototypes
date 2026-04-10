@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Figtree, -apple-system, system-ui, sans-serif; background: #f5f5f5; }
+    .preview-bar {
+      background: #4a235a; color: #fff; padding: 0.75rem 1.5rem; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
+    }
+    .preview-bar a { color: #fff; text-decoration: underline; font-weight: 600; }
+    .preview-bar a:hover { text-decoration: none; }
+    .preview-label { font-weight: 600; }
+    .preview-meta { opacity: 0.8; font-size: 0.8rem; }
+    .email-frame {
+      max-width: 700px; margin: 2rem auto; background: #fff; border-radius: 0.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1); overflow: hidden;
+    }
+    .email-header {
+      background: #fafafa; border-bottom: 1px solid #e0e4e9; padding: 1rem 1.5rem; font-size: 0.85rem; color: #595959;
+    }
+    .email-header strong { color: #000; }
+    .email-body { padding: 0; }
+    .email-body iframe { width: 100%; border: none; min-height: 600px; display: block; }
+    .error-msg { max-width: 700px; margin: 4rem auto; text-align: center; color: #a42c2c; font-size: 1.1rem; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="preview-bar">
+    <span class="preview-label">Email preview — this page only appears on PR preview deploys</span>
+    <a href="javascript:history.back()">← Back to confirmation</a>
+  </div>
+
+  <div id="content"></div>
+
+  <script src="chrome.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const formId = params.get('form');
+    const template = params.get('template'); // 'bla' or 'applicant'
+    const storageKey = formId;
+
+    const contentEl = document.getElementById('content');
+
+    if (!formId || !template || !isPreviewDeploy()) {
+      contentEl.innerHTML = '<div class="error-msg">Email preview is only available on PR preview deploys.</div>';
+    } else {
+      renderPreview();
+    }
+
+    async function renderPreview() {
+      const data = getData(storageKey);
+      const ref = data.confirmationRef || 'N/A';
+      const dateFormatted = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      // Build replacements from localStorage — generic enough for most forms
+      const replacements = {
+        '{{REFERENCE_NUMBER}}': ref,
+        '{{DATE_SUBMITTED}}': dateFormatted,
+        '{{APPLICANT_NAME}}': data.fullName || data.applicantName || '',
+        '{{REGISTRATION_NUMBER}}': data.registration || '',
+        '{{CHASSIS_NUMBER}}': data.chassis || '',
+        '{{OLD_ENGINE_NUMBER}}': data.oldEngine || '',
+        '{{NEW_ENGINE_NUMBER}}': data.newEngine || '',
+        '{{ENGINE_SOURCE}}': data.engineSource || '',
+        '{{OLD_ENGINE_DISPOSAL}}': data.disposal || '',
+      };
+
+      const templateFile = template === 'bla' ? 'email-bla.html' : 'email-applicant.html';
+      const templateLabel = template === 'bla' ? 'Email to BLA (admin notification)' : 'Email to applicant (confirmation)';
+
+      try {
+        const resp = await fetch(`/prototypes/${formId}/${templateFile}`);
+        if (!resp.ok) throw new Error('Template not found');
+        const rawHtml = await resp.text();
+        const populatedHtml = populateEmailTemplate(rawHtml, replacements);
+
+        // Extract subject from HTML comment
+        const subjectMatch = rawHtml.match(/<!-- Subject: (.+?) -->/);
+        const subject = subjectMatch ? populateEmailTemplate(subjectMatch[1], replacements) : 'No subject';
+
+        // Extract To from HTML comment
+        const toMatch = rawHtml.match(/<!-- To: (.+?) -->/);
+        const to = toMatch ? toMatch[1] : (template === 'bla' ? 'enquiries@bla.gov.bb' : data.email || 'applicant');
+
+        document.title = `${templateLabel} — ${formId}`;
+
+        contentEl.innerHTML = `
+          <div class="email-frame">
+            <div class="email-header">
+              <p><strong>To:</strong> ${escapeHtmlPreview(to)}</p>
+              <p><strong>Subject:</strong> ${escapeHtmlPreview(subject)}</p>
+              <p style="margin-top: 0.5rem;"><strong>Template:</strong> ${escapeHtmlPreview(templateLabel)}</p>
+            </div>
+            <div class="email-body">
+              <iframe id="email-iframe" sandbox></iframe>
+            </div>
+          </div>
+        `;
+
+        const iframe = document.getElementById('email-iframe');
+        iframe.srcdoc = populatedHtml;
+        iframe.addEventListener('load', () => {
+          try {
+            const h = iframe.contentDocument.documentElement.scrollHeight;
+            iframe.style.height = (h + 40) + 'px';
+          } catch (_) {}
+        });
+
+      } catch (err) {
+        contentEl.innerHTML = `<div class="error-msg">Could not load email template: ${escapeHtmlPreview(err.message)}</div>`;
+      }
+    }
+
+    function escapeHtmlPreview(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+  </script>
+</body>
+</html>

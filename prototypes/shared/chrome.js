@@ -66,6 +66,7 @@ function injectChrome() {
         </div>
       </div>`;
   }
+
 }
 
 // ─── localStorage helpers ────────────────────────────────────────────────────
@@ -189,3 +190,54 @@ function hideErrorSummary() {
   if (summary) summary.classList.add('hidden');
   if (document.title.startsWith('Error: ')) document.title = document.title.replace('Error: ', '');
 }
+
+// ─── Preview deploy helpers ───────────────────────────────────────────────────
+
+function isPreviewDeploy() {
+  return /deploy-preview-\d+--/.test(window.location.hostname) || window.location.hostname === 'localhost';
+}
+
+function getPreviewPrNumber() {
+  const match = window.location.hostname.match(/deploy-preview-(\d+)--/);
+  return match ? match[1] : 'local';
+}
+
+function populateEmailTemplate(html, replacements) {
+  let result = html;
+  for (const [token, value] of Object.entries(replacements)) {
+    result = result.replaceAll(token, value);
+  }
+  return result;
+}
+
+/**
+ * Show links to full-page email previews. Only runs on preview deploys.
+ *
+ * @param {string} formId – prototype folder name, e.g. 'change-of-engine'
+ * @param {HTMLElement} container – element to append the links to
+ */
+function injectEmailPreviews(formId, replacements, container) {
+  if (!isPreviewDeploy()) return;
+
+  const previewBase = '/prototypes/shared/email-preview.html';
+  const section = document.createElement('div');
+  section.style.cssText = 'margin-top: 2.5rem; border: 2px solid #4a235a; border-radius: 0.5rem; overflow: hidden;';
+  section.innerHTML = `
+    <div style="background: #4a235a; color: #fff; padding: 0.6rem 1rem; font-size: 0.85rem; font-weight: 600;">
+      Preview only — view the emails sent after submission
+    </div>
+    <div style="padding: 1rem 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+      <a href="${previewBase}?form=${encodeURIComponent(formId)}&template=bla"
+         style="display: inline-flex; align-items: center; gap: 0.5rem; color: #4a235a; font-weight: 600; font-size: 1rem; text-decoration: underline; text-underline-offset: 3px;">
+        View email sent to BLA →
+      </a>
+      <a href="${previewBase}?form=${encodeURIComponent(formId)}&template=applicant"
+         style="display: inline-flex; align-items: center; gap: 0.5rem; color: #4a235a; font-weight: 600; font-size: 1rem; text-decoration: underline; text-underline-offset: 3px;">
+        View email sent to applicant →
+      </a>
+    </div>
+  `;
+  container.appendChild(section);
+}
+
+
