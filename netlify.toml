@@ -5,3 +5,6 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["prototypes/**/email-*.html"]
+
+[context.deploy-preview.environment]
+  IS_PREVIEW = "true"

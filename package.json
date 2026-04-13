@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@aws-sdk/client-ses": "^3.0.0",
+    "@netlify/blobs": "^8.0.0",
     "resend": "^4.0.0"
   }
 }

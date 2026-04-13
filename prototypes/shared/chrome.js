@@ -66,6 +66,9 @@ function injectChrome() {
         </div>
       </div>`;
   }
+
+  // Inject comment panel on preview deploys
+  injectCommentPanel();
 }
 
 // ─── localStorage helpers ────────────────────────────────────────────────────
@@ -188,4 +191,391 @@ function hideErrorSummary() {
   const summary = document.getElementById('error-summary');
   if (summary) summary.classList.add('hidden');
   if (document.title.startsWith('Error: ')) document.title = document.title.replace('Error: ', '');
+}
+
+// ─── Preview deploy helpers ───────────────────────────────────────────────────
+
+function isPreviewDeploy() {
+  return /deploy-preview-\d+--/.test(window.location.hostname) || window.location.hostname === 'localhost';
+}
+
+function getPreviewPrNumber() {
+  const match = window.location.hostname.match(/deploy-preview-(\d+)--/);
+  return match ? match[1] : 'local';
+}
+
+// ─── Preview commenting (text-selection based) ───────────────────────────────
+
+function injectCommentPanel() {
+  if (!isPreviewDeploy()) return;
+
+  const pr = getPreviewPrNumber();
+  const page = window.location.pathname;
+  const savedAuthor = localStorage.getItem('preview-comment-author') || '';
+
+  // Inject styles
+  const style = document.createElement('style');
+  style.textContent = `
+    .comment-highlight {
+      background: #f3e8f9; border-bottom: 2px solid #a962c7; cursor: pointer;
+      position: relative;
+    }
+    .comment-highlight:hover { background: #e8d4f3; }
+    .comment-highlight .comment-count {
+      position: absolute; top: -8px; right: -8px; background: #4a235a; color: #fff;
+      font-size: 10px; width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+      pointer-events: none; line-height: 1;
+    }
+    #comment-popover {
+      position: absolute; z-index: 10000; width: 340px; background: #fff;
+      border: 2px solid #4a235a; border-radius: 0.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      font-family: Figtree, sans-serif; display: none;
+    }
+    #comment-popover.visible { display: block; }
+    .cpop-header {
+      background: #4a235a; color: #fff; padding: 0.5rem 0.75rem; font-size: 0.8rem;
+      font-weight: 600; border-radius: 0.375rem 0.375rem 0 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cpop-close {
+      background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer;
+      padding: 0 0.25rem; line-height: 1;
+    }
+    .cpop-selected {
+      padding: 0.5rem 0.75rem; background: #f3e8f9; font-size: 0.8rem; color: #4a235a;
+      font-style: italic; border-bottom: 1px solid #e0e4e9; max-height: 60px; overflow: hidden;
+    }
+    .cpop-threads {
+      max-height: 200px; overflow-y: auto; padding: 0.5rem 0.75rem;
+    }
+    .cpop-thread {
+      border-bottom: 1px solid #e0e4e9; padding: 0.4rem 0;
+    }
+    .cpop-thread:last-child { border-bottom: none; }
+    .cpop-author { font-weight: 600; color: #4a235a; font-size: 0.75rem; }
+    .cpop-time { color: #595959; font-size: 0.7rem; margin-left: 0.4rem; }
+    .cpop-text { font-size: 0.8rem; color: #000; margin-top: 0.15rem; line-height: 1.35; }
+    .cpop-form {
+      border-top: 1px solid #e0e4e9; padding: 0.5rem 0.75rem;
+    }
+    .cpop-form input, .cpop-form textarea {
+      width: 100%; border: 1.5px solid #000; border-radius: 0.2rem; padding: 0.3rem 0.4rem;
+      font-family: inherit; font-size: 0.8rem; box-sizing: border-box;
+    }
+    .cpop-form input { margin-bottom: 0.35rem; }
+    .cpop-form textarea { min-height: 48px; resize: vertical; margin-bottom: 0.35rem; }
+    .cpop-form button {
+      background: #4a235a; color: #fff; border: none; padding: 0.3rem 0.75rem;
+      border-radius: 0.2rem; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+    }
+    .cpop-form button:hover { background: #5c2d73; }
+    #comment-add-btn {
+      position: absolute; z-index: 10001; background: #4a235a; color: #fff; border: none;
+      padding: 0.3rem 0.6rem; border-radius: 0.25rem; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none;
+      font-family: Figtree, sans-serif;
+    }
+    #comment-add-btn:hover { background: #5c2d73; }
+    #comment-sidebar-toggle {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+      width: 48px; height: 48px; border-radius: 50%; border: none;
+      background: #4a235a; color: #fff; font-size: 1.2rem; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: flex; align-items: center;
+      justify-content: center; transition: transform 0.2s;
+    }
+    #comment-sidebar-toggle:hover { transform: scale(1.1); }
+    #comment-sidebar {
+      position: fixed; top: 0; right: -400px; z-index: 9998; width: 380px; height: 100vh;
+      background: #fff; border-left: 2px solid #4a235a; box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+      font-family: Figtree, sans-serif; transition: right 0.25s ease; display: flex; flex-direction: column;
+    }
+    #comment-sidebar.open { right: 0; }
+    .sidebar-header {
+      background: #4a235a; color: #fff; padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 600;
+    }
+    .sidebar-list { flex: 1; overflow-y: auto; padding: 0.75rem; }
+    .sidebar-item {
+      border: 1px solid #e0e4e9; border-radius: 0.375rem; padding: 0.6rem; margin-bottom: 0.5rem;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .sidebar-item:hover { background: #f3e8f9; }
+    .sidebar-quote {
+      font-size: 0.8rem; color: #4a235a; font-style: italic; border-left: 3px solid #a962c7;
+      padding-left: 0.5rem; margin-bottom: 0.35rem; max-height: 40px; overflow: hidden;
+    }
+    .sidebar-meta { font-size: 0.75rem; color: #595959; }
+    .sidebar-comment-text { font-size: 0.8rem; color: #000; margin-top: 0.2rem; }
+    .sidebar-empty { color: #595959; font-style: italic; font-size: 0.85rem; padding: 1.5rem; text-align: center; }
+  `;
+  document.head.appendChild(style);
+
+  // Create popover
+  const popover = document.createElement('div');
+  popover.id = 'comment-popover';
+  popover.innerHTML = `
+    <div class="cpop-header">
+      <span id="cpop-title">Comment</span>
+      <button class="cpop-close" id="cpop-close">&times;</button>
+    </div>
+    <div class="cpop-selected" id="cpop-selected"></div>
+    <div class="cpop-threads" id="cpop-threads"></div>
+    <div class="cpop-form">
+      <input type="text" id="cpop-author" placeholder="Your name" value="${escapeHtml(savedAuthor)}" />
+      <textarea id="cpop-text" placeholder="Add a comment..."></textarea>
+      <button type="button" id="cpop-submit">Comment</button>
+    </div>
+  `;
+  document.body.appendChild(popover);
+
+  // Create "Add comment" button (appears on text selection)
+  const addBtn = document.createElement('button');
+  addBtn.id = 'comment-add-btn';
+  addBtn.textContent = 'Comment';
+  document.body.appendChild(addBtn);
+
+  // Create sidebar
+  const sidebar = document.createElement('div');
+  sidebar.id = 'comment-sidebar';
+  sidebar.innerHTML = `
+    <div class="sidebar-header">Comments on this page</div>
+    <div class="sidebar-list" id="sidebar-list">
+      <div class="sidebar-empty">Select text to leave a comment</div>
+    </div>
+  `;
+  document.body.appendChild(sidebar);
+
+  // Create sidebar toggle button
+  const sidebarBtn = document.createElement('button');
+  sidebarBtn.id = 'comment-sidebar-toggle';
+  sidebarBtn.textContent = '\u{1F4AC}';
+  sidebarBtn.title = 'View comments';
+  document.body.appendChild(sidebarBtn);
+
+  let currentHighlightId = null;
+  let pendingSelection = null;
+
+  // Show "Comment" button when text is selected
+  document.addEventListener('mouseup', (e) => {
+    if (e.target.closest('#comment-popover, #comment-add-btn, #comment-sidebar')) return;
+
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+
+    if (text.length > 0 && text.length < 500) {
+      const range = sel.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      addBtn.style.display = 'block';
+      addBtn.style.top = (window.scrollY + rect.top - 35) + 'px';
+      addBtn.style.left = (window.scrollX + rect.left + rect.width / 2 - 35) + 'px';
+      pendingSelection = { text, range: range.cloneRange() };
+    } else if (!e.target.closest('.comment-highlight')) {
+      addBtn.style.display = 'none';
+      pendingSelection = null;
+    }
+  });
+
+  addBtn.addEventListener('click', () => {
+    if (!pendingSelection) return;
+    addBtn.style.display = 'none';
+
+    const rect = pendingSelection.range.getBoundingClientRect();
+    openPopover(
+      window.scrollY + rect.bottom + 8,
+      window.scrollX + rect.left,
+      pendingSelection.text,
+      null
+    );
+    window.getSelection().removeAllRanges();
+  });
+
+  function openPopover(top, left, selectedText, highlightId) {
+    currentHighlightId = highlightId;
+    popover.querySelector('#cpop-selected').textContent = '\u201C' + selectedText.slice(0, 150) + (selectedText.length > 150 ? '...' : '') + '\u201D';
+    popover.querySelector('#cpop-title').textContent = highlightId ? 'Thread' : 'New comment';
+    popover.style.top = top + 'px';
+    popover.style.left = Math.min(left, window.innerWidth - 360) + 'px';
+    popover.classList.add('visible');
+
+    const threadsEl = popover.querySelector('#cpop-threads');
+    if (highlightId) {
+      loadThreadComments(highlightId, threadsEl);
+    } else {
+      threadsEl.innerHTML = '';
+    }
+    popover.querySelector('#cpop-text').focus();
+  }
+
+  async function loadThreadComments(hId, threadsEl) {
+    try {
+      const resp = await fetch(`/.netlify/functions/comments?pr=${pr}&page=${encodeURIComponent(page)}`);
+      const comments = await resp.json();
+      const matching = comments.filter(c => c.highlightId === hId);
+      if (matching.length === 0) { threadsEl.innerHTML = ''; return; }
+      threadsEl.innerHTML = matching.map(c => `
+        <div class="cpop-thread">
+          <span class="cpop-author">${escapeHtml(c.author)}</span>
+          <span class="cpop-time">${new Date(c.timestamp).toLocaleString()}</span>
+          <div class="cpop-text">${escapeHtml(c.text)}</div>
+        </div>
+      `).join('');
+    } catch { threadsEl.innerHTML = ''; }
+  }
+
+  popover.querySelector('#cpop-close').addEventListener('click', () => {
+    popover.classList.remove('visible');
+    currentHighlightId = null;
+    pendingSelection = null;
+  });
+
+  popover.querySelector('#cpop-submit').addEventListener('click', async () => {
+    const author = popover.querySelector('#cpop-author').value.trim();
+    const text = popover.querySelector('#cpop-text').value.trim();
+    if (!author || !text) return;
+
+    localStorage.setItem('preview-comment-author', author);
+    const selectedText = pendingSelection ? pendingSelection.text : popover.querySelector('#cpop-selected').textContent.replace(/^\u201C|\u201D$/g, '');
+    const highlightId = currentHighlightId || ('hl-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7));
+
+    if (!currentHighlightId && pendingSelection) {
+      try {
+        const mark = document.createElement('mark');
+        mark.className = 'comment-highlight';
+        mark.dataset.highlightId = highlightId;
+        pendingSelection.range.surroundContents(mark);
+        mark.addEventListener('click', () => onHighlightClick(mark));
+      } catch (_) {}
+    }
+
+    const submitBtn = popover.querySelector('#cpop-submit');
+    submitBtn.textContent = 'Posting...';
+    submitBtn.disabled = true;
+
+    try {
+      await fetch(`/.netlify/functions/comments?pr=${pr}&page=${encodeURIComponent(page)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ author, text, selectedText, highlightId }),
+      });
+      popover.querySelector('#cpop-text').value = '';
+      popover.classList.remove('visible');
+      pendingSelection = null;
+      currentHighlightId = null;
+      loadSidebar();
+    } catch { alert('Failed to post comment.'); }
+    submitBtn.textContent = 'Comment';
+    submitBtn.disabled = false;
+  });
+
+  function onHighlightClick(mark) {
+    const hId = mark.dataset.highlightId;
+    const rect = mark.getBoundingClientRect();
+    openPopover(window.scrollY + rect.bottom + 8, window.scrollX + rect.left, mark.textContent, hId);
+  }
+
+  sidebarBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    if (sidebar.classList.contains('open')) loadSidebar();
+  });
+
+  async function loadSidebar() {
+    const listEl = sidebar.querySelector('#sidebar-list');
+    try {
+      const resp = await fetch(`/.netlify/functions/comments?pr=${pr}&page=${encodeURIComponent(page)}`);
+      const comments = await resp.json();
+      if (!Array.isArray(comments) || comments.length === 0) {
+        listEl.innerHTML = '<div class="sidebar-empty">No comments yet. Select text on the page to leave a comment.</div>';
+        return;
+      }
+
+      const groups = {};
+      for (const c of comments) {
+        const key = c.highlightId || 'general';
+        if (!groups[key]) groups[key] = { selectedText: c.selectedText || '', comments: [] };
+        groups[key].comments.push(c);
+      }
+
+      listEl.innerHTML = Object.entries(groups).map(([hId, g]) => `
+        <div class="sidebar-item" data-highlight-id="${escapeHtml(hId)}">
+          <div class="sidebar-quote">${escapeHtml(g.selectedText.slice(0, 100))}</div>
+          ${g.comments.map(c => `
+            <div style="margin-top: 0.3rem;">
+              <span class="sidebar-meta"><strong>${escapeHtml(c.author)}</strong> · ${new Date(c.timestamp).toLocaleString()}</span>
+              <div class="sidebar-comment-text">${escapeHtml(c.text)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+
+      listEl.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const hId = item.dataset.highlightId;
+          const mark = document.querySelector(`[data-highlight-id="${hId}"]`);
+          if (mark && mark.tagName === 'MARK') {
+            mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            mark.style.background = '#e8d4f3';
+            setTimeout(() => { mark.style.background = ''; }, 1500);
+          }
+        });
+      });
+    } catch {
+      listEl.innerHTML = '<div class="sidebar-empty">Could not load comments.</div>';
+    }
+  }
+
+  async function restoreHighlights() {
+    try {
+      const resp = await fetch(`/.netlify/functions/comments?pr=${pr}&page=${encodeURIComponent(page)}`);
+      const comments = await resp.json();
+      if (!Array.isArray(comments) || comments.length === 0) return;
+
+      const highlights = {};
+      for (const c of comments) {
+        if (c.highlightId && c.selectedText) {
+          if (!highlights[c.highlightId]) highlights[c.highlightId] = { text: c.selectedText, count: 0 };
+          highlights[c.highlightId].count++;
+        }
+      }
+
+      const mainEl = document.querySelector('main') || document.body;
+      for (const [hId, info] of Object.entries(highlights)) {
+        findAndHighlight(mainEl, info.text, hId, info.count);
+      }
+    } catch {}
+  }
+
+  function findAndHighlight(root, searchText, highlightId, count) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      if (node.parentElement.closest('#comment-popover, #comment-sidebar, #comment-add-btn, .comment-highlight')) continue;
+      const idx = node.textContent.indexOf(searchText);
+      if (idx === -1) continue;
+
+      const range = document.createRange();
+      range.setStart(node, idx);
+      range.setEnd(node, idx + searchText.length);
+
+      const mark = document.createElement('mark');
+      mark.className = 'comment-highlight';
+      mark.dataset.highlightId = highlightId;
+
+      try {
+        range.surroundContents(mark);
+        const badge = document.createElement('span');
+        badge.className = 'comment-count';
+        badge.textContent = count;
+        mark.appendChild(badge);
+        mark.addEventListener('click', () => onHighlightClick(mark));
+      } catch (_) {}
+
+      return;
+    }
+  }
+
+  restoreHighlights();
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
