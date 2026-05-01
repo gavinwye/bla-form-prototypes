@@ -48,6 +48,21 @@
 
         <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Check your answers before sending your notification</h1>
 
+        <!-- Your details -->
+        <h2 class="font-bold text-[2.5rem] leading-[1.15] mb-s mt-m">Your details</h2>
+        <dl class="divide-y divide-bb-grey-00 mb-m">
+          <div class="flex justify-between py-s gap-4">
+            <dt class="text-[1.25rem] font-bold text-bb-black-00 w-1/3">Full name</dt>
+            <dd class="text-[1.25rem] text-bb-black-00 flex-1" id="summary-fullName"></dd>
+            <dd><a href="your-details.html" class="text-bb-teal-00 underline hover:no-underline whitespace-nowrap">Change<span class="sr-only"> full name</span></a></dd>
+          </div>
+          <div class="flex justify-between py-s gap-4">
+            <dt class="text-[1.25rem] font-bold text-bb-black-00 w-1/3">Email address</dt>
+            <dd class="text-[1.25rem] text-bb-black-00 flex-1" id="summary-email"></dd>
+            <dd><a href="your-details.html" class="text-bb-teal-00 underline hover:no-underline whitespace-nowrap">Change<span class="sr-only"> email address</span></a></dd>
+          </div>
+        </dl>
+
         <!-- Vehicle details -->
         <h2 class="font-bold text-[2.5rem] leading-[1.15] mb-s mt-m">Vehicle details</h2>
         <dl class="divide-y divide-bb-grey-00 mb-m">
@@ -121,6 +136,8 @@
 
     const data = getData(STORAGE_KEY);
 
+    document.getElementById('summary-fullName').textContent = data.fullName || '—';
+    document.getElementById('summary-email').textContent = data.email || '—';
     document.getElementById('summary-registration').textContent = data.registration || '—';
     document.getElementById('summary-chassis').textContent = data.chassis || '—';
     document.getElementById('summary-old-engine').textContent = data.oldEngine || '—';
@@ -136,8 +153,80 @@
       document.getElementById('summary-recipient').textContent = data.recipient || '—';
     }
 
-    document.getElementById('btn-submit').addEventListener('click', function () {
-      window.location.href = 'confirmation.html';
+    document.getElementById('btn-submit').addEventListener('click', async function () {
+      const btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      // Generate reference number
+      const digits = String(Math.floor(Math.random() * 90) + 10);
+      const letters = Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');
+      const referenceNumber = 'COE' + digits + letters;
+
+      const RECIPIENT_REQUIRED_VALUES = ['Sold to another person', 'Transferred to another vehicle'];
+
+      // Build structured submission data
+      const submissionData = {
+        'Your details': {
+          'Full name': data.fullName || '',
+          'Email address': data.email || '',
+        },
+        'Vehicle details': {
+          'Registration number': data.registration || '',
+          'Chassis number': data.chassis || '',
+        },
+        'Engine details': {
+          'Old engine number': data.oldEngine || '',
+          'New engine number': data.newEngine || '',
+          'Source of new engine': data.engineSource || '',
+        },
+        'Old engine disposal': {
+          'What happened to the old engine': data.disposal || '',
+        },
+      };
+
+      if (data.disposal && RECIPIENT_REQUIRED_VALUES.includes(data.disposal)) {
+        submissionData['Old engine disposal']['Recipient details'] = data.recipient || '';
+      }
+
+      try {
+        const response = await fetch('/.netlify/functions/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formId: 'change-of-engine',
+            formTitle: 'Change of Engine',
+            referenceNumber,
+            submittedAt: new Date().toISOString(),
+            applicantEmail: data.email || '',
+            data: submissionData,
+          }),
+        });
+
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.error || 'Submission failed');
+        }
+
+        // Save ref and go to confirmation
+        saveData({ confirmationRef: referenceNumber }, STORAGE_KEY);
+        window.location.href = 'confirmation.html';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send notification';
+
+        // Show error at top of page
+        let errorDiv = document.getElementById('submission-error');
+        if (!errorDiv) {
+          errorDiv = document.createElement('div');
+          errorDiv.id = 'submission-error';
+          errorDiv.className = 'bg-bb-red-10 border-l-4 border-bb-red-00 p-s mb-m';
+          btn.closest('.max-w-\\[720px\\]').prepend(errorDiv);
+        }
+        errorDiv.innerHTML = '<p class="text-bb-red-00 font-bold">There was a problem submitting your notification</p>' +
+          '<p class="text-bb-red-00">' + err.message + '. Please try again.</p>';
+        window.scrollTo(0, 0);
+      }
     });
   </script>
 </body>
