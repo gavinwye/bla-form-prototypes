@@ -1,8 +1,0 @@
-{
-  "name": "forms-prototyping",
-  "private": true,
-  "dependencies": {
-    "@aws-sdk/client-ses": "^3.0.0",
-    "resend": "^4.0.0"
-  }
-}
