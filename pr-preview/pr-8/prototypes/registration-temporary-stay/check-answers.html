@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Register Your Vehicle for a Temporary Stay in Barbados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00': '#e8a833', 'bb-yellow-100': '#ffc726', 'bb-yellow-40': '#ffe9a8', 'bb-yellow-10': '#fff9e9',
+            'bb-blue-00': '#00164a', 'bb-blue-100': '#00267f', 'bb-blue-40': '#99a8cc', 'bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000', 'bb-mid-grey-00': '#595959', 'bb-grey-00': '#e0e4e9', 'bb-white-00': '#ffffff',
+            'bb-green-00': '#00654a', 'bb-green-100': '#1fbf84', 'bb-green-40': '#a5e5ce', 'bb-green-10': '#e9f9f3',
+            'bb-red-00': '#a42c2c', 'bb-red-100': '#ff6b6b', 'bb-red-40': '#ffc4c4', 'bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64', 'bb-teal-100': '#30c0c8', 'bb-teal-40': '#ace6e9', 'bb-teal-10': '#eaf9f9',
+            'bb-purple-00': '#4a235a', 'bb-purple-100': '#a962c7', 'bb-pink-00': '#ad1157', 'bb-pink-100': '#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', '"Segoe UI"', 'Roboto', 'sans-serif'] },
+          spacing: { 'xs': '0.5rem', 's': '1rem', 'xm': '1.5rem', 'm': '2rem', 'l': '4rem', 'xl': '8rem' },
+          borderRadius: { 'sm': '0.25rem', 'md': '0.375rem', 'lg': '0.5rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display': '5rem', 'h1': '3.5rem', 'h2': '2.5rem', 'h3': '1.5rem', 'h4': '1.25rem', 'body-lg': '2rem', 'body': '1.25rem', 'caption': '1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; -webkit-font-smoothing: antialiased; }
+    .summary-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e0e4e9; align-items: start; }
+    .summary-row:first-child { border-top: 1px solid #e0e4e9; }
+    .summary-key { font-weight: 600; }
+    .summary-value { color: #000; }
+    .summary-action a { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+
+        <a href="undertaking.html"
+          class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">
+          ← Back
+        </a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-l">Check your answers before sending your application</h1>
+
+        <!-- Your details -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Your details</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Full name</span>
+            <span class="summary-value" id="cya-fullname"></span>
+            <span class="summary-action"><a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> full name</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Address</span>
+            <span class="summary-value" id="cya-address" style="white-space:pre-line;"></span>
+            <span class="summary-action"><a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> address</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Email address</span>
+            <span class="summary-value" id="cya-email"></span>
+            <span class="summary-action"><a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> email address</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Contact number</span>
+            <span class="summary-value" id="cya-contact"></span>
+            <span class="summary-action"><a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> contact number</span></a></span>
+          </div>
+        </div>
+
+        <!-- Vehicle details -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Vehicle details</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Make</span>
+            <span class="summary-value" id="cya-make"></span>
+            <span class="summary-action"><a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> make</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Model</span>
+            <span class="summary-value" id="cya-model"></span>
+            <span class="summary-action"><a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> model</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Year</span>
+            <span class="summary-value" id="cya-year"></span>
+            <span class="summary-action"><a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> year</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Colour</span>
+            <span class="summary-value" id="cya-colour"></span>
+            <span class="summary-action"><a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> colour</span></a></span>
+          </div>
+        </div>
+
+        <!-- Identification numbers -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Identification numbers</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Chassis number</span>
+            <span class="summary-value" id="cya-chassis"></span>
+            <span class="summary-action"><a href="id-numbers.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> chassis number</span></a></span>
+          </div>
+          <div id="cya-engine-row" class="summary-row">
+            <span class="summary-key">Engine number</span>
+            <span class="summary-value" id="cya-engine"></span>
+            <span class="summary-action"><a href="id-numbers.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> engine number</span></a></span>
+          </div>
+          <div id="cya-motor-row" class="summary-row">
+            <span class="summary-key">Motor number</span>
+            <span class="summary-value" id="cya-motor"></span>
+            <span class="summary-action"><a href="id-numbers.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> motor number</span></a></span>
+          </div>
+        </div>
+
+        <!-- Fuel type -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Fuel type</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Fuel type</span>
+            <span class="summary-value" id="cya-fueltype"></span>
+            <span class="summary-action"><a href="fuel-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> fuel type</span></a></span>
+          </div>
+        </div>
+
+        <!-- Steering configuration -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Steering configuration</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Steering configuration</span>
+            <span class="summary-value" id="cya-drivetype"></span>
+            <span class="summary-action"><a href="drive-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> steering configuration</span></a></span>
+          </div>
+        </div>
+
+        <!-- Insurance -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Insurance</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Insurance type</span>
+            <span class="summary-value" id="cya-insurancetype"></span>
+            <span class="summary-action"><a href="insurance.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> insurance type</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Insurer name</span>
+            <span class="summary-value" id="cya-insurer"></span>
+            <span class="summary-action"><a href="insurance.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> insurer name</span></a></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Policy number</span>
+            <span class="summary-value" id="cya-policy"></span>
+            <span class="summary-action"><a href="insurance.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> policy number</span></a></span>
+          </div>
+        </div>
+
+        <!-- Declaration -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Declaration</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="summary-key">Declaration agreed</span>
+            <span class="summary-value">Agreed</span>
+            <span class="summary-action"><a href="undertaking.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> declaration</span></a></span>
+          </div>
+        </div>
+
+        <div class="mt-8 flex gap-4">
+          <button type="button" id="btn-submit"
+            class="relative inline-flex items-center justify-center gap-2 text-[20px] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] px-xm py-s rounded-sm leading-[1.7] focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+            Send application
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    injectChrome();
+
+    const STORAGE_KEY = 'registration-temporary-stay';
+    const d = getData(STORAGE_KEY);
+
+    function setText(id, val, fallback) {
+      document.getElementById(id).textContent = val || fallback || '—';
+    }
+
+    setText('cya-fullname', d.fullname);
+    setText('cya-address', d.address);
+    setText('cya-email', d.email);
+    setText('cya-contact', d.contact);
+    setText('cya-make', d.make);
+    setText('cya-model', d.model);
+    setText('cya-year', d.year);
+    setText('cya-colour', d.colour);
+    setText('cya-chassis', d.chassis);
+    setText('cya-fueltype', d.fuelType);
+    setText('cya-drivetype', d.driveType);
+    setText('cya-insurancetype', d.insuranceType);
+    setText('cya-insurer', d.insurer);
+    setText('cya-policy', d.policy);
+
+    // Show/hide engine and motor rows based on whether values are present
+    if (d.engine) {
+      setText('cya-engine', d.engine);
+    } else {
+      document.getElementById('cya-engine-row').style.display = 'none';
+    }
+
+    if (d.motor) {
+      setText('cya-motor', d.motor);
+    } else {
+      document.getElementById('cya-motor-row').style.display = 'none';
+    }
+
+    document.getElementById('btn-submit').addEventListener('click', function () {
+      window.location.href = 'confirmation.html';
+    });
+  </script>
+</body>
+</html>

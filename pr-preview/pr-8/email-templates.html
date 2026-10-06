@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Templates – BLA Form Prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00': '#e8a833', 'bb-yellow-100': '#ffc726',
+            'bb-blue-00': '#00164a', 'bb-blue-100': '#00267f', 'bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000', 'bb-mid-grey-00': '#595959', 'bb-grey-00': '#e0e4e9', 'bb-white-00': '#ffffff',
+            'bb-teal-00': '#0e5f64', 'bb-teal-100': '#30c0c8', 'bb-teal-10': '#eaf9f9',
+          },
+          fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', '"Segoe UI"', 'Roboto', 'sans-serif'] },
+          spacing: { 'xs': '0.5rem', 's': '1rem', 'xm': '1.5rem', 'm': '2rem', 'l': '4rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, system-ui, sans-serif; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4" style="max-width: 1200px;">
+      <div class="max-w-[960px]">
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-s">Email templates</h1>
+        <p class="text-[1.25rem] text-bb-mid-grey-00 mb-m">Confirmation emails for applicants and notification emails for the BLA, for each of the 22 online forms.</p>
+
+        <p class="text-[1.25rem] leading-normal mb-s">Each form has two email templates:</p>
+        <ul class="list-disc pl-m space-y-xs text-[1.25rem] leading-normal mb-l">
+          <li><strong>Applicant email</strong> – sent to the person who submitted the form, confirming receipt and explaining what happens next</li>
+          <li><strong>BLA email</strong> – sent to the Barbados Licensing Authority (enquiries@bla.gov.bb), notifying staff of a new submission with applicant details and a summary</li>
+        </ul>
+
+        <table class="w-full text-[1rem] border-collapse mb-l">
+          <thead>
+            <tr>
+              <th class="text-left bg-bb-blue-100 text-white p-3 font-bold">Form</th>
+              <th class="text-left bg-bb-blue-100 text-white p-3 font-bold w-40">Applicant email</th>
+              <th class="text-left bg-bb-blue-100 text-white p-3 font-bold w-40">BLA email</th>
+            </tr>
+          </thead>
+          <tbody id="email-table"></tbody>
+        </table>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white"></footer>
+
+  <script src="prototypes/shared/chrome.js"></script>
+  <script>
+    injectChrome();
+
+    const forms = [
+      { dir: 'change-of-engine', title: 'Change of Engine' },
+      { dir: 'change-of-use', title: 'Change of Use of Vehicle' },
+      { dir: 'change-of-vehicle-colour', title: 'Request to Change the Colour of Vehicle' },
+      { dir: 'declaration-company-vehicle', title: 'Declaration – Company Vehicle Registration for Private Use' },
+      { dir: 'declaration-partnership-vehicle', title: 'Declaration – Partnership Vehicle Registration for Private Use' },
+      { dir: 'declaration-sole-trader-vehicle', title: 'Declaration – Sole Trader Vehicle Registration for Private Use' },
+      { dir: 'duty-free-concession-business', title: 'Request for Duty Free Concession (Business)' },
+      { dir: 'duty-free-concession-individual', title: 'Request for Duty Free Concession (Individual)' },
+      { dir: 'importation-of-vehicles', title: 'Application for the Importation of Vehicles into Barbados' },
+      { dir: 'motor-vehicle-inspection', title: 'Apply for a Motor Vehicle Inspection' },
+      { dir: 'odometer-reading-validation', title: 'Odometer Reading Validation' },
+      { dir: 'registration-temporary-stay', title: 'Register Your Vehicle for a Temporary Stay in Barbados' },
+      { dir: 'request-for-graphics', title: 'Request for Graphics and/or Lettering on Vehicle' },
+      { dir: 'retention-of-registration-number', title: 'Retain Your Vehicle Registration Number' },
+      { dir: 'sale-of-vehicle-individual', title: 'Sale of Vehicle (Individual Owner)' },
+      { dir: 'sale-of-vehicle-joint', title: 'Sale of Vehicle (Joint Owners)' },
+      { dir: 'scrapping-of-vehicle', title: 'Scrap or Sell Vehicle in Parts' },
+      { dir: 'transfer-of-vehicle-individual', title: 'Transfer of Vehicle (Individual Owner)' },
+      { dir: 'transfer-of-vehicle-joint', title: 'Transfer of Vehicle (Joint Owners)' },
+      { dir: 'vanity-plate-application', title: 'Application for an Approved Vanity Plate' },
+      { dir: 'vehicle-investigation', title: 'Application for Vehicle Investigation' },
+      { dir: 'vehicle-registration-renewal', title: 'Register or Renew Your Motor Vehicle Licence' },
+    ];
+
+    const tbody = document.getElementById('email-table');
+    const linkClass = 'inline-flex outline-none underline-offset-2 underline hover:no-underline active:bg-bb-yellow-100 text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10';
+
+    forms.forEach((f, i) => {
+      const bg = i % 2 === 0 ? '' : 'background: #f9f9f9;';
+      tbody.innerHTML += `<tr style="${bg}">
+        <td class="p-3 border-b border-bb-grey-00">${f.title}</td>
+        <td class="p-3 border-b border-bb-grey-00"><a href="prototypes/${f.dir}/email-applicant.html" class="${linkClass}">View</a></td>
+        <td class="p-3 border-b border-bb-grey-00"><a href="prototypes/${f.dir}/email-bla.html" class="${linkClass}">View</a></td>
+      </tr>`;
+    });
+  </script>
+</body>
+</html>

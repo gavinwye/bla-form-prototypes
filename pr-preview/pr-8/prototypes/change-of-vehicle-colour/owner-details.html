@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your details – Request to Change the Colour of Vehicle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00':'#e8a833','bb-yellow-100':'#ffc726','bb-yellow-40':'#ffe9a8','bb-yellow-10':'#fff9e9',
+            'bb-blue-00':'#00164a','bb-blue-100':'#00267f','bb-blue-40':'#99a8cc','bb-blue-10':'#e5e9f2',
+            'bb-black-00':'#000000','bb-mid-grey-00':'#595959','bb-grey-00':'#e0e4e9','bb-white-00':'#ffffff',
+            'bb-green-00':'#00654a','bb-green-100':'#1fbf84','bb-green-40':'#a5e5ce','bb-green-10':'#e9f9f3',
+            'bb-red-00':'#a42c2c','bb-red-100':'#ff6b6b','bb-red-40':'#ffc4c4','bb-red-10':'#fff0f0',
+            'bb-teal-00':'#0e5f64','bb-teal-100':'#30c0c8','bb-teal-40':'#ace6e9','bb-teal-10':'#eaf9f9',
+            'bb-purple-00':'#4a235a','bb-purple-100':'#a962c7','bb-pink-00':'#ad1157','bb-pink-100':'#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','"Segoe UI"','Roboto','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem','xl':'8rem' },
+          borderRadius: { 'sm':'0.25rem','md':'0.375rem','lg':'0.5rem' },
+          boxShadow: { 'form-hover':'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display':'5rem','h1':'3.5rem','h2':'2.5rem','h3':'1.5rem','h4':'1.25rem','body-lg':'2rem','body':'1.25rem','caption':'1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,"system-ui","Segoe UI",Roboto,sans-serif; font-weight:400; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; -webkit-font-smoothing:antialiased; }
+    .container { max-width:1200px; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+        <a href="index.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">← Back</a>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-4 border-bb-red-00 p-s mb-m" tabindex="-1" role="alert" aria-labelledby="error-summary-title">
+          <h2 id="error-summary-title" class="font-bold text-[1.25rem] text-bb-red-00 mb-xs">There is a problem</h2>
+          <ul id="error-summary-list" class="list-disc pl-5 space-y-1 text-bb-red-00"></ul>
+        </div>
+
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-xs">Request to Change the Colour of Vehicle</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Your details</h1>
+
+        <form novalidate class="space-y-8">
+
+          <!-- Full name -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="fullName-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="fullName" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Full name</label>
+            <div id="fullName-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="fullName" name="fullName" autocomplete="name" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="address-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="address" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Address</label>
+            <div id="address-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <textarea id="address" name="address" rows="4" class="w-full min-w-0 p-s outline-none rounded-[inherit]"></textarea>
+            </div>
+          </div>
+
+          <!-- Date of birth -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="dob-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <p class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Date of birth</p>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 27 03 1985</p>
+            <div class="flex gap-s items-end flex-wrap">
+              <div class="flex flex-col gap-xs">
+                <label for="dob-day" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Day</label>
+                <div id="dob-day-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;">
+                  <input type="text" id="dob-day" name="dob-day" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label for="dob-month" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Month</label>
+                <div id="dob-month-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:5rem;">
+                  <input type="text" id="dob-month" name="dob-month" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label for="dob-year" class="text-[1.25rem] leading-normal font-bold text-bb-black-00">Year</label>
+                <div id="dob-year-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:7rem;">
+                  <input type="text" id="dob-year" name="dob-year" inputmode="numeric" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- National Registration Number -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="nrn-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="nrn" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">National Registration Number</label>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 010180-0001</p>
+            <div id="nrn-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:16rem;">
+              <input type="text" id="nrn" name="nrn" placeholder="YYMMDD-XXXX" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            </div>
+          </div>
+
+          <!-- Contact number -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="contactNumber-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="contactNumber" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Contact number</label>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 246-1234567</p>
+            <div id="contactNumber-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:16rem;">
+              <input type="tel" id="contactNumber" name="contactNumber" inputmode="tel" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            </div>
+          </div>
+
+          <!-- Email address -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="email-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="email" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Email address</label>
+            <div id="email-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            </div>
+          </div>
+
+          <div class="mt-8 flex gap-4">
+            <button type="button" id="continue-btn" class="relative inline-flex items-center justify-center gap-2 text-[1.25rem] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] active:bg-[#0a4549] px-xm py-s rounded-sm leading-[1.7] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+              Continue
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    injectChrome();
+
+    const STORAGE_KEY = 'change-of-vehicle-colour';
+
+    // Pre-fill from localStorage
+    const d = getData(STORAGE_KEY);
+    if (d.fullName) document.getElementById('fullName').value = d.fullName;
+    if (d.address) document.getElementById('address').value = d.address;
+    if (d.dobDay) document.getElementById('dob-day').value = d.dobDay;
+    if (d.dobMonth) document.getElementById('dob-month').value = d.dobMonth;
+    if (d.dobYear) document.getElementById('dob-year').value = d.dobYear;
+    if (d.nrn) document.getElementById('nrn').value = d.nrn;
+    if (d.contactNumber) document.getElementById('contactNumber').value = d.contactNumber;
+    if (d.email) document.getElementById('email').value = d.email;
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      const errors = [];
+      hideErrorSummary();
+
+      const fields = ['fullName', 'address', 'nrn', 'contactNumber', 'email'];
+      fields.forEach(id => clearFieldError(id));
+      // Clear dob wrappers manually (multi-field)
+      ['dob-day-wrapper','dob-month-wrapper','dob-year-wrapper'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('border-bb-red-00'); if (!el.classList.contains('border-bb-black-00')) el.classList.add('border-bb-black-00'); }
+      });
+      const dobError = document.getElementById('dob-error');
+      if (dobError) dobError.classList.add('hidden');
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const dobDay = document.getElementById('dob-day').value.trim();
+      const dobMonth = document.getElementById('dob-month').value.trim();
+      const dobYear = document.getElementById('dob-year').value.trim();
+      const nrn = document.getElementById('nrn').value.trim();
+      const contactNumber = document.getElementById('contactNumber').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!fullName) {
+        errors.push({ fieldId: 'fullName', message: 'Full name – Enter your full name' });
+        setFieldError('fullName', 'Enter your full name');
+      }
+
+      if (!address) {
+        errors.push({ fieldId: 'address', message: 'Address – Enter your address' });
+        setFieldError('address', 'Enter your address');
+      }
+
+      if (!dobDay || !dobMonth || !dobYear) {
+        errors.push({ fieldId: 'dob-day', message: 'Date of birth – Enter your date of birth' });
+        if (dobError) { dobError.textContent = 'Enter your date of birth'; dobError.classList.remove('hidden'); }
+        ['dob-day-wrapper','dob-month-wrapper','dob-year-wrapper'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.classList.remove('border-bb-black-00'); el.classList.add('border-bb-red-00'); }
+        });
+      } else {
+        const day = parseInt(dobDay, 10);
+        const month = parseInt(dobMonth, 10);
+        const year = parseInt(dobYear, 10);
+        const isValidDate = day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <= new Date().getFullYear();
+        if (!isValidDate) {
+          errors.push({ fieldId: 'dob-day', message: 'Date of birth – Enter a valid date of birth' });
+          if (dobError) { dobError.textContent = 'Enter a valid date of birth'; dobError.classList.remove('hidden'); }
+          ['dob-day-wrapper','dob-month-wrapper','dob-year-wrapper'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) { el.classList.remove('border-bb-black-00'); el.classList.add('border-bb-red-00'); }
+          });
+        }
+      }
+
+      if (!nrn) {
+        errors.push({ fieldId: 'nrn', message: 'National Registration Number – Enter your National Registration Number' });
+        setFieldError('nrn', 'Enter your National Registration Number');
+      } else if (!/^\d{6}-\d{4}$/.test(nrn)) {
+        errors.push({ fieldId: 'nrn', message: 'National Registration Number – Enter a National Registration Number in the format YYMMDD-XXXX' });
+        setFieldError('nrn', 'Enter a National Registration Number in the format YYMMDD-XXXX');
+      }
+
+      if (!contactNumber) {
+        errors.push({ fieldId: 'contactNumber', message: 'Contact number – Enter your contact number' });
+        setFieldError('contactNumber', 'Enter your contact number');
+      }
+
+      if (!email) {
+        errors.push({ fieldId: 'email', message: 'Email address – Enter your email address' });
+        setFieldError('email', 'Enter your email address');
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errors.push({ fieldId: 'email', message: 'Email address – Enter an email address in the correct format, like name@example.com' });
+        setFieldError('email', 'Enter an email address in the correct format, like name@example.com');
+      }
+
+      if (errors.length > 0) { showErrorSummary(errors); return; }
+
+      saveData({
+        fullName,
+        address,
+        dobDay,
+        dobMonth,
+        dobYear,
+        nrn,
+        contactNumber,
+        email,
+      }, STORAGE_KEY);
+
+      window.location.href = 'vehicle-details.html';
+    });
+  </script>
+</body>
+</html>

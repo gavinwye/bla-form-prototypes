@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Application for the Importation of Vehicles into Barbados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00': '#e8a833', 'bb-yellow-100': '#ffc726', 'bb-yellow-40': '#ffe9a8', 'bb-yellow-10': '#fff9e9',
+            'bb-blue-00': '#00164a', 'bb-blue-100': '#00267f', 'bb-blue-40': '#99a8cc', 'bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000', 'bb-mid-grey-00': '#595959', 'bb-grey-00': '#e0e4e9', 'bb-white-00': '#ffffff',
+            'bb-green-00': '#00654a', 'bb-green-100': '#1fbf84', 'bb-green-40': '#a5e5ce', 'bb-green-10': '#e9f9f3',
+            'bb-red-00': '#a42c2c', 'bb-red-100': '#ff6b6b', 'bb-red-40': '#ffc4c4', 'bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64', 'bb-teal-100': '#30c0c8', 'bb-teal-40': '#ace6e9', 'bb-teal-10': '#eaf9f9',
+            'bb-purple-00': '#4a235a', 'bb-purple-100': '#a962c7', 'bb-pink-00': '#ad1157', 'bb-pink-100': '#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', '"Segoe UI"', 'Roboto', 'sans-serif'] },
+          spacing: { 'xs': '0.5rem', 's': '1rem', 'xm': '1.5rem', 'm': '2rem', 'l': '4rem', 'xl': '8rem' },
+          borderRadius: { 'sm': '0.25rem', 'md': '0.375rem', 'lg': '0.5rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display': '5rem', 'h1': '3.5rem', 'h2': '2.5rem', 'h3': '1.5rem', 'h4': '1.25rem', 'body-lg': '2rem', 'body': '1.25rem', 'caption': '1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.5; display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; background: #fff; color: #000; -webkit-font-smoothing: antialiased; }
+    .summary-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e0e4e9; align-items: start; }
+    .summary-row:first-child { border-top: 1px solid #e0e4e9; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+        <a href="intended-use.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-m block">← Back</a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Check your answers before sending your application</h1>
+
+        <!-- Your details -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Your details</h2>
+        <div class="mb-m">
+          <div class="summary-row">
+            <span class="font-bold">Full name or company name</span>
+            <span id="s-app-name"></span>
+            <a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">full name or company name</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Address</span>
+            <span id="s-app-address" class="whitespace-pre-wrap"></span>
+            <a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">address</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Telephone</span>
+            <span id="s-app-telephone"></span>
+            <a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">telephone</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Email address</span>
+            <span id="s-app-email"></span>
+            <a href="applicant-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">email address</span></a>
+          </div>
+        </div>
+
+        <!-- Vehicle details -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Vehicle details</h2>
+        <div class="mb-m">
+          <div class="summary-row">
+            <span class="font-bold">Make</span>
+            <span id="s-iov-make"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">make</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Model</span>
+            <span id="s-iov-model"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">model</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Year</span>
+            <span id="s-iov-year"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">year</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Colour</span>
+            <span id="s-iov-colour"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">colour</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Chassis number</span>
+            <span id="s-iov-chassis"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">chassis number</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Engine number</span>
+            <span id="s-iov-engine"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">engine number</span></a>
+          </div>
+          <div class="summary-row">
+            <span class="font-bold">Motor number</span>
+            <span id="s-iov-motor"></span>
+            <a href="vehicle-details.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">motor number</span></a>
+          </div>
+        </div>
+
+        <!-- Fuel type -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Fuel type</h2>
+        <div class="mb-m">
+          <div class="summary-row">
+            <span class="font-bold">Fuel type</span>
+            <span id="s-fuelType"></span>
+            <a href="fuel-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">fuel type</span></a>
+          </div>
+        </div>
+
+        <!-- Steering configuration -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Steering configuration</h2>
+        <div class="mb-m">
+          <div class="summary-row">
+            <span class="font-bold">Steering</span>
+            <span id="s-driveType"></span>
+            <a href="drive-type.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">steering configuration</span></a>
+          </div>
+        </div>
+
+        <!-- Intended use -->
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-s">Intended use</h2>
+        <div class="mb-l">
+          <div class="summary-row">
+            <span class="font-bold">Use</span>
+            <span id="s-intendedUse"></span>
+            <a href="intended-use.html" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 whitespace-nowrap">Change <span class="sr-only">intended use</span></a>
+          </div>
+        </div>
+
+        <div class="mt-8 flex gap-4">
+          <button type="button" id="btn-submit"
+            class="relative inline-flex items-center justify-center gap-2 text-[20px] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] px-xm py-s rounded-sm leading-[1.7] focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+            Send application
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    const STORAGE_KEY = 'importation-of-vehicles';
+    injectChrome();
+
+    const d = getData(STORAGE_KEY);
+    function s(id, val) { const el = document.getElementById(id); if (el) el.textContent = val || '—'; }
+
+    s('s-app-name', d['app-name']);
+    s('s-app-address', d['app-address']);
+    s('s-app-telephone', d['app-telephone']);
+    s('s-app-email', d['app-email']);
+    s('s-iov-make', d['iov-make']);
+    s('s-iov-model', d['iov-model']);
+    s('s-iov-year', d['iov-year']);
+    s('s-iov-colour', d['iov-colour']);
+    s('s-iov-chassis', d['iov-chassis']);
+    s('s-iov-engine', d['iov-engine'] || 'Not provided');
+    s('s-iov-motor', d['iov-motor'] || 'Not provided');
+    s('s-fuelType', d['fuelType']);
+    s('s-driveType', d['driveType']);
+    s('s-intendedUse', d['intendedUse']);
+
+    document.getElementById('btn-submit').addEventListener('click', function () {
+      window.location.href = 'confirmation.html';
+    });
+  </script>
+</body>
+</html>
