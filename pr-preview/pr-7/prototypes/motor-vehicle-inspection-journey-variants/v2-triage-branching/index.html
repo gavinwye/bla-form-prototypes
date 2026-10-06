@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for a motor vehicle inspection – V2 Triage Branching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+  </style>
+</head>
+<body>
+  <div id="site-header" class="bg-bb-yellow-100 bg-bb-blue-100 bg-bb-blue-10 text-bb-white-00 text-bb-black-00"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="../index.html" class="inline-flex items-center gap-2 underline underline-offset-2 text-[#0e5f64] hover:text-black hover:bg-[#eaf9f9] mb-6">← Back</a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-4">Apply for a motor vehicle inspection</h1>
+
+        <p class="text-[#595959] mb-1">Licensing Authority, Pine, St. Michael, Barbados</p>
+        <p class="text-[#595959] mb-6">Last updated: 24 March 2026 &middot; Estimated time: 8–10 minutes</p>
+
+        <div class="bg-[#eaf9f9] border-l-4 border-[#0e5f64] p-4 rounded mb-6">
+          <p class="text-[1.25rem]"><strong>Journey variant 2 of 5 — Triage-first branching.</strong> The form adapts to your vehicle type, showing only relevant questions. Most users complete 8–10 steps.</p>
+        </div>
+
+        <p class="mb-6">Use this service to apply for a motor vehicle inspection in Barbados. Your vehicle type determines which questions you need to answer.</p>
+
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-4">How to apply</h2>
+        <p class="mb-4">Complete the form online. Your answers to the first two questions will tailor the rest of the form to your vehicle type.</p>
+        <a href="triage.html" class="inline-flex items-center justify-center bg-[#0e5f64] text-white px-6 py-4 rounded text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] mb-8">Complete the online form</a>
+
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-4 mt-8">What you will need to share</h2>
+        <ul class="list-disc pl-6 space-y-2 mb-8">
+          <li>Vehicle logbook</li>
+          <li>National Registration card</li>
+          <li>Vehicle registration certificate (if applicable)</li>
+          <li>Preferred date and time</li>
+        </ul>
+
+        <h2 class="font-bold text-[2rem] leading-[1.15] mb-4">Before you start</h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>The vehicle must be located in Barbados</li>
+          <li>You must be the registered owner or have written authorisation</li>
+        </ul>
+
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Register or Renew Your Motor Vehicle Licence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00':'#e8a833','bb-yellow-100':'#ffc726','bb-yellow-40':'#ffe9a8','bb-yellow-10':'#fff9e9',
+            'bb-blue-00':'#00164a','bb-blue-100':'#00267f','bb-blue-40':'#99a8cc','bb-blue-10':'#e5e9f2',
+            'bb-black-00':'#000000','bb-mid-grey-00':'#595959','bb-grey-00':'#e0e4e9','bb-white-00':'#ffffff',
+            'bb-green-00':'#00654a','bb-green-100':'#1fbf84','bb-green-40':'#a5e5ce','bb-green-10':'#e9f9f3',
+            'bb-red-00':'#a42c2c','bb-red-100':'#ff6b6b','bb-red-40':'#ffc4c4','bb-red-10':'#fff0f0',
+            'bb-teal-00':'#0e5f64','bb-teal-100':'#30c0c8','bb-teal-40':'#ace6e9','bb-teal-10':'#eaf9f9',
+            'bb-purple-00':'#4a235a','bb-purple-100':'#a962c7','bb-pink-00':'#ad1157','bb-pink-100':'#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','"Segoe UI"','Roboto','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem','xl':'8rem' },
+          borderRadius: { 'sm':'0.25rem','md':'0.375rem','lg':'0.5rem' },
+          boxShadow: { 'form-hover':'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display':'5rem','h1':'3.5rem','h2':'2.5rem','h3':'1.5rem','h4':'1.25rem','body-lg':'2rem','body':'1.25rem','caption':'1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,"system-ui","Segoe UI",Roboto,sans-serif; font-weight:400; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; -webkit-font-smoothing:antialiased; }
+    .container { max-width:1200px; }
+    .summary-row { display:grid; grid-template-columns: 1fr 1fr auto; gap:1rem; padding:0.75rem 0; border-bottom:1px solid #e0e4e9; align-items:start; }
+    .summary-row:first-child { border-top:1px solid #e0e4e9; }
+    .summary-key { font-weight:600; }
+    .summary-change a { white-space:nowrap; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+
+        <a href="declaration.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">← Back</a>
+
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-l">Check your answers before sending your application</h1>
+
+        <div id="summary-container"></div>
+
+        <div class="mt-l">
+          <h2 class="font-bold text-[1.5rem] leading-[1.2] mb-s">Now send your application</h2>
+          <p class="text-[1.25rem] leading-normal mb-m">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+          <button type="button" id="submit-btn"
+            class="relative inline-flex items-center justify-center gap-2 text-[1.25rem] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] active:bg-[#0a4549] px-xm py-s rounded-sm leading-[1.7] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+            Submit application
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    const STORAGE_KEY = 'vehicle-registration-renewal';
+
+    injectChrome();
+
+    const d = getData(STORAGE_KEY);
+
+    function formatDate(day, month, year) {
+      if (!day || !month || !year) return '—';
+      return `${String(day).padStart(2,'0')}/${String(month).padStart(2,'0')}/${year}`;
+    }
+
+    function changeLink(href, label) {
+      return `<a href="${href}" class="inline-flex outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10">Change<span class="sr-only"> ${label}</span></a>`;
+    }
+
+    function summarySection(title, rows) {
+      const rowsHtml = rows.map(([key, value, href, changeLabel]) => `
+        <div class="summary-row">
+          <span class="summary-key text-[1.1rem]">${key}</span>
+          <span class="text-[1.1rem]">${value || '—'}</span>
+          <span class="summary-change text-[1.1rem]">${changeLink(href, changeLabel)}</span>
+        </div>
+      `).join('');
+      return `
+        <h2 class="font-bold text-[1.5rem] leading-[1.2] mt-m mb-xs">${title}</h2>
+        <div class="mb-m">${rowsHtml}</div>
+      `;
+    }
+
+    let html = '';
+
+    // Application type
+    const typeLabel = d.registrationType === 'renewal' ? 'Renewal of existing licence' : 'New registration';
+    html += summarySection('Application type', [
+      ['Type', typeLabel, 'registration-type.html', 'application type']
+    ]);
+
+    // Registration number (renewal only)
+    if (d.registrationType === 'renewal') {
+      html += summarySection('Existing registration', [
+        ['Registration number', d.vehicleRegNumber || '—', 'vehicle-registration.html', 'registration number']
+      ]);
+    }
+
+    // Owner details
+    html += summarySection('Owner details', [
+      ['National Registration Number', d.nrn || '—', 'owner-details.html', 'National Registration Number'],
+      ['Full name', d.fullName || '—', 'owner-details.html', 'full name'],
+      ['Address', d.ownerAddress ? d.ownerAddress.replace(/\n/g,'<br>') : '—', 'owner-details.html', 'address'],
+      ['Parish', d.parish || '—', 'owner-details.html', 'parish'],
+    ]);
+
+    // Vehicle description
+    html += summarySection('Vehicle description', [
+      ['Make', d.vehicleMake || '—', 'vehicle-description.html', 'vehicle make'],
+      ['Model', d.vehicleModel || '—', 'vehicle-description.html', 'vehicle model'],
+      ['Year of manufacture', d.vehicleYear || '—', 'vehicle-description.html', 'year of manufacture'],
+      ['Body type', d.bodyType || '—', 'vehicle-description.html', 'body type'],
+    ]);
+
+    // Identification numbers
+    const idRows = [];
+    if (d.engineNumber) idRows.push(['Engine number', d.engineNumber, 'id-numbers.html', 'engine number']);
+    idRows.push(['Chassis number', d.chassisNumber || '—', 'id-numbers.html', 'chassis number']);
+    html += summarySection('Identification numbers', idRows);
+
+    // Fuel type
+    const fuelLabels = { petrol: 'Petrol', diesel: 'Diesel', electric: 'Electric', hybrid: 'Hybrid' };
+    html += summarySection('Fuel type', [
+      ['Fuel type', fuelLabels[d.fuelType] || d.fuelType || '—', 'fuel-type.html', 'fuel type']
+    ]);
+
+    // Vehicle capacity
+    const capacityRows = [['Seating capacity', d.seatingCapacity || '—', 'vehicle-capacity.html', 'seating capacity']];
+    if (d.grossWeight) capacityRows.push(['Gross vehicle weight', d.grossWeight + ' kg', 'vehicle-capacity.html', 'gross vehicle weight']);
+    html += summarySection('Vehicle capacity', capacityRows);
+
+    // Insurance
+    html += summarySection('Insurance details', [
+      ['Insurer name', d.insurerName || '—', 'insurance.html', 'insurer name'],
+      ['Policy number', d.policyNumber || '—', 'insurance.html', 'policy number'],
+      ['Policy expiry date', formatDate(d.insuranceExpiryDay, d.insuranceExpiryMonth, d.insuranceExpiryYear), 'insurance.html', 'policy expiry date'],
+    ]);
+
+    // Examiner's certificate
+    html += summarySection("Examiner's certificate", [
+      ['Certificate number', d.certNumber || '—', 'examiner-certificate.html', 'certificate number'],
+      ["Examiner's name", d.examinerName || '—', 'examiner-certificate.html', "examiner's name"],
+      ['Date issued', formatDate(d.certDateIssuedDay, d.certDateIssuedMonth, d.certDateIssuedYear), 'examiner-certificate.html', 'date issued'],
+    ]);
+
+    // First registration extras (new only)
+    if (d.registrationType === 'new') {
+      const handDriveLabel = d.handDrive === 'left' ? 'Left-hand drive' : d.handDrive === 'right' ? 'Right-hand drive' : '—';
+      const extrasRows = [];
+      if (d.numCylinders) extrasRows.push(['Number of cylinders', d.numCylinders, 'first-registration-extras.html', 'number of cylinders']);
+      if (d.engineCapacity) extrasRows.push(['Engine capacity', d.engineCapacity, 'first-registration-extras.html', 'engine capacity']);
+      if (d.numAxles) extrasRows.push(['Number of axles', d.numAxles, 'first-registration-extras.html', 'number of axles']);
+      extrasRows.push(['Hand drive', handDriveLabel, 'first-registration-extras.html', 'hand drive']);
+      html += summarySection('First registration details', extrasRows);
+    }
+
+    // Declaration
+    html += summarySection('Declaration', [
+      ['Declaration confirmed', 'Yes', 'declaration.html', 'declaration']
+    ]);
+
+    document.getElementById('summary-container').innerHTML = html;
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+      window.location.href = 'confirmation.html';
+    });
+  </script>
+</body>
+</html>

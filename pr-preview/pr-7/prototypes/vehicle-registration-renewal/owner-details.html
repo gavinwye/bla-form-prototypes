@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner details – Register or Renew Your Motor Vehicle Licence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-00':'#e8a833','bb-yellow-100':'#ffc726','bb-yellow-40':'#ffe9a8','bb-yellow-10':'#fff9e9',
+            'bb-blue-00':'#00164a','bb-blue-100':'#00267f','bb-blue-40':'#99a8cc','bb-blue-10':'#e5e9f2',
+            'bb-black-00':'#000000','bb-mid-grey-00':'#595959','bb-grey-00':'#e0e4e9','bb-white-00':'#ffffff',
+            'bb-green-00':'#00654a','bb-green-100':'#1fbf84','bb-green-40':'#a5e5ce','bb-green-10':'#e9f9f3',
+            'bb-red-00':'#a42c2c','bb-red-100':'#ff6b6b','bb-red-40':'#ffc4c4','bb-red-10':'#fff0f0',
+            'bb-teal-00':'#0e5f64','bb-teal-100':'#30c0c8','bb-teal-40':'#ace6e9','bb-teal-10':'#eaf9f9',
+            'bb-purple-00':'#4a235a','bb-purple-100':'#a962c7','bb-pink-00':'#ad1157','bb-pink-100':'#ff94d9',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','"Segoe UI"','Roboto','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem','xl':'8rem' },
+          borderRadius: { 'sm':'0.25rem','md':'0.375rem','lg':'0.5rem' },
+          boxShadow: { 'form-hover':'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+          fontSize: { 'display':'5rem','h1':'3.5rem','h2':'2.5rem','h3':'1.5rem','h4':'1.25rem','body-lg':'2rem','body':'1.25rem','caption':'1rem' },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,"system-ui","Segoe UI",Roboto,sans-serif; font-weight:400; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; -webkit-font-smoothing:antialiased; }
+    .container { max-width:1200px; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="py-m">
+    <div class="container mx-auto px-4">
+      <div class="max-w-[720px]">
+
+        <a id="back-link" href="registration-type.html" class="inline-flex items-center gap-xs outline-none underline-offset-2 underline hover:no-underline text-bb-teal-00 hover:text-bb-black-00 hover:bg-bb-teal-10 mb-m block">← Back</a>
+
+        <div id="error-summary" class="hidden bg-bb-red-10 border-4 border-bb-red-00 p-s mb-m" tabindex="-1" role="alert" aria-labelledby="error-summary-title">
+          <h2 id="error-summary-title" class="font-bold text-[1.25rem] text-bb-red-00 mb-xs">There is a problem</h2>
+          <ul id="error-summary-list" class="list-disc pl-5 space-y-1 text-bb-red-00"></ul>
+        </div>
+
+        <p class="border-bb-blue-40 border-l-4 py-xs pl-s text-bb-mid-grey-00 mb-xs">Register or Renew Your Motor Vehicle Licence</p>
+        <h1 class="font-bold text-[3.5rem] leading-[1.15] mb-m">Owner details</h1>
+
+        <form novalidate class="space-y-8">
+
+          <!-- NRN -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="nrn-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="nrn" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">National Registration Number (NRN)</label>
+            <p class="text-[1.25rem] leading-normal text-bb-mid-grey-00">For example, 010180-0001</p>
+            <div id="nrn-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:16rem;">
+              <input type="text" id="nrn" name="nrn" placeholder="YYMMDD-XXXX" class="w-full min-w-0 p-s outline-none rounded-[inherit] placeholder:text-bb-black-00/60" />
+            </div>
+          </div>
+
+          <!-- Full name -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="fullName-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="fullName" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Full name</label>
+            <div id="fullName-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <input type="text" id="fullName" name="fullName" autocomplete="name" class="w-full min-w-0 p-s outline-none rounded-[inherit]" />
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="ownerAddress-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="ownerAddress" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Address</label>
+            <div id="ownerAddress-wrapper" class="relative inline-flex w-full rounded-sm border-2 border-bb-black-00 items-start gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100">
+              <textarea id="ownerAddress" name="ownerAddress" rows="4" autocomplete="street-address" class="w-full min-w-0 p-s outline-none rounded-[inherit] resize-y"></textarea>
+            </div>
+          </div>
+
+          <!-- Parish -->
+          <div class="flex flex-col gap-xs w-full items-start">
+            <p id="parish-error" class="hidden text-[1.1rem] text-bb-red-00 font-bold" role="alert"></p>
+            <label for="parish" class="block text-[1.25rem] leading-normal font-bold text-bb-black-00">Parish</label>
+            <div id="parish-wrapper" class="relative inline-flex rounded-sm border-2 border-bb-black-00 items-center gap-2 transition-all bg-bb-white-00 hover:shadow-form-hover focus-within:ring-4 focus-within:ring-bb-teal-100" style="width:22rem;">
+              <select id="parish" name="parish" class="w-full min-w-0 p-s outline-none rounded-[inherit] bg-transparent appearance-none pr-10 cursor-pointer text-[1.25rem]">
+                <option value="">Select a parish</option>
+                <option>Christ Church</option>
+                <option>St. Andrew</option>
+                <option>St. George</option>
+                <option>St. James</option>
+                <option>St. John</option>
+                <option>St. Joseph</option>
+                <option>St. Lucy</option>
+                <option>St. Michael</option>
+                <option>St. Peter</option>
+                <option>St. Philip</option>
+                <option>St. Thomas</option>
+              </select>
+              <div class="absolute right-3 pointer-events-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex gap-4">
+            <button type="button" id="continue-btn"
+              class="relative inline-flex items-center justify-center gap-2 text-[1.25rem] whitespace-nowrap transition-[background-color,box-shadow] duration-200 outline-none bg-bb-teal-00 text-bb-white-00 hover:bg-[#1a777d] active:bg-[#0a4549] px-xm py-s rounded-sm leading-[1.7] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-1 focus-visible:ring-bb-teal-100">
+              Continue
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+
+  <script src="../shared/chrome.js"></script>
+  <script>
+    const STORAGE_KEY = 'vehicle-registration-renewal';
+
+    injectChrome();
+
+    const d = getData(STORAGE_KEY);
+
+    // Set back link based on registration type
+    const backLink = document.getElementById('back-link');
+    if (d.registrationType === 'renewal') {
+      backLink.href = 'vehicle-registration.html';
+    } else {
+      backLink.href = 'registration-type.html';
+    }
+
+    // Restore saved values
+    if (d.nrn) document.getElementById('nrn').value = d.nrn;
+    if (d.fullName) document.getElementById('fullName').value = d.fullName;
+    if (d.ownerAddress) document.getElementById('ownerAddress').value = d.ownerAddress;
+    if (d.parish) document.getElementById('parish').value = d.parish;
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      hideErrorSummary();
+      ['nrn', 'fullName', 'ownerAddress', 'parish'].forEach(id => clearFieldError(id));
+
+      const nrn = document.getElementById('nrn').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const ownerAddress = document.getElementById('ownerAddress').value.trim();
+      const parish = document.getElementById('parish').value;
+      const errors = [];
+
+      if (!nrn) {
+        errors.push({ fieldId: 'nrn', message: 'National Registration Number – Enter your NRN' });
+        setFieldError('nrn', 'Enter your National Registration Number');
+      } else if (!/^\d{6}-\d{4}$/.test(nrn)) {
+        errors.push({ fieldId: 'nrn', message: 'National Registration Number – Enter your NRN in the format YYMMDD-XXXX' });
+        setFieldError('nrn', 'Enter your NRN in the format YYMMDD-XXXX');
+      }
+
+      if (!fullName) {
+        errors.push({ fieldId: 'fullName', message: 'Full name – Enter your full name' });
+        setFieldError('fullName', 'Enter your full name');
+      }
+
+      if (!ownerAddress) {
+        errors.push({ fieldId: 'ownerAddress', message: 'Address – Enter your address' });
+        setFieldError('ownerAddress', 'Enter your address');
+      }
+
+      if (!parish) {
+        errors.push({ fieldId: 'parish', message: 'Parish – Select a parish' });
+        setFieldError('parish', 'Select a parish');
+      }
+
+      if (errors.length > 0) { showErrorSummary(errors); return; }
+
+      saveData({ nrn, fullName, ownerAddress, parish }, STORAGE_KEY);
+      window.location.href = 'vehicle-description.html';
+    });
+  </script>
+</body>
+</html>

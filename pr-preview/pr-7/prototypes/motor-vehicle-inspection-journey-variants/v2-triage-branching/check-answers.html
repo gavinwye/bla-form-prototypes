@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check your answers – Apply for a motor vehicle inspection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb-yellow-100': '#ffc726','bb-yellow-00': '#e8a833','bb-yellow-10': '#fff9e9',
+            'bb-blue-100': '#00267f','bb-blue-40': '#99a8cc','bb-blue-10': '#e5e9f2',
+            'bb-black-00': '#000000','bb-mid-grey-00': '#595959',
+            'bb-white-00': '#ffffff','bb-red-00': '#a42c2c','bb-red-10': '#fff0f0',
+            'bb-teal-00': '#0e5f64','bb-teal-100': '#30c0c8','bb-teal-10': '#eaf9f9',
+            'bb-grey-00': '#e0e4e9','bb-green-00': '#00654a',
+          },
+          fontFamily: { sans: ['Figtree','-apple-system','system-ui','sans-serif'] },
+          spacing: { 'xs':'0.5rem','s':'1rem','xm':'1.5rem','m':'2rem','l':'4rem' },
+          borderRadius: { 'sm':'0.25rem' },
+          boxShadow: { 'form-hover': 'inset 4px 4px 0px 0px rgba(0,0,0,0.1)' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Figtree,-apple-system,sans-serif; font-size:1.25rem; line-height:1.5; display:grid; min-height:100vh; grid-template-rows:auto 1fr auto; background:#fff; color:#000; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+    .summary-row { display:grid; grid-template-columns: 1fr 1fr auto; gap:1rem; padding:0.75rem 0; border-bottom:1px solid #e0e4e9; align-items:start; }
+    .summary-row:last-child { border-bottom:none; }
+    .change-link { color:#0e5f64; text-decoration:underline; white-space:nowrap; }
+    .change-link:hover { color:#000; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div id="site-header" class="bg-bb-yellow-100 bg-bb-blue-100 bg-bb-blue-10 text-bb-white-00 text-bb-black-00"></div>
+  <main class="py-8">
+    <div class="container">
+      <div class="max-w-2xl mx-auto">
+
+        <a href="declaration.html" class="inline-flex items-center gap-xs underline underline-offset-2 hover:no-underline text-bb-teal-00 hover:text-bb-black-00 mb-6">← Back</a>
+
+        <p class="text-[0.875rem] text-bb-mid-grey-00 mb-4">Step 7 of 8</p>
+
+        <h1 class="font-bold text-[2.5rem] leading-[1.15] mb-8">Check your answers before submitting your application</h1>
+
+        <div id="answers-container"></div>
+
+        <div class="mt-8">
+          <button type="button" onclick="window.location.href='confirmation.html'" class="inline-flex items-center justify-center bg-bb-teal-00 text-white px-xm py-s rounded-sm text-[1.25rem] leading-[1.7] hover:bg-[#1a777d] focus-visible:ring-4 focus-visible:ring-bb-teal-100">Submit application</button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer" class="bg-bb-blue-100 text-white py-m"></footer>
+  <script src="../../shared/chrome.js"></script>
+  <script>injectChrome();</script>
+  <script>
+    const d = JSON.parse(localStorage.getItem('mvi-v2') || '{}');
+
+    function row(label, value, page) {
+      if (!value) return '';
+      return `<div class="summary-row">
+        <dt class="font-bold">${label}</dt>
+        <dd>${value}</dd>
+        <dd><a href="${page}" class="change-link">Change<span class="sr-only"> ${label.toLowerCase()}</span></a></dd>
+      </div>`;
+    }
+
+    function section(title, rows) {
+      const content = rows.filter(Boolean).join('');
+      if (!content) return '';
+      return `<div class="mb-8">
+        <h2 class="font-bold text-[1.5rem] mb-4 pb-2 border-b-2 border-bb-black-00">${title}</h2>
+        <dl>${content}</dl>
+      </div>`;
+    }
+
+    // Technical section — show fields depending on category
+    const cat = d.category || '';
+    let technicalPage = 'technical-car.html';
+    if (cat === 'motorcycle') technicalPage = 'technical-motorcycle.html';
+    else if (cat === 'lorry') technicalPage = 'technical-goods.html';
+    else if (cat === 'agricultural') technicalPage = 'technical-agricultural.html';
+
+    let techRows = [
+      row('Engine number', d.engineNumber, technicalPage),
+      row('Chassis / VIN number', d.chassisVin, technicalPage),
+      row('Year manufactured', d.yearManufactured, technicalPage),
+    ];
+    if (cat !== 'motorcycle' && cat !== 'agricultural') techRows.push(row('Number of cylinders', d.cylinders, technicalPage));
+    techRows.push(row('Engine capacity (cc)', d.engineCapacity, technicalPage));
+    if (cat !== 'motorcycle' && cat !== 'agricultural') techRows.push(row('Number of axles', d.axles, technicalPage));
+    if (d.handDrive) techRows.push(row('Hand drive', d.handDrive.charAt(0).toUpperCase() + d.handDrive.slice(1), technicalPage));
+    techRows.push(row('Weight certificate (kg)', d.weightCert, technicalPage));
+    if (cat !== 'motorcycle' && cat !== 'agricultural') techRows.push(row('Gross weight (kg)', d.grossWeight, technicalPage));
+    if (cat === 'car' || cat === 'psv' || cat === 'special') techRows.push(row('Number of passengers', d.passengers, technicalPage));
+
+    const html = [
+      section('About your vehicle', [
+        row('Vehicle category', d.categoryLabel, 'triage.html'),
+        row('Inspection purpose', d.purposeLabel, 'triage.html'),
+      ]),
+      section('Owner details', [
+        row('Full name', d.ownerName, 'owner.html'),
+        row('Telephone', d.ownerPhone, 'owner.html'),
+        row('Street address', d.ownerAddress, 'owner.html'),
+        row('Parish', d.ownerParish, 'owner.html'),
+        row('Postal code', d.ownerPostal, 'owner.html'),
+      ]),
+      section('Vehicle identity', [
+        row('Previously registered in Barbados', d.prevReg === 'yes' ? 'Yes' : d.prevReg === 'no' ? 'No' : '', 'vehicle-identity.html'),
+        d.prevReg === 'yes' ? row('Registration number', d.regNumber, 'vehicle-identity.html') : '',
+        row('Manufacturer', d.manufacturer, 'vehicle-identity.html'),
+        row('Country of manufacture', d.countryManufacture, 'vehicle-identity.html'),
+        row('Description', d.description, 'vehicle-identity.html'),
+        row('Primary colour', d.colourPrimary, 'vehicle-identity.html'),
+        d.colourSecondary ? row('Secondary colour', d.colourSecondary, 'vehicle-identity.html') : '',
+      ]),
+      section('Technical specifications', techRows),
+      section('Inspection', [
+        row('Purpose of use', d.purposeUse, 'schedule.html'),
+        row('Preferred date', d.examDate, 'schedule.html'),
+        row('Preferred time', d.examTime, 'schedule.html'),
+      ]),
+    ].join('');
+
+    document.getElementById('answers-container').innerHTML = html;
+  </script>
+</body>
+</html>
